@@ -1,0 +1,86 @@
+name: Upload to TestFlight
+on:
+  push:
+    branches:
+      - main
+env:
+  DEVELOPER_DIR: /Applications/Xcode_16.2.app/Contents/Developer
+
+jobs:
+  upload:
+    runs-on: macos-15-large
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        ref: main
+  
+    - name: Set up the development team
+      env:
+        DEVELOPMENT_TEAM: ${{ secrets.DEVELOPMENT_TEAM }}
+      run: |
+        configuration="CODE_SIGN_STYLE = Automatic\nDEVELOPMENT_TEAM = ${DEVELOPMENT_TEAM}\n"
+        echo -e "$configuration" > ./Configurations/Signing.xcconfig
+
+    - name: Install the App Store Connect API key
+      env:
+        APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
+        APP_STORE_CONNECT_API_KEY_CONTENTS: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENTS }}
+      run: |
+        mkdir ./private_keys
+        echo -e "$APP_STORE_CONNECT_API_KEY_CONTENTS" > ./private_keys/AuthKey_${APP_STORE_CONNECT_API_KEY}.p8
+
+    - name: Install the Apple certificates
+      # https://docs.github.com/en/actions/deployment/deploying-xcode-applications/installing-an-apple-certificate-on-macos-runners-for-xcode-development
+      env:
+        DEVELOPMENT_CERTIFICATE: ${{ secrets.DEVELOPMENT_CERTIFICATE }}
+        DISTRIBUTION_CERTIFICATE: ${{ secrets.DISTRIBUTION_CERTIFICATE }}
+        KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+      run: |
+        development_certificate=$RUNNER_TEMP/BemolDevelopmentCertificate.p12
+        distribution_certificate=$RUNNER_TEMP/BemolDistributionCertificate.p12
+        keychain_path=$RUNNER_TEMP/certificates.keychain-db
+
+        echo -n "$DEVELOPMENT_CERTIFICATE" | base64 --decode -o $development_certificate
+        echo -n "$DISTRIBUTION_CERTIFICATE" | base64 --decode -o $distribution_certificate
+
+        security create-keychain -p "$KEYCHAIN_PASSWORD" $keychain_path
+        security set-keychain-settings -lut 21600 $keychain_path
+        security unlock-keychain -p "$KEYCHAIN_PASSWORD" $keychain_path
+
+        security import $development_certificate -P "" -A -t cert -f pkcs12 -k $keychain_path
+        security import $distribution_certificate -P "" -A -t cert -f pkcs12 -k $keychain_path
+  
+        security list-keychain -d user -s $keychain_path
+  
+    - name: Archive and upload
+      id: archive-and-upload
+      env:
+        APPLE_ID: ${{ secrets.APPLE_ID }}
+        APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
+        APP_STORE_CONNECT_API_ISSUER: ${{ secrets.APP_STORE_CONNECT_API_ISSUER }}
+      run: |
+        chmod +x ./Scripts/next_marketing_version.sh
+        chmod +x ./Scripts/next_build_version.sh
+        chmod +x ./Scripts/upload_to_testflight.sh
+        marketing_version=`./Scripts/next_marketing_version.sh`
+        build_version=`./Scripts/next_build_version.sh`
+        ./Scripts/upload_to_testflight.sh $marketing_version $build_version
+        echo "TAG_NAME=$marketing_version" >> "$GITHUB_OUTPUT"
+
+    - name: Create tag
+      uses: actions/github-script@v7
+      with:
+        github-token: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+        script: |
+          github.rest.git.createRef({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            ref: `refs/tags/${{ steps.archive-and-upload.outputs.TAG_NAME }}`,
+            sha: context.sha
+          })
+
+    - name: Clean up
+      run: |
+        rm -rf ./private_keys
+        security delete-keychain $RUNNER_TEMP/certificates.keychain-db
