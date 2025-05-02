@@ -25,8 +25,8 @@ actor MIDINotePlayer: NotePlayer {
   }
 
   private let bpm: Float64 = 110.0
-  private let beatPrecision: AVMusicTimeStamp = 0.05
-
+  private let beatPrecision = AVMusicTimeStamp(0.05)
+  private let noteDurationInBeats = AVMusicTimeStamp(1.0)
   private let audioEngine: AVAudioEngine
   private let sampler: AVAudioUnitSampler
   private let sequencer: AVAudioSequencer
@@ -58,7 +58,7 @@ actor MIDINotePlayer: NotePlayer {
     let beat = sequencer.currentPositionInBeats + beatPrecision
     track?.addEvent(note, at: beat)
 
-    try await Task.sleep(for: .seconds(sequencer.seconds(forBeats: 0.9)), clock: clock)
+    try await Task.sleep(for: .seconds(sequencer.seconds(forBeats: 0.75)), clock: clock)
   }
   
   func playCadence(_ cadence: Cadence) async throws {
@@ -108,7 +108,7 @@ actor MIDINotePlayer: NotePlayer {
             channel: 0,
             key: UInt32(Int(keyNumber(for: voices[j], octave: 4)) + value),
             velocity: 64,
-            duration: 1.0
+            duration: noteDurationInBeats
           )
         )
       }
