@@ -51,7 +51,16 @@ Once released to the App Store, **Bemol** will be **free forever** (just like th
 1. Install [Xcode](https://developer.apple.com/xcode/). **Bemol** is built with [Swift 6](https://www.swift.org) and [Xcode 16.2](https://developer.apple.com/documentation/xcode-release-notes/xcode-16_2-release-notes).
 2. Clone the repository.
 3. Double-click `Bemol.xcodeproj` to open it in Xcode.
-4. **Bemol** has no third-party dependencies and requires no special tooling. So you can simply press `Run` in Xcode to launch the app in a simulator or a device.
+4. **Bemol** has no third-party dependencies and requires no special tooling. So you can simply press `Run` in Xcode to launch the app in a simulator.
+5. If running on a device, you have to provide the id of your development team in a file named `Signing.xcconfig` that you put under `Configurations/`. The contents of the file should look like this:
+   
+   ```
+   // Signing.xcconfig
+
+   CODE_SIGN_STYLE = Automatic
+   DEVELOPMENT_TEAM = <your-development-team-id>
+   ```
+
 
 > [!TIP]
 > To be able to hear piano sounds (and not sine waves), you'll need to download a [sound font](https://en.wikipedia.org/wiki/SoundFont) in the `sl2` format and save it under `Bemol/Resources/sound_font.sl2`. The TestFlight version of **Bemol** uses the excellent and open-source sound font from [MuseScore](https://musescore.org/en) that you can download [here](https://musescore.org/en/handbook/3/soundfonts-and-sfz-files#list) (look for `MuseScore_General`).
