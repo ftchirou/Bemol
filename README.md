@@ -67,7 +67,7 @@ Once released to the App Store, **Bemol** will be **free forever** (just like th
    ```
 
 > [!TIP]
-> To be able to hear piano sounds (and not sine waves), you'll need to download a [sound font](https://en.wikipedia.org/wiki/SoundFont) in the `sl2` format and save it under `Bemol/Resources/sound_font.sl2`. The TestFlight version of **Bemol** uses an excellent and open-source sound font from [MuseScore](https://musescore.org/en) that you can download [here](https://musescore.org/en/handbook/3/soundfonts-and-sfz-files#list) (look for `MuseScore_General`).
+> To be able to hear piano sounds (and not sine waves), you'll need to download a [sound font](https://en.wikipedia.org/wiki/SoundFont) in the `sf2` format and save it under `Bemol/Resources/sound_font.sf2`. The TestFlight version of **Bemol** uses an excellent and open-source sound font from [MuseScore](https://musescore.org/en) that you can download [here](https://musescore.org/en/handbook/3/soundfonts-and-sfz-files#list) (look for `MuseScore_General`).
 
 
 ## How to run the tests
