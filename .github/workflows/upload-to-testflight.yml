@@ -14,7 +14,21 @@ jobs:
       with:
         fetch-depth: 0
         ref: main
-  
+
+    - name: Load cached sound font
+      id: load-cached-sound-font
+      uses: actions/cache@v4
+      with:
+        key: sound_font
+        path: ./Bemol/Resources/sound_font.sl2
+
+    - if: ${{ steps.load-cached-sound-font.outputs.cache-hit != 'true' }}
+      name: Download sound font
+      env:
+        SOUND_FONT_URL: ${{ secrets.SOUND_FONT_URL }}
+      run: |
+        curl -L -o ./Bemol/Resources/sound_font.sl2 ${SOUND_FONT_URL}
+
     - name: Set up the development team
       env:
         DEVELOPMENT_TEAM: ${{ secrets.DEVELOPMENT_TEAM }}
