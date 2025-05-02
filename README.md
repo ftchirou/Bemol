@@ -1,5 +1,5 @@
 # 🎵 Bemol
-![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/ftchirou/Bemol/run-tests.yml?branch=main) <img src="https://img.shields.io/badge/coverage-86%25-green"> ![GitHub release (latest SemVer)](https://img.shields.io/github/v/tag/ftchirou/Bemol) <img src="https://img.shields.io/badge/iOS%2018%2B-red"> <img src="https://img.shields.io/badge/Swift%20%3E%3D%206-orange">
+![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/ftchirou/Bemol/run-tests.yml?branch=main) <img src="https://img.shields.io/badge/coverage-84%25-green"> ![GitHub release (latest SemVer)](https://img.shields.io/github/v/tag/ftchirou/Bemol) <img src="https://img.shields.io/badge/iOS%2018%2B-red"> <img src="https://img.shields.io/badge/Swift%20%3E%3D%206-orange">
 
 **Bemol** is a **free** and **open-source** ear training app that helps music hobbyists and music students train and develop their [relative pitch](https://en.wikipedia.org/wiki/Relative_pitch), the ability to recognize a played musical note in a given [tonal context](https://en.wikipedia.org/wiki/Tonic_(music)).
 
