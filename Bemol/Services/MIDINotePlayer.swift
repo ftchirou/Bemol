@@ -27,6 +27,8 @@ actor MIDINotePlayer: NotePlayer {
   private let bpm: Float64 = 110.0
   private let beatPrecision = AVMusicTimeStamp(0.05)
   private let noteDurationInBeats = AVMusicTimeStamp(1.0)
+  private let noteVelocity: UInt32 = 76
+
   private let audioEngine: AVAudioEngine
   private let sampler: AVAudioUnitSampler
   private let sequencer: AVAudioSequencer
@@ -90,7 +92,7 @@ actor MIDINotePlayer: NotePlayer {
     return AVMIDINoteEvent(
       channel: 0,
       key: key,
-      velocity: 64,
+      velocity: noteVelocity,
       duration: 1.0
     )
   }
@@ -107,7 +109,7 @@ actor MIDINotePlayer: NotePlayer {
           AVMIDINoteEvent(
             channel: 0,
             key: UInt32(Int(keyNumber(for: voices[j], octave: 4)) + value),
-            velocity: 64,
+            velocity: noteVelocity,
             duration: noteDurationInBeats
           )
         )
