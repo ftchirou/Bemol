@@ -67,7 +67,7 @@ echo "Setting the build version to $build_version ..."
 sed -i -E "s/CURRENT_PROJECT_VERSION.*/CURRENT_PROJECT_VERSION = $build_version/g" \
           ./Configurations/Versioning.xcconfig
 
-# Archive Wasabi
+# Archive Bemol
 echo "Archiving ..."
 xcodebuild -project Bemol.xcodeproj \
            -scheme Bemol \

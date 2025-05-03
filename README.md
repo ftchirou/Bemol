@@ -1,5 +1,5 @@
 # 🎵 Bemol
-![GitHub Workflow Status](https://github.com/ftchirou/Bemol/actions/workflows/run-tests.yml/badge.svg) <img src="https://img.shields.io/badge/coverage-84%25-green"> ![GitHub Workflow Status](https://github.com/ftchirou/Bemol/actions/workflows/upload-to-testflight.yml/badge.svg) ![GitHub release (latest SemVer)](https://img.shields.io/github/v/tag/ftchirou/Bemol)  <img src="https://img.shields.io/badge/beta-yellow"> <img src="https://img.shields.io/badge/iOS%2018%2B-red"> <img src="https://img.shields.io/badge/Swift%20%3E%3D%206-orange">
+![GitHub Workflow Status](https://github.com/ftchirou/Bemol/actions/workflows/run-tests.yml/badge.svg) <img src="https://img.shields.io/badge/coverage-84%25-green"> ![GitHub Workflow Status](https://github.com/ftchirou/Bemol/actions/workflows/upload-to-testflight.yml/badge.svg) ![GitHub release (latest SemVer)](https://img.shields.io/github/v/tag/ftchirou/Bemol)  <img src="https://img.shields.io/badge/beta-yellow"> <img src="https://img.shields.io/badge/iOS%2018.2%2B-red"> <img src="https://img.shields.io/badge/Swift%20%3E%3D%206-orange">
 
 **Bemol** is a **free** and **open-source** ear training app that helps music hobbyists and music students train and develop [relative pitch](https://en.wikipedia.org/wiki/Relative_pitch), the ability to recognize a played musical note in a given [tonal context](https://en.wikipedia.org/wiki/Tonic_(music)).
 
@@ -85,7 +85,7 @@ The script expects the following environment variables to be set:
 - `APP_STORE_CONNECT_API_KEY`
 - `APP_STORE_CONNECT_API_ISSUER`
 
-These are self-explanatory and their values can be found in App Store Connect. The script also expects a private key file to be available at `./private_keys/AuthKey_<api_key>.p8`.
+These are self-explanatory and their values can be found in App Store Connect. The script also expects a private key file to be available at `./private_keys/AuthKey_<APP_STORE_CONNECT_API_KEY>.p8`.
 
 # License
 
