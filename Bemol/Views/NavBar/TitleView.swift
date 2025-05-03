@@ -22,6 +22,15 @@ import UIKit
 final class TitleView: UIView {
   // MARK: - Subviews
 
+  private lazy var background: UIView = {
+    let view = UIView()
+    view.translatesAutoresizingMaskIntoConstraints = false
+    view.backgroundColor = .dark
+    view.layer.cornerRadius = .cornerRadiusSm
+
+    return view
+  }()
+
   private lazy var label: UILabel = {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +49,7 @@ final class TitleView: UIView {
 
   override var intrinsicContentSize: CGSize {
     CGSize(
-      width: .spacingSm + label.intrinsicContentSize.width + .spacingSm,
+      width: .spacingXs + .spacingSm + label.intrinsicContentSize.width + .spacingSm + .spacingXs,
       height: .spacingXs + label.intrinsicContentSize.height + .spacingXs
     )
   }
@@ -69,21 +78,25 @@ final class TitleView: UIView {
   // MARK: - Private
 
   private func setUpAppearance() {
-    layer.cornerRadius = .cornerRadiusSm
-    backgroundColor = .dark
     accessibilityTraits = .staticText
   }
 
   private func setUpViewHierarchy() {
-    addSubview(label)
+    addSubview(background)
+    background.addSubview(label)
 
     NSLayoutConstraint.activate([
-      label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .spacingSm),
-      label.centerXAnchor.constraint(equalTo: centerXAnchor),
-      label.centerYAnchor.constraint(equalTo: centerYAnchor),
-      label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.spacingSm),
-      label.topAnchor.constraint(lessThanOrEqualTo: topAnchor, constant: .spacingXxs),
-      label.bottomAnchor.constraint(greaterThanOrEqualTo: bottomAnchor, constant: -.spacingXxs),
+      background.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .spacingXs),
+      background.topAnchor.constraint(equalTo: topAnchor),
+      background.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.spacingXs),
+      background.bottomAnchor.constraint(equalTo: bottomAnchor),
+
+      label.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: .spacingSm),
+      label.centerXAnchor.constraint(equalTo: background.centerXAnchor),
+      label.centerYAnchor.constraint(equalTo: background.centerYAnchor),
+      label.trailingAnchor.constraint(equalTo: background.trailingAnchor, constant: -.spacingSm),
+      label.topAnchor.constraint(lessThanOrEqualTo: background.topAnchor, constant: .spacingXxs),
+      label.bottomAnchor.constraint(greaterThanOrEqualTo: background.bottomAnchor, constant: -.spacingXxs),
     ])
   }
 }
