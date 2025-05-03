@@ -1,7 +1,7 @@
 name: Test
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ main, develop ]
 env:
   DEVELOPER_DIR: /Applications/Xcode_16.2.app/Contents/Developer
 
