@@ -832,19 +832,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Select the notes you would like to practice"
+            "value" : "Select the notes you would like to focus on"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Choisissez les notes que vous souhaitez exercer"
+            "value" : "Choisissez les notes sur lesquelles vous voulez vous concentrer"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Välj de toner som du vill öva på"
+            "value" : "Välj de toner som du vill fokusera på"
           }
         }
       }
