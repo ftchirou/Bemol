@@ -50,7 +50,7 @@ final class AccuracyScreen {
   }()
 
   private lazy var keyboardView: KeyboardView = {
-    let keyboardView = KeyboardView(range: range)
+    let keyboardView = KeyboardView(range: 1...2)
     keyboardView.translatesAutoresizingMaskIntoConstraints = false
     keyboardView.setEnabledForAllKeys(false)
     keyboardView.setTintForAllNotes(nil)
@@ -111,7 +111,6 @@ final class AccuracyScreen {
 
   // MARK: - Properties
 
-  private let range: ClosedRange<Octave> = 1...2
   private let notePlayer: NotePlayer
 
   private var accuracy: [Note: Double] = [:] {

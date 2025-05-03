@@ -831,6 +831,47 @@ struct AppLoopTests {
   }
 
   @Test
+  func didSelectNotesDoesNotUpdateLevelIfNotesHaveNotChanged() async throws {
+    let notePlayer = MockNotePlayer()
+    let practiceManager = MockPracticeManager()
+    let logger = Logger()
+    let environment = AppEnvironment(
+      notePlayer: notePlayer,
+      practiceManager: practiceManager,
+      logger: logger
+    )
+    let notes = [
+      Note(name: .d, octave: 1),
+      Note(name: .eFlat, octave: 2),
+    ]
+    let level = makeLevel(id: 42, notes: notes)
+    let state = AppState(level: level)
+    let loop = AppLoop(environment: environment, initialState: state)
+
+    let (_, effect) = loop.nextState(
+      currentState: state,
+      action: .didSelectNotes(notes)
+    )
+
+    let task = Task {
+      try await effect?.run()
+    }
+
+    let action = try await task.value
+
+    await #expect(practiceManager.isUseTemporaryLevelCalled == false)
+
+    let temporaryLevel =  await practiceManager.getTemporaryLevel()
+
+    #expect(temporaryLevel == nil)
+
+    guard case .didLoadLevel = action else {
+      Issue.record("expected next action to be `didLoadLevel` after `didSelectNotes`")
+      return
+    }
+  }
+
+  @Test
   func didLoadQuestionSuccessfully() async throws {
     let notePlayer = MockNotePlayer()
     let practiceManager = MockPracticeManager()
@@ -1242,17 +1283,27 @@ private enum MockError: Error {
 
 // MARK: -
 
-fileprivate func makeLevel(id: Int) -> Level {
+fileprivate func makeLevel(
+  id: Int,
+  key: NoteName = .c,
+  isMajor: Bool = false,
+  isChromatic: Bool = false,
+  notes: [Note] = [],
+  cadence: Cadence = Cadence(voices: [], roots: [], movement: []),
+  spansMultipleOctaves: Bool = false,
+  range: NoteRange = .firstHalfOfOctave,
+  sessions: [Session] = []
+) -> Level {
   Level(
     id: id,
-    key: .c,
-    isMajor: true,
-    isChromatic: false,
-    notes: [],
-    cadence: Cadence(voices: [], roots: [], movement: []),
-    spansMultipleOctaves: false,
-    range: .firstHalfOfOctave,
-    sessions: []
+    key: key,
+    isMajor: isMajor,
+    isChromatic: isChromatic,
+    notes: notes,
+    cadence: cadence,
+    spansMultipleOctaves: spansMultipleOctaves,
+    range: range,
+    sessions: sessions
   )
 }
 

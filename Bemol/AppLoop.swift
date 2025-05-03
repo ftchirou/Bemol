@@ -251,6 +251,11 @@ final class AppLoop {
         nextState,
         AppEffect { [weak self] in
           guard let self, let level = currentState.level else { throw AppError.unexpected }
+
+          if notes == level.notes {
+            return level
+          }
+
           return try await self.environment
             .practiceManager
             .useTemporaryLevel(level: level.withNotes(notes))
