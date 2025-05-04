@@ -19,10 +19,14 @@
 import Foundation
 import UIKit
 
-@MainActor
-protocol KeyboardViewDelegate: AnyObject {
-  func didPressNote(_ note: Note)
-  func didReleaseNote(_ note: Note)
+struct KeyboardViewDelegate {
+  let didPressNote: (Note) -> Void
+  let didReleaseNote: (Note) -> Void
+
+  init(didPressNote: @escaping (Note) -> Void, didReleaseNote: @escaping (Note) -> Void) {
+    self.didPressNote = didPressNote
+    self.didReleaseNote = didReleaseNote
+  }
 }
 
 @MainActor
@@ -53,7 +57,7 @@ final class KeyboardView: UIView {
 
   // MARK: - API
 
-  weak var delegate: KeyboardViewDelegate?
+  var delegate: KeyboardViewDelegate?
 
   var isScrollEnabled: Bool {
     get { scrollView.isScrollEnabled }
@@ -183,7 +187,10 @@ final class KeyboardView: UIView {
     for octave in range {
       let view = OctaveView(octave: octave)
       view.translatesAutoresizingMaskIntoConstraints = false
-      view.delegate = self
+      view.delegate = OctaveViewDelegate(
+        didPressNote: { [weak self] note, octave in self?.didPressNote(note, octave: octave) },
+        didReleaseNote: { [weak self] note, octave in self?.didReleaseNote(note, octave: octave) }
+      )
       contentView.addSubview(view)
 
       view.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
@@ -211,7 +218,7 @@ final class KeyboardView: UIView {
 
 // MARK: - OctaveViewDelegate
 
-extension KeyboardView: OctaveViewDelegate {
+extension KeyboardView {
   func didPressNote(_ note: NoteName, octave: Octave) {
     delegate?.didPressNote(Note(name: note, octave: octave))
   }

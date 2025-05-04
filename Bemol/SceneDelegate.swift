@@ -72,6 +72,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   func sceneDidBecomeActive(_ scene: UIScene) {
     if window?.rootViewController == nil {
       window?.rootViewController = rootViewController()
+      loop.delegate = AppLoopDelegate(
+        didUpdateState: { [weak self] in self?.didUpdateState($0) }
+      )
       loop.dispatch(.didLoad)
     }
   }
@@ -103,5 +106,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ])
 
     return viewController
+  }
+}
+
+// MARK: - AppLoopDelegate
+
+extension SceneDelegate {
+  func didUpdateState(_ state: AppState) {
+    app.setState(state)
   }
 }

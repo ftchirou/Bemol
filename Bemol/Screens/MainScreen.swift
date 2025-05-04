@@ -19,18 +19,17 @@
 import Foundation
 import UIKit
 
-@MainActor
-protocol MainScreenDelegate: AnyObject {
-  func didPressHomeButton()
-  func didPressRandomButton()
-  func didPressStartStopButton()
-  func didPressRepeatButton()
-  func didPressNextButton()
-  func didPressPreviousButton()
-  func didPressProgressButton()
-  func didPressConfigureButton()
-  func didPressNote(_ note: Note)
-  func didReleaseNote(_ note: Note)
+struct MainScreenDelegate {
+  let didPressHomeButton: () -> Void
+  let didPressRandomButton: () -> Void
+  let didPressStartStopButton: () -> Void
+  let didPressRepeatButton: () -> Void
+  let didPressNextButton: () -> Void
+  let didPressPreviousButton: () -> Void
+  let didPressProgressButton: () -> Void
+  let didPressConfigureButton: () -> Void
+  let didPressNote: (Note) -> Void
+  let didReleaseNote: (Note) -> Void
 }
 
 @MainActor
@@ -43,8 +42,10 @@ final class MainScreen {
     keyboard.setEnabledForAllKeys(false)
     keyboard.setTintForAllNotes(nil)
     keyboard.isScrollEnabled = false
-
-    keyboard.delegate = self
+    keyboard.delegate = KeyboardViewDelegate(
+      didPressNote: { [weak self] in self?.didPressNote($0) },
+      didReleaseNote: { [weak self] in self?.didReleaseNote($0) }
+    )
 
     return keyboard
   }()
@@ -52,7 +53,16 @@ final class MainScreen {
   private lazy var navBar: NavBar = {
     let bar = NavBar()
     bar.translatesAutoresizingMaskIntoConstraints = false
-    bar.delegate = self
+    bar.delegate = NavBarDelegate(
+      didPressHomeButton: { [weak self] in self?.didPressHomeButton() },
+      didPressRandomButton: { [weak self] in self?.didPressRandomButton() },
+      didPressPreviousButton: { [weak self] in self?.didPressPreviousButton() },
+      didPressNextButton: { [weak self] in self?.didPressNextButton() },
+      didPressConfigureButton: { [weak self] in self?.didPressConfigureButton() },
+      didPressStartStopButton: { [weak self] in self?.didPressStartStopButton() },
+      didPressRepeatButton: { [weak self] in self?.didPressRepeatButton() },
+      didPressProgressButton:  { [weak self] in self?.didPressProgressButton() }
+    )
 
     return bar
   }()
@@ -84,21 +94,30 @@ final class MainScreen {
 
   // MARK: - API
 
-  weak var delegate: MainScreenDelegate?
+  var delegate: MainScreenDelegate?
 
   var state: MainScreenState? = nil {
     didSet {
       let key = state?.key ?? .c
+      let oldKey = oldValue?.key ?? .c
+
       let activeNotes = state?.activeNotes ?? []
+      let oldActiveNotes = oldValue?.activeNotes ?? []
 
       navBar.state = state?.navBarState
-      keyboardView.scrollTo(note: Note(name: key, octave: 1), animated: true)
-      keyboardView.setEnabledForAllKeys(false)
-      keyboardView.setLabelForAllNotes(nil)
-      keyboardView.setEnabled(true, for: activeNotes)
-      keyboardView.setLabels(activeNotes.map { $0.name.solfege(inKey: key) }, for: activeNotes)
-      keyboardView.setTintForAllNotes(nil)
       keyboardView.isUserInteractionEnabled = state?.isKeyboardEnabled ?? true
+
+      if oldValue == nil || key != oldKey || activeNotes != oldActiveNotes {
+        keyboardView.scrollTo(note: Note(name: key, octave: 1), animated: true)
+        keyboardView.setEnabledForAllKeys(false)
+        keyboardView.setLabelForAllNotes(nil)
+        keyboardView.setEnabled(true, for: activeNotes)
+        keyboardView.setLabels(activeNotes.map { $0.name.solfege(inKey: key) }, for: activeNotes)
+      }
+
+      if let oldHighlightedNote = oldValue?.highlightedNote {
+        keyboardView.setTint(nil, for: [oldHighlightedNote.0])
+      }
 
       if let highlightedNote = state?.highlightedNote {
         keyboardView.setTint(highlightedNote.1, for: [highlightedNote.0])
@@ -109,7 +128,7 @@ final class MainScreen {
 
 // MARK: - KeyboardDelegate
 
-extension MainScreen: KeyboardViewDelegate {
+extension MainScreen {
   func didPressNote(_ note: Note) {
     delegate?.didPressNote(note)
   }
@@ -121,7 +140,7 @@ extension MainScreen: KeyboardViewDelegate {
 
 // MARK: - NavBarDelegate
 
-extension MainScreen: NavBarDelegate {
+extension MainScreen {
   func didPressHomeButton() {
     delegate?.didPressHomeButton()
   }

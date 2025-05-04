@@ -18,7 +18,7 @@
 
 import Foundation
 
-struct NavBarState {
+struct NavBarState: Equatable {
   enum StartStopMode {
     case start
     case stop

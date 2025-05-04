@@ -19,16 +19,15 @@
 import Foundation
 import UIKit
 
-@MainActor
-protocol NavBarDelegate: AnyObject {
-  func didPressHomeButton()
-  func didPressRandomButton()
-  func didPressPreviousButton()
-  func didPressNextButton()
-  func didPressConfigureButton()
-  func didPressStartStopButton()
-  func didPressRepeatButton()
-  func didPressProgressButton()
+struct NavBarDelegate {
+  let didPressHomeButton: () -> Void
+  let didPressRandomButton: () -> Void
+  let didPressPreviousButton: () -> Void
+  let didPressNextButton: () -> Void
+  let didPressConfigureButton: () -> Void
+  let didPressStartStopButton: () -> Void
+  let didPressRepeatButton: () -> Void
+  let didPressProgressButton: () -> Void
 }
 
 @MainActor
@@ -228,10 +227,14 @@ final class NavBar: UIView {
 
   // MARK: - API
 
-  weak var delegate: NavBarDelegate?
+  var delegate: NavBarDelegate?
 
   var state: NavBarState? {
     didSet {
+      guard oldValue == nil || state != oldValue else {
+        return
+      }
+
       let isLoading = state?.isLoading ?? false
       let isHomeButtonEnabled = state?.isHomeButtonEnabled ?? false
       let isRandomButtonEnabled = state?.isRandomButtonEnabled ?? false

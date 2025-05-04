@@ -19,10 +19,9 @@
 import Foundation
 import UIKit
 
-@MainActor
-protocol OctaveViewDelegate: AnyObject {
-  func didPressNote(_ note: NoteName, octave: Octave)
-  func didReleaseNote(_ note: NoteName, octave: Octave)
+struct OctaveViewDelegate {
+  let didPressNote: (NoteName, Octave) -> Void
+  let didReleaseNote: (NoteName, Octave) -> Void
 }
 
 @MainActor
@@ -54,7 +53,7 @@ final class OctaveView: UIView {
 
   // MARK: - API
 
-  weak var delegate: OctaveViewDelegate?
+  var delegate: OctaveViewDelegate?
 
   // MARK: - Initialization
 
@@ -171,7 +170,7 @@ final class OctaveView: UIView {
     key.addAction(
       UIAction { [weak self] _ in
         guard let self else { return }
-        self.delegate?.didPressNote(note, octave: self.octave)
+        self.delegate?.didPressNote(note, self.octave)
       },
       for: .touchDown
     )
@@ -179,7 +178,7 @@ final class OctaveView: UIView {
     key.addAction(
       UIAction { [weak self] _ in
         guard let self else { return }
-        self.delegate?.didReleaseNote(note, octave: self.octave)
+        self.delegate?.didReleaseNote(note, self.octave)
       },
       for: .touchUpInside
     )

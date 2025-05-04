@@ -18,7 +18,7 @@
 
 import Foundation
 
-struct Cadence: Equatable {
+struct Cadence: Equatable, Hashable {
   let voices: [NoteName]
   let roots: [NoteName]
   let movement: [[Int]]

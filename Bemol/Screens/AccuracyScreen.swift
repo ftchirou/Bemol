@@ -19,9 +19,8 @@
 import Foundation
 import UIKit
 
-@MainActor
-protocol AccuracyScreenDelegate: AnyObject {
-  func didPressDone()
+struct AccuracyScreenDelegate {
+  let didPressDone: () -> Void
 }
 
 struct AccuracyScreenState {
@@ -44,7 +43,10 @@ final class AccuracyScreen {
     let bar = TitleBar()
     bar.translatesAutoresizingMaskIntoConstraints = false
     bar.isCancelButtonHidden = true
-    bar.delegate = self
+    bar.delegate = TitleBarDelegate(
+      didPressCancelButton: { [weak self] in self?.didPressCancelButton() },
+      didPressDoneButton: { [weak self] in self?.didPressDoneButton() }
+    )
 
     return bar
   }()
@@ -55,8 +57,10 @@ final class AccuracyScreen {
     keyboardView.setEnabledForAllKeys(false)
     keyboardView.setTintForAllNotes(nil)
     keyboardView.isScrollEnabled = false
-    keyboardView.delegate = self
-
+    keyboardView.delegate = KeyboardViewDelegate(
+      didPressNote: { [weak self] in self?.didPressNote($0) },
+      didReleaseNote: { [weak self] in self?.didReleaseNote($0) }
+    )
     return keyboardView
   }()
 
@@ -71,16 +75,20 @@ final class AccuracyScreen {
 
   // MARK: - API
 
-  weak var delegate: AccuracyScreenDelegate?
+  var delegate: AccuracyScreenDelegate?
 
   var state: AccuracyScreenState? = nil {
     didSet {
-      keyboardView.scrollTo(note: Note(name: state?.key ?? .c, octave: 1))
-      keyboardView.setLabelForAllNotes(nil)
-      keyboardView.setTintForAllNotes(nil)
-      accuracy = state?.accuracyPerNote ?? [:]
-      keyboardView.setEnabledForAllKeys(false)
-      keyboardView.setEnabled(true, for: (state?.activeNotes ?? []))
+      let activeNotes = state?.activeNotes ?? []
+
+      if oldValue == nil || activeNotes != oldValue?.activeNotes ?? [] {
+        keyboardView.scrollTo(note: Note(name: state?.key ?? .c, octave: 1))
+        keyboardView.setLabelForAllNotes(nil)
+        keyboardView.setTintForAllNotes(nil)
+        accuracy = state?.accuracyPerNote ?? [:]
+        keyboardView.setEnabledForAllKeys(false)
+        keyboardView.setEnabled(true, for: (state?.activeNotes ?? []))
+      }
 
       titleBar.title = state?.context == .level
         ? AttributedString(localized: "levelAccuracy")
@@ -136,9 +144,9 @@ final class AccuracyScreen {
   }
 }
 
-// MARK: - MessageBarDelegate
+// MARK: - TitleBarDelegate
 
-extension AccuracyScreen: TitleBarDelegate {
+extension AccuracyScreen {
   func didPressDoneButton() {
     delegate?.didPressDone()
   }
@@ -148,7 +156,7 @@ extension AccuracyScreen: TitleBarDelegate {
 
 // MARK: - KeyboardViewDelegate
 
-extension AccuracyScreen: KeyboardViewDelegate {
+extension AccuracyScreen {
   func didPressNote(_ note: Note) {
     Task {
       try await notePlayer.playNote(note)

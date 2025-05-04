@@ -18,9 +18,8 @@
 
 import Foundation
 
-@MainActor
-protocol AppLoopDelegate: AnyObject {
-  func didUpdateState(_ state: AppState)
+struct AppLoopDelegate {
+  let didUpdateState: (AppState) -> Void
 }
 
 @MainActor
@@ -28,7 +27,7 @@ final class AppLoop {
   private let environment: AppEnvironment
   private(set) var state: AppState
 
-  weak var delegate: AppLoopDelegate?
+  var delegate: AppLoopDelegate?
 
   init(environment: AppEnvironment, initialState: AppState) {
     self.environment = environment
@@ -43,9 +42,11 @@ final class AppLoop {
     state = newState
     delegate?.didUpdateState(newState)
 
-    Task {
-      if let effect, let action = try? await effect.run() {
-        self.dispatch(action)
+    if let effect {
+      Task {
+        if let action = try? await effect.run() {
+          self.dispatch(action)
+        }
       }
     }
   }

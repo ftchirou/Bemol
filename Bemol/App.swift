@@ -25,22 +25,38 @@ final class App {
 
   private lazy var main: MainScreen = {
     let main = MainScreen()
-    main.delegate = self
+    main.delegate = MainScreenDelegate(
+      didPressHomeButton: { [weak self] in self?.didPressHomeButton() },
+      didPressRandomButton: { [weak self] in self?.didPressRandomButton() },
+      didPressStartStopButton: { [weak self] in self?.didPressStartStopButton() },
+      didPressRepeatButton: { [weak self] in self?.didPressRepeatButton() },
+      didPressNextButton: { [weak self] in self?.didPressNextButton() },
+      didPressPreviousButton: { [weak self] in self?.didPressPreviousButton() },
+      didPressProgressButton: { [weak self] in self?.didPressProgressButton() },
+      didPressConfigureButton: { [weak self] in self?.didPressConfigureButton() },
+      didPressNote: { [weak self] in self?.didPressNote($0) },
+      didReleaseNote: { [weak self] in self?.didReleaseNote($0) }
+    )
 
     return main
   }()
 
   private lazy var levelEditor: LevelEditorScreen = {
     let editor = LevelEditorScreen(notePlayer: notePlayer)
-    editor.delegate = self
+    editor.delegate = LevelEditorScreenDelegate(
+      didCancel: { [weak self] in self?.didCancel() },
+      didSelectNotes: { [weak self] in self?.didSelectNotes($0) }
+    )
 
     return editor
   }()
 
   private lazy var accuracy: AccuracyScreen = {
     let progression = AccuracyScreen(notePlayer: notePlayer)
-    progression.delegate = self
-    
+    progression.delegate = AccuracyScreenDelegate(
+      didPressDone: { [weak self] in self?.didPressDone() }
+    )
+
     return progression
   }()
 
@@ -131,13 +147,12 @@ final class App {
   init(environment: AppEnvironment, loop: AppLoop) {
     self.environment = environment
     self.loop = loop
-    self.loop.delegate = self
   }
 }
 
 // MARK: - MainScreenDelegate
 
-extension App: MainScreenDelegate {
+extension App {
   func didPressHomeButton() {
     loop.dispatch(.didPressHomeButton)
   }
@@ -181,7 +196,7 @@ extension App: MainScreenDelegate {
 
 // MARK: - LevelEditorDelegate
 
-extension App: LevelEditorScreenDelegate {
+extension App {
   func didSelectNotes(_ notes: [Note]) {
     loop.dispatch(.didSelectNotes(notes))
     loop.dispatch(.didDismissLevelEditor)
@@ -194,16 +209,16 @@ extension App: LevelEditorScreenDelegate {
 
 // MARK: - AccuracyScreenDelegate
 
-extension App: AccuracyScreenDelegate {
+extension App {
   func didPressDone() {
     loop.dispatch(.didDismissAccuracyScreen)
   }
 }
 
-// MARK: - AppLoopDelegate
+// MARK: - State Updates
 
-extension App: AppLoopDelegate {
-  func didUpdateState(_ state: AppState) {
+extension App {
+  func setState(_ state: AppState) {
     main.state = state.mainScreenState
     levelEditor.state = state.levelEditorScreenState
     accuracy.state = state.accuracyScreenState

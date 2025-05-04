@@ -36,6 +36,7 @@ actor MIDINotePlayer: NotePlayer {
 
   private let clock = ContinuousClock()
   private var startTime: ContinuousClock.Instant = .now
+  private var chordProgressions: [Cadence: [[AVMIDINoteEvent]]] = [:]
 
   init() {
     audioEngine = AVAudioEngine()
@@ -98,6 +99,10 @@ actor MIDINotePlayer: NotePlayer {
   }
 
   private func makeChordProgression(_ cadence: Cadence) -> [[AVMIDINoteEvent]] {
+    if let progression = chordProgressions[cadence] {
+      return progression
+    }
+
     var progression: [[AVMIDINoteEvent]] = []
     let voices = cadence.voices
 
@@ -117,6 +122,8 @@ actor MIDINotePlayer: NotePlayer {
 
       progression.append(chord)
     }
+
+    chordProgressions[cadence] = progression
 
     return progression
   }

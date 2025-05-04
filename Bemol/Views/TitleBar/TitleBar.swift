@@ -19,10 +19,9 @@
 import Foundation
 import UIKit
 
-@MainActor
-protocol TitleBarDelegate: AnyObject {
-  func didPressCancelButton()
-  func didPressDoneButton()
+struct TitleBarDelegate {
+  let didPressCancelButton: () -> Void
+  let didPressDoneButton: () -> Void
 }
 
 @MainActor
@@ -78,11 +77,13 @@ final class TitleBar: UIView {
 
   // MARK: - API
 
-  weak var delegate: TitleBarDelegate?
+  var delegate: TitleBarDelegate?
 
   var title: AttributedString? {
     didSet {
-      label.attributedText = title.flatMap { NSAttributedString($0) }
+      if oldValue == nil || title != oldValue {
+        label.attributedText = title.flatMap { NSAttributedString($0) }
+      }
     }
   }
 

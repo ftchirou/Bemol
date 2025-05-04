@@ -19,10 +19,9 @@
 import Foundation
 import UIKit
 
-@MainActor
-protocol LevelEditorScreenDelegate: AnyObject {
-  func didCancel()
-  func didSelectNotes(_ notes: [Note])
+struct LevelEditorScreenDelegate {
+  let didCancel: () -> Void
+  let didSelectNotes: ([Note]) -> Void
 }
 
 struct LevelEditorScreenState {
@@ -38,7 +37,10 @@ final class LevelEditorScreen {
     let bar = TitleBar()
     bar.translatesAutoresizingMaskIntoConstraints = false
     bar.title = AttributedString(String(localized: "selectNotes"))
-    bar.delegate = self
+    bar.delegate = TitleBarDelegate(
+      didPressCancelButton: { [weak self] in self?.didPressCancelButton() },
+      didPressDoneButton: { [weak self] in self?.didPressDoneButton() }
+    )
 
     return bar
   }()
@@ -47,36 +49,45 @@ final class LevelEditorScreen {
     let keyboardView = KeyboardView(range: range)
     keyboardView.translatesAutoresizingMaskIntoConstraints = false
     keyboardView.isScrollEnabled = false
-    keyboardView.delegate = self
-    
+    keyboardView.delegate = KeyboardViewDelegate(
+      didPressNote: { [weak self] in self?.didPressNote($0) },
+      didReleaseNote: { [weak self] in self?.didReleaseNote($0) }
+    )
+
     return keyboardView
   }()
 
   // MARK: - API
 
-  weak var delegate: LevelEditorScreenDelegate?
+  var delegate: LevelEditorScreenDelegate?
 
   var state: LevelEditorScreenState? = nil {
     didSet {
+      let key = state?.key ?? .c
+      let oldKey = oldValue?.key ?? .c
+
       let notes = state?.selectedNotes ?? []
+      let oldNotes = oldValue?.selectedNotes ?? []
 
-      keyboardView.scrollTo(note: Note(name: state?.key ?? .c, octave: 1))
-      keyboardView.setLabelForAllNotes(nil)
+      if oldValue == nil || key != oldKey || notes != oldNotes {
+        keyboardView.scrollTo(note: Note(name: state?.key ?? .c, octave: 1))
+        keyboardView.setLabelForAllNotes(nil)
 
-      for octave in range {
-        keyboardView.setLabels(
-          NoteName.all.map(\.letter),
-          for: NoteName.all.map { Note(name: $0, octave: octave ) }
-        )
+        for octave in range {
+          keyboardView.setLabels(
+            NoteName.all.map(\.letter),
+            for: NoteName.all.map { Note(name: $0, octave: octave ) }
+          )
+        }
+
+        setNotes(notes)
       }
-
-      setNotes(notes)
     }
   }
 
   lazy var view: UIView = {
     let view = UIView()
-    view.translatesAutoresizingMaskIntoConstraints = false  
+    view.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(titleBar)
     view.addSubview(keyboardView)
 
@@ -91,7 +102,7 @@ final class LevelEditorScreen {
       keyboardView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
       keyboardView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
     ])
-  
+
     return view
   }()
 
@@ -135,12 +146,12 @@ final class LevelEditorScreen {
 
 // MARK: - TitleBarDelegate
 
-extension LevelEditorScreen: TitleBarDelegate {
+extension LevelEditorScreen {
   func didPressCancelButton() {
     setNotes([])
     delegate?.didCancel()
   }
-  
+
   func didPressDoneButton() {
     delegate?.didSelectNotes(selectedNotes)
   }
@@ -148,7 +159,7 @@ extension LevelEditorScreen: TitleBarDelegate {
 
 // MARK: - KeyboardViewDelegate
 
-extension LevelEditorScreen: KeyboardViewDelegate {
+extension LevelEditorScreen {
   func didPressNote(_ note: Note) {
     if let index = selectedNotes.firstIndex(where: { $0 == note }) {
       deselectNote(note)
