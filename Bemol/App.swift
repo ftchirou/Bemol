@@ -228,9 +228,15 @@ extension App {
     levelEditor.state = state.levelEditorScreenState
     accuracy.state = state.accuracyScreenState
     levelEditorView.isHidden = !state.isLevelEditorVisible
-    accuracyView.isHidden = !state.isAccuracyScreenVisible
     mainView.isHidden = state.isLevelEditorVisible || state.isAccuracyScreenVisible || state.hasError
     errorView.isHidden = !state.hasError
     errorScreen.error = state.error
+
+    if state.isAccuracyScreenVisible {
+      accuracy.state = nil // Force a state update.
+      accuracy.state = state.accuracyScreenState
+    }
+
+    accuracyView.isHidden = !state.isAccuracyScreenVisible
   }
 }
