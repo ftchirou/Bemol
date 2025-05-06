@@ -31,6 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       noteResolutionGenerator: DiatonicNoteResolutionGenerator(),
       preferences: UserDefaults.standard
     ),
+    preferences: UserDefaults.standard,
     logger: Logger()
   )
 

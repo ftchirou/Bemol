@@ -79,6 +79,17 @@ final class AppLoop {
         }.mapTo(AppAction.didLoadLevel)
       )
 
+    // MARK: - Onboarding Actions
+
+    case .didDismissTip:
+      nextState.loadNextTip()
+
+      if nextState.tips.isEmpty {
+        environment.preferences.setValue(true, for: .userHasSeenOnboardingPrefKey)
+      }
+
+      return (nextState, nil)
+
     // MARK: - NavBar Actions
 
     case .didPressHomeButton:
@@ -278,6 +289,10 @@ final class AppLoop {
       nextState.highlightedNote = nil
       nextState.isInteractionEnabled = true
 
+      if !environment.preferences.value(for: .userHasSeenOnboardingPrefKey) {
+        nextState.loadNextTip()
+      }
+
       return (nextState, nil)
 
     case .didStartSession(.success(let session)), .didLogRightAnswer(.success(let session)):
@@ -468,6 +483,24 @@ final class AppLoop {
   }
 }
 
+// MARK: - Tip Handling
+
+extension AppState {
+  mutating func loadNextTip() {
+    isInteractionEnabled = false
+    currentTip = tips.first
+
+    if currentTip == nil {
+      isInteractionEnabled = true
+    }
+
+    if tips.count >= 1 {
+      tips.removeFirst()
+      isInteractionEnabled = false
+    }
+  }
+}
+
 // MARK: - AppError
 
 enum AppError: Error, LocalizedError {
@@ -481,3 +514,8 @@ enum AppError: Error, LocalizedError {
   }
 }
 
+// MARK: - Preference Keys
+
+extension String {
+  static let userHasSeenOnboardingPrefKey = "user.has.seen.onboarding"
+}

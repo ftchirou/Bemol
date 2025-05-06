@@ -22,6 +22,9 @@ import Foundation
 protocol Preferences {
   func value(for key: String) -> Int?
   func setValue(_ value: Int, for key: String)
+
+  func value(for key: String) -> Bool
+  func setValue(_ value: Bool, for key: String)
 }
 
 // MARK: -
@@ -32,6 +35,14 @@ extension UserDefaults: Preferences {
   }
 
   func setValue(_ value: Int, for key: String) {
+    self.setValue(value, forKey: key)
+  }
+
+  func value(for key: String) -> Bool {
+    self.value(forKey: key) as? Bool ?? false
+  }
+
+  func setValue(_ value: Bool, for key: String) {
     self.setValue(value, forKey: key)
   }
 }

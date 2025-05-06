@@ -21,6 +21,7 @@ struct MainScreenState {
   var isKeyboardEnabled: Bool
   var activeNotes: [Note]
   var highlightedNote: (Note, UIColor)?
+  var tip: Tip?
 }
 
 extension MainScreenState {
@@ -40,7 +41,8 @@ extension MainScreenState {
       scoreAccessibilityText: scoreAccessibilityText,
       accuracy: accuracy,
       isAccuracyRingEnabled: isAccuracyRingEnabled,
-      accuracyRingAccessibilityText: accuracyRingAccessibilityText
+      accuracyRingAccessibilityText: accuracyRingAccessibilityText,
+      tip: tip
     )
   }
 }

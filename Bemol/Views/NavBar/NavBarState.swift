@@ -39,6 +39,7 @@ struct NavBarState: Equatable {
   var accuracy: Float
   var isAccuracyRingEnabled: Bool
   var accuracyRingAccessibilityText: String?
+  var tip: Tip?
 
   // Shortcuts!
   var isHomeButtonEnabled: Bool {

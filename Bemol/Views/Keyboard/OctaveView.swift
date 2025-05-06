@@ -22,6 +22,7 @@ import UIKit
 struct OctaveViewDelegate {
   let didPressNote: (NoteName, Octave) -> Void
   let didReleaseNote: (NoteName, Octave) -> Void
+  let didDismissTip: () -> Void
 }
 
 @MainActor
@@ -182,10 +183,32 @@ final class OctaveView: UIView {
       },
       for: .touchUpInside
     )
+
+    key.addAction(
+      UIAction { [weak self] _ in
+        guard let self else { return }
+        self.delegate?.didDismissTip()
+      },
+      for: .tipDismissed
+    )
   }
 
   private func setUpAppearance() {
     clipsToBounds = true
+  }
+}
+
+// MARK: - TipHandler
+
+extension OctaveView: TipHandler {
+  func handle(_ tip: Tip) {
+    guard
+      let view = naturalNotes.sorted(by: { $0.key < $1.key })
+        .filter({ $0.1.isEnabled })
+        .last?.value
+    else { return }
+
+    view.handle(tip)
   }
 }
 

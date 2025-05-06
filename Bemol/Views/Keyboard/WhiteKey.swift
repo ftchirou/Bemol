@@ -80,6 +80,10 @@ final class WhiteKey: UIControl {
   private lazy var overlayheightAnchorConstraint = overlay.heightAnchor
     .constraint(equalToConstant: 0)
 
+  // MARK: - Properties
+
+  private var tipView: TipView? = nil
+
   // MARK: - Initialization
 
   override public init(frame: CGRect) {
@@ -205,4 +209,35 @@ final class WhiteKey: UIControl {
       overlayheightAnchorConstraint,
     ])
   }
+}
+
+// MARK: - TipHandler
+
+extension WhiteKey: TipHandler {
+  func handle(_ tip: Tip) {
+    let tooltipView = TipPresenter.present(
+      edge: .leftBottom,
+      title: tip.title,
+      message: tip.message,
+      action: TipView.Action(title: tip.actionTitle) { [weak self] in
+        self?.dismissTipView()
+      },
+      onView: self
+    )
+
+    tipView = tooltipView
+  }
+
+  private func dismissTipView() {
+    if let tipView {
+      TipPresenter.dismiss(tipView) { [weak self] in
+        self?.tipView = nil
+        self?.sendActions(for: .tipDismissed)
+      }
+    }
+  }
+}
+
+extension UIControl.Event {
+  static let tipDismissed = UIControl.Event(rawValue: 9847472)
 }

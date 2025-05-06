@@ -28,6 +28,7 @@ struct NavBarDelegate {
   let didPressStartStopButton: () -> Void
   let didPressRepeatButton: () -> Void
   let didPressProgressButton: () -> Void
+  let didDismissTip: () -> Void
 }
 
 @MainActor
@@ -225,6 +226,8 @@ final class NavBar: UIView {
     return button
   }()
 
+  private weak var tipView: TipView? = nil
+
   // MARK: - API
 
   var delegate: NavBarDelegate?
@@ -274,6 +277,16 @@ final class NavBar: UIView {
         String(localized: "startSession")
       } else {
         String(localized: "stopSession")
+      }
+
+      if let tip = state?.tip {
+        if oldValue?.tip == nil {
+          DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+            self.handle(tip)
+          }
+        } else {
+          handle(tip)
+        }
       }
     }
   }
@@ -334,6 +347,84 @@ final class NavBar: UIView {
       }
 
       return .buttonForeground
+    }
+  }
+}
+
+// MARK: - TipHandler
+
+extension NavBar: TipHandler {
+  func handle(_ tip: Tip) {
+    if let view = targetView(for: tip) {
+      tipView = TipPresenter.present(
+        edge: edge(for: tip),
+        title: tip.title,
+        message: tip.message,
+        action: TipView.Action(title: tip.actionTitle) { [weak self] in
+          self?.dismissTipView()
+        },
+        onView: view
+      )
+    }
+  }
+
+  private func dismissTipView() {
+    if let tooltip = tipView {
+      TipPresenter.dismiss(tooltip) { [weak self] in
+        self?.tipView?.removeFromSuperview()
+        self?.tipView = nil
+        self?.delegate?.didDismissTip()
+      }
+    }
+  }
+
+  private func targetView(for tip: Tip) -> UIView? {
+    switch tip.target {
+    case .titleView:
+      titleView
+    case .homeButton:
+      homeButton
+    case .randomButton:
+      randomButton
+    case .previousButton:
+      previousButton
+    case .nextButton:
+      nextButton
+    case .configureLevelButton:
+      configureButton
+    case .startStopButton:
+      startStopButton
+    case .repeatButton:
+      repeatButton
+    case .accuracyRing:
+      accuracyRing
+    case .keyboard:
+      nil
+    }
+  }
+
+  private func edge(for tip: Tip) -> TipView.Edge {
+    switch tip.target {
+    case .titleView:
+        .topCenter
+    case .homeButton:
+        .topLeft
+    case .randomButton:
+        .topLeft
+    case .previousButton:
+        .topLeft
+    case .nextButton:
+        .topCenter
+    case .configureLevelButton:
+        .topCenter
+    case .startStopButton:
+        .topCenter
+    case .repeatButton:
+        .topCenter
+    case .accuracyRing:
+        .topRight
+    case .keyboard:
+        .topCenter
     }
   }
 }

@@ -22,5 +22,6 @@ import os
 struct AppEnvironment {
   let notePlayer: NotePlayer
   let practiceManager: PracticeManager
+  let preferences: Preferences
   let logger: Logger
 }

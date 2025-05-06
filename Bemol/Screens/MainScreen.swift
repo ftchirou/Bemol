@@ -30,6 +30,7 @@ struct MainScreenDelegate {
   let didPressConfigureButton: () -> Void
   let didPressNote: (Note) -> Void
   let didReleaseNote: (Note) -> Void
+  let didDismissTip: () -> Void
 }
 
 @MainActor
@@ -44,7 +45,8 @@ final class MainScreen {
     keyboard.isScrollEnabled = false
     keyboard.delegate = KeyboardViewDelegate(
       didPressNote: { [weak self] in self?.didPressNote($0) },
-      didReleaseNote: { [weak self] in self?.didReleaseNote($0) }
+      didReleaseNote: { [weak self] in self?.didReleaseNote($0) },
+      didDismissTip: { [weak self] in self?.didDismissTip() }
     )
 
     return keyboard
@@ -61,7 +63,8 @@ final class MainScreen {
       didPressConfigureButton: { [weak self] in self?.didPressConfigureButton() },
       didPressStartStopButton: { [weak self] in self?.didPressStartStopButton() },
       didPressRepeatButton: { [weak self] in self?.didPressRepeatButton() },
-      didPressProgressButton:  { [weak self] in self?.didPressProgressButton() }
+      didPressProgressButton:  { [weak self] in self?.didPressProgressButton() },
+      didDismissTip: { [weak self] in self?.didDismissTip() }
     )
 
     return bar
@@ -122,6 +125,10 @@ final class MainScreen {
       if let highlightedNote = state?.highlightedNote {
         keyboardView.setTint(highlightedNote.1, for: [highlightedNote.0])
       }
+
+      if let tip = state?.tip, tip.target == .keyboard, tip != oldValue?.tip {
+        keyboardView.handle(tip)
+      }
     }
   }
 }
@@ -171,5 +178,9 @@ extension MainScreen {
 
   func didPressConfigureButton() {
     delegate?.didPressConfigureButton()
+  }
+
+  func didDismissTip() {
+    delegate?.didDismissTip()
   }
 }

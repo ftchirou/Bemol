@@ -1054,6 +1054,72 @@
           }
         }
       }
+    },
+    "tip.accuracyRing.content" : {
+
+    },
+    "tip.accuracyRing.title" : {
+
+    },
+    "tip.configureLevel.content" : {
+
+    },
+    "tip.configureLevel.title" : {
+
+    },
+    "tip.currentLevel.content" : {
+
+    },
+    "tip.currentLevel.title" : {
+
+    },
+    "tip.firstLevel.content" : {
+
+    },
+    "tip.firstLevel.title" : {
+
+    },
+    "tip.getStarted.button" : {
+
+    },
+    "tip.getStarted.content" : {
+
+    },
+    "tip.getStarted.title" : {
+
+    },
+    "tip.howItWorks.content" : {
+
+    },
+    "tip.howItWorks.title" : {
+
+    },
+    "tip.keyboard.content" : {
+
+    },
+    "tip.keyboard.title" : {
+
+    },
+    "tip.next" : {
+
+    },
+    "tip.nextLevel.content" : {
+
+    },
+    "tip.nextLevel.title" : {
+
+    },
+    "tip.previousLevel.content" : {
+
+    },
+    "tip.previousLevel.title" : {
+
+    },
+    "tip.randomLevel.content" : {
+
+    },
+    "tip.randomLevel.title" : {
+
     }
   },
   "version" : "1.0"

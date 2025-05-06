@@ -37,6 +37,8 @@ struct AppState {
   var isInteractionEnabled: Bool = false
   var currentlyPlayingResolution: [Note] = []
   var error: Error? = nil
+  var currentTip: Tip? = nil
+  var tips: ArraySlice<Tip> = makeTips()
 }
 
 extension AppState {
@@ -65,7 +67,8 @@ extension AppState {
       accuracyRingAccessibilityText: accuracyRingAccessibilityText,
       isKeyboardEnabled: isInteractionEnabled,
       activeNotes: level?.notes ?? [],
-      highlightedNote: highlightedNote
+      highlightedNote: highlightedNote,
+      tip: currentTip
     )
   }
 
@@ -119,4 +122,69 @@ extension AppState {
 
     return String(format: String(localized: "levelAccuracyRingText"), accuracy)
   }
+}
+
+private func makeTips() -> ArraySlice<Tip> {
+  [
+    Tip(
+      target: .startStopButton,
+      title: String(localized: "tip.howItWorks.title"),
+      message: String(localized: "tip.howItWorks.content"),
+      actionTitle: String(localized: "tip.next")
+    ),
+    Tip(
+      target: .keyboard,
+      title: String(localized: "tip.keyboard.title"),
+      message: String(localized: "tip.keyboard.content"),
+      actionTitle: String(localized: "tip.next")
+    ),
+    Tip(
+      target: .titleView,
+      title: String(localized: "tip.currentLevel.title"),
+      message: String(localized: "tip.currentLevel.content"),
+      actionTitle: String(localized: "tip.next")
+    ),
+    Tip(
+      target: .nextButton,
+      title: String(localized: "tip.nextLevel.title"),
+      message: String(localized: "tip.nextLevel.content"),
+      actionTitle: String(localized: "tip.next")
+    ),
+    Tip(
+      target: .previousButton,
+      title: String(localized: "tip.previousLevel.title"),
+      message: String(localized: "tip.previousLevel.content"),
+      actionTitle: String(localized: "tip.next")
+    ),
+    Tip(
+      target: .randomButton,
+      title: String(localized: "tip.randomLevel.title"),
+      message: String(localized: "tip.randomLevel.content"),
+      actionTitle: String(localized: "tip.next")
+    ),
+    Tip(
+      target: .homeButton,
+      title: String(localized: "tip.firstLevel.title"),
+      message: String(localized: "tip.firstLevel.content"),
+      actionTitle: String(localized: "tip.next")
+    ),
+    Tip(
+      target: .configureLevelButton,
+      title: String(localized: "tip.configureLevel.title"),
+      message: String(localized: "tip.configureLevel.content"),
+      actionTitle: String(localized: "tip.next")
+    ),
+    Tip(
+      target: .accuracyRing,
+      title: String(localized: "tip.accuracyRing.title"),
+      message: String(localized: "tip.accuracyRing.content"),
+      actionTitle: String(localized: "tip.next")
+    ),
+    Tip(
+      target: .startStopButton,
+      title: String(localized: "tip.getStarted.title"),
+      message: String(localized: "tip.getStarted.content"),
+      actionTitle: String(localized: "tip.getStarted.button")
+    ),
+  ]
 }

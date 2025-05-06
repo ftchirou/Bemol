@@ -22,10 +22,16 @@ import UIKit
 struct KeyboardViewDelegate {
   let didPressNote: (Note) -> Void
   let didReleaseNote: (Note) -> Void
+  let didDismissTip: () -> Void
 
-  init(didPressNote: @escaping (Note) -> Void, didReleaseNote: @escaping (Note) -> Void) {
+  init(
+    didPressNote: @escaping (Note) -> Void,
+    didReleaseNote: @escaping (Note) -> Void,
+    didDismissTip: @escaping () -> Void = {}
+  ) {
     self.didPressNote = didPressNote
     self.didReleaseNote = didReleaseNote
+    self.didDismissTip = didDismissTip
   }
 }
 
@@ -189,7 +195,8 @@ final class KeyboardView: UIView {
       view.translatesAutoresizingMaskIntoConstraints = false
       view.delegate = OctaveViewDelegate(
         didPressNote: { [weak self] note, octave in self?.didPressNote(note, octave: octave) },
-        didReleaseNote: { [weak self] note, octave in self?.didReleaseNote(note, octave: octave) }
+        didReleaseNote: { [weak self] note, octave in self?.didReleaseNote(note, octave: octave) },
+        didDismissTip: { [weak self] in self?.didDismissTip() }
       )
       contentView.addSubview(view)
 
@@ -225,5 +232,20 @@ extension KeyboardView {
 
   func didReleaseNote(_ note: NoteName, octave: Octave) {
     delegate?.didReleaseNote(Note(name: note, octave: octave))
+  }
+
+  func didDismissTip() {
+    delegate?.didDismissTip()
+  }
+}
+
+// MARK: - TipHandler
+
+extension KeyboardView: TipHandler {
+  func handle(_ tip: Tip) {
+    octaveViews.first?.handle(tip)
+  }
+
+  func dismissTip() {
   }
 }

@@ -23,6 +23,10 @@ enum AppAction {
 
   case didLoad
 
+  // MARK: - Tip Actions
+
+  case didDismissTip
+
   // MARK: - NavBar Actions
 
   case didPressHomeButton
@@ -64,6 +68,10 @@ extension AppAction: CustomStringConvertible {
     switch self {
     case .didLoad:
       "✅  didLoad"
+
+    case .didDismissTip:
+      "💡 didDismissTip"
+
     case .didPressHomeButton:
       "👆 didPressHome"
     case .didPressRandomButton:

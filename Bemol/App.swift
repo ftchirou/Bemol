@@ -35,7 +35,8 @@ final class App {
       didPressProgressButton: { [weak self] in self?.didPressProgressButton() },
       didPressConfigureButton: { [weak self] in self?.didPressConfigureButton() },
       didPressNote: { [weak self] in self?.didPressNote($0) },
-      didReleaseNote: { [weak self] in self?.didReleaseNote($0) }
+      didReleaseNote: { [weak self] in self?.didReleaseNote($0) },
+      didDismissTip: { [weak self] in self?.didDismissTip() }
     )
 
     return main
@@ -191,6 +192,10 @@ extension App {
   
   func didReleaseNote(_ note: Note) {
     loop.dispatch(.didReleaseNote(note))
+  }
+
+  func didDismissTip() {
+    loop.dispatch(.didDismissTip)
   }
 }
 
