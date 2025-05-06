@@ -717,4 +717,11 @@ private final class MockPreferences: Preferences {
   func setValue(_ value: Int, for key: String) {
     self.value = value
   }
+
+  func value(for key: String) -> Bool {
+    false
+  }
+
+  func setValue(_ value: Bool, for key: String) {
+  }
 }

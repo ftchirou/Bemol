@@ -32,6 +32,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let state = AppState()
@@ -64,6 +65,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let state = AppState(isLoading: true)
@@ -81,7 +83,7 @@ struct AppLoopTests {
     #expect(nextState.question == nil)
     #expect(nextState.answer == nil)
     #expect(nextState.highlightedNote == nil)
-    #expect(nextState.isInteractionEnabled == true)
+    #expect(nextState.isInteractionEnabled == false)
     #expect(nextState.accuracy == 0)
     #expect(nextState.accuracyPerNote.isEmpty == true)
 
@@ -96,6 +98,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let state = AppState(isLoading: true)
@@ -121,6 +124,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let state = AppState()
@@ -155,6 +159,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let state = AppState()
@@ -189,6 +194,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let state = AppState()
@@ -223,6 +229,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let state = AppState()
@@ -245,6 +252,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let state = AppState(isPracticing: false)
@@ -281,6 +289,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let state = AppState(isPracticing: true)
@@ -317,6 +326,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let state = AppState(isLoading: true)
@@ -361,6 +371,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let state = AppState(isLoading: true)
@@ -420,6 +431,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let state = AppState()
@@ -479,6 +491,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let state = AppState()
@@ -527,6 +540,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let state = AppState()
@@ -552,6 +566,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let state = AppState(isPracticing: true, level: makeLevel(id: 1), question: makeQuestion())
@@ -588,6 +603,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let state = AppState()
@@ -611,6 +627,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let state = AppState(isPracticing: false)
@@ -646,6 +663,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let note = Note(name: .d, octave: 1)
@@ -687,6 +705,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let note = Note(name: .d, octave: 1)
@@ -732,6 +751,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let state = AppState(isPracticing: true)
@@ -753,6 +773,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let state = AppState(isLevelEditorVisible: true)
@@ -775,6 +796,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let state = AppState(isAccuracyScreenVisible: true)
@@ -797,6 +819,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let level = makeLevel(id: 42)
@@ -838,6 +861,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let notes = [
@@ -879,6 +903,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let question = makeQuestion(answer: Note(name: .c, octave: 1))
@@ -920,6 +945,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let state = AppState(isInteractionEnabled: false)
@@ -945,6 +971,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let resolution: Resolution = [
@@ -998,6 +1025,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let resolution: Resolution = []
@@ -1042,6 +1070,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let state = AppState(isLoading: true)
@@ -1067,6 +1096,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let state = AppState(isLoading: true)
@@ -1092,6 +1122,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let state = AppState(isLoading: true)
@@ -1117,6 +1148,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let state = AppState(isLoading: true)
@@ -1142,6 +1174,7 @@ struct AppLoopTests {
     let environment = AppEnvironment(
       notePlayer: notePlayer,
       practiceManager: practiceManager,
+      preferences: MockPreferences(),
       logger: logger
     )
     let state = AppState()
@@ -1272,6 +1305,22 @@ private actor MockPracticeManager: PracticeManager {
 
   func getTemporaryLevel() async -> Level? {
     temporaryLevel
+  }
+}
+
+private final class MockPreferences: Preferences {
+  func value(for key: String) -> Int? {
+    nil
+  }
+  
+  func setValue(_ value: Int, for key: String) {
+  }
+  
+  func value(for key: String) -> Bool {
+    false
+  }
+  
+  func setValue(_ value: Bool, for key: String) {
   }
 }
 
