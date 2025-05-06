@@ -33,7 +33,7 @@ final class TipView: UIView {
     label.translatesAutoresizingMaskIntoConstraints = false
     label.font = .boldFootnote
     label.text = title
-    label.textColor = .white
+    label.textColor = .tooltipText
     label.textAlignment = .left
     label.numberOfLines = 1
     label.adjustsFontSizeToFitWidth = true
@@ -49,7 +49,7 @@ final class TipView: UIView {
     label.translatesAutoresizingMaskIntoConstraints = false
     label.font = .footnote
     label.text = message
-    label.textColor = .white
+    label.textColor = .tooltipText
     label.textAlignment = .left
     label.numberOfLines = 0
     label.adjustsFontSizeToFitWidth = true
@@ -92,7 +92,11 @@ final class TipView: UIView {
     view.backgroundColor = .tooltip
     view.layer.cornerRadius = .cornerRadiusMd
     view.isUserInteractionEnabled = false
-
+    view.layer.shadowColor = UIColor.black.cgColor
+    view.layer.shadowRadius = 10
+    view.layer.shadowOffset = CGSize(width: 0, height: 3)
+    view.layer.shadowOpacity = 0.15
+    view.layer.masksToBounds = false
     return view
   }()
 
@@ -148,8 +152,8 @@ final class TipView: UIView {
   }
 
   private func setUpViewHierarchy() {
-    addSubview(caret)
     addSubview(bubble)
+    addSubview(caret)
     addSubview(titleLabel)
     addSubview(messageLabel)
     addSubview(button)
@@ -157,9 +161,9 @@ final class TipView: UIView {
     NSLayoutConstraint.activate([
       bubble.leadingAnchor.constraint(equalTo: messageLabel.leadingAnchor, constant: -.labelHorizontalMargin),
       bubble.trailingAnchor.constraint(equalTo: messageLabel.trailingAnchor, constant: .labelHorizontalMargin),
-      titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-      messageLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-      button.widthAnchor.constraint(equalTo: widthAnchor),
+      titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .spacingSm),
+      messageLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+      button.trailingAnchor.constraint(equalTo: bubble.trailingAnchor, constant: -.spacingSm),
       labelMaxWidthConstraint
     ])
 

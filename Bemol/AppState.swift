@@ -133,6 +133,18 @@ private func makeTips() -> ArraySlice<Tip> {
       actionTitle: String(localized: "tip.next")
     ),
     Tip(
+      target: .startStopButton,
+      title: String(localized: "tip.howItWorks.title"),
+      message: String(localized: "tip.howItWorks.content.1"),
+      actionTitle: String(localized: "tip.next")
+    ),
+    Tip(
+      target: .startStopButton,
+      title: String(localized: "tip.howItWorks.title"),
+      message: String(localized: "tip.howItWorks.content.2"),
+      actionTitle: String(localized: "tip.next")
+    ),
+    Tip(
       target: .keyboard,
       title: String(localized: "tip.keyboard.title"),
       message: String(localized: "tip.keyboard.content"),
