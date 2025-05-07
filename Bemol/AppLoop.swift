@@ -268,6 +268,10 @@ final class AppLoop {
             return level
           }
 
+          if let baseLevel = currentState.baseLevel, notes == baseLevel.notes {
+            return baseLevel
+          }
+
           return try await self.environment
             .practiceManager
             .useTemporaryLevel(level: level.withNotes(notes))
@@ -288,6 +292,10 @@ final class AppLoop {
       nextState.answer = nil
       nextState.highlightedNote = nil
       nextState.isInteractionEnabled = true
+
+      if !level.isCustom {
+        nextState.baseLevel = level
+      }
 
       if !environment.preferences.value(for: .userHasSeenOnboardingPrefKey) {
         nextState.loadNextTip()

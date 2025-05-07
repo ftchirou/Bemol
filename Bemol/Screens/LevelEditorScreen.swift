@@ -26,6 +26,7 @@ struct LevelEditorScreenDelegate {
 
 struct LevelEditorScreenState {
   var key: NoteName = .c
+  var allNotes: [Note]
   var selectedNotes: [Note]
 }
 
@@ -72,12 +73,11 @@ final class LevelEditorScreen {
       if oldValue == nil || key != oldKey || notes != oldNotes {
         keyboardView.scrollTo(note: Note(name: state?.key ?? .c, octave: 1))
         keyboardView.setLabelForAllNotes(nil)
+        keyboardView.setEnabledForAllKeys(false)
 
-        for octave in range {
-          keyboardView.setLabels(
-            NoteName.all.map(\.letter),
-            for: NoteName.all.map { Note(name: $0, octave: octave ) }
-          )
+        for note in state?.allNotes ?? [] {
+          keyboardView.setLabel(note.name.letter, for: note)
+          keyboardView.setEnabled(true, for: [note])
         }
 
         setNotes(notes)

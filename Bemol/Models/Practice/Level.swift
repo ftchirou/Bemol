@@ -137,6 +137,7 @@ extension Level {
       cadence: cadence,
       spansMultipleOctaves: spansMultipleOctaves,
       range: range,
+      isCustom: isCustom,
       sessions: sessions
     )
   }

@@ -23,6 +23,7 @@ struct AppState {
   var isLoading: Bool = false
   var isPracticing: Bool = false
   var level: Level? = nil
+  var baseLevel: Level? = nil
   var session: Session? = nil
   var question: Question? = nil
   var answer: Note? = nil
@@ -75,6 +76,7 @@ extension AppState {
   var levelEditorScreenState: LevelEditorScreenState {
     LevelEditorScreenState(
       key: level?.key ?? .c,
+      allNotes: baseLevel?.notes ?? [],
       selectedNotes: level?.notes ?? []
     )
   }
