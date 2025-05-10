@@ -224,6 +224,50 @@ struct CyclicPracticeManagerTests {
   }
 
   @Test
+  func multiplestopCurrentSessionInARowReturnLevelWithUpdatedSessions() async throws {
+    let manager = CyclicPracticeManager(
+      storage: MockSessionStorage(),
+      levelGenerator: MockLevelGenerator(),
+      noteResolutionGenerator: MockNoteResolutionGenerator(),
+      preferences: MockPreferences()
+    )
+    let note = Note(name: .aFlat, octave: 2)
+
+    try await manager.prepareToPractice()
+    let _ = try await manager.moveToNextLevel()
+
+    // Session #1
+
+    let _ = try await manager.startSession()
+    let question = Question(answer: note, resolution: [])
+
+    let _ = try await manager.logCorrectAnswer(note, for: question)
+
+    let level = try await manager.stopCurrentSession()
+
+    #expect(level.sessions.count == 1)
+
+    let session = try #require(level.sessions.first)
+
+    #expect(session.score.count == 1)
+    #expect(session.score[note] ?? (0, 0) == (1, 0))
+
+    // Session #2
+
+    let _ = try await manager.startSession()
+    let question2 = Question(answer: note, resolution: [])
+
+    let _ = try await manager.logWrongAnswer(note, for: question2)
+
+    let level2 = try await manager.stopCurrentSession()
+
+    let session2 = try #require(level2.sessions.last)
+
+    #expect(session2.score.count == 1)
+    #expect(session2.score[note] ?? (0, 0) == (0, 1))
+  }
+
+  @Test
   func stopCurrentSessionPersistsSessionToStorage() async throws {
     let storage = MockSessionStorage()
     let manager = CyclicPracticeManager(

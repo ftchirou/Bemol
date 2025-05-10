@@ -70,6 +70,7 @@ struct AppLoopTests {
     #expect(nextState.answer == nil)
     #expect(nextState.highlightedNote == nil)
     #expect(nextState.isInteractionEnabled == true)
+    #expect(nextState.currentTip == nil)
     #expect(nextState.accuracy == 0)
     #expect(nextState.accuracyPerNote.isEmpty == true)
 
@@ -146,6 +147,34 @@ struct AppLoopTests {
 
     guard case .didLoadLevel = action else {
       Issue.record("expected next action to be `didLoadLevel` after `didPressRandomLevelButton`")
+      return
+    }
+  }
+
+  @Test
+  func didPressPreviousLevelButton() async throws {
+    let practiceManager = MockPracticeManager()
+    let environment = makeAppEnvironment(practiceManager: practiceManager)
+    let state = AppState()
+    let loop = AppLoop(environment: environment, initialState: state)
+
+    let (nextState, effect) = loop.nextState(currentState: state, action: .didPressPreviousLevelButton)
+
+    #expect(nextState.isLoading == true)
+
+    let task = Task {
+      try await effect?.run()
+    }
+
+    let action = try await task.value
+
+    await #expect(practiceManager.isMoveToPreviousLevelCalled == true)
+    await #expect(practiceManager.isMoveToNextLevelCalled == false)
+    await #expect(practiceManager.isMoveToFirstLevelCalled == false)
+    await #expect(practiceManager.isMoveToRandomLevelCalled == false)
+
+    guard case .didLoadLevel = action else {
+      Issue.record("expected next action to be `didLoadLevel` after `didPressPreviousLevelButton`")
       return
     }
   }
@@ -948,6 +977,129 @@ struct AppLoopTests {
     #expect(effect == nil)
   }
 
+  @Test
+  func didLoadLevelWhenUserHasNotYetSeenTips() async throws {
+    let preferences = MockPreferences()
+    preferences.setValue(false, for: .userHasSeenOnboardingPrefKey)
+
+    let tips = [
+      Tip(target: .startStopButton, title: "title-1", message: "message-1", actionTitle: "next"),
+      Tip(target: .keyboard, title: "title-2", message: "message-2", actionTitle: "done"),
+    ]
+    let tipProvider = MockTipProvider(tips: tips)
+
+    let environment = makeAppEnvironment(tipProvider: tipProvider, preferences: preferences)
+    let state = AppState(isLoading: true)
+    let loop = AppLoop(environment: environment, initialState: state)
+
+    let (nextState, effect) = loop.nextState(
+      currentState: state,
+      action: .didLoadLevel(.success(makeLevel(id: 42)))
+    )
+
+    #expect(nextState.isLoading == false)
+    #expect(nextState.level?.id == 42)
+    #expect(nextState.hasError == false)
+    #expect(nextState.error == nil)
+    #expect(nextState.question == nil)
+    #expect(nextState.answer == nil)
+    #expect(nextState.highlightedNote == nil)
+    #expect(nextState.isInteractionEnabled == false)
+    #expect(nextState.currentTip == tips[0])
+    #expect(nextState.accuracy == 0)
+    #expect(nextState.accuracyPerNote.isEmpty == true)
+
+    #expect(effect == nil)
+  }
+
+  @Test
+  func didLoadLevelWhenUserHasAlreadySeenTips() async throws {
+    let preferences = MockPreferences()
+    preferences.setValue(true, for: .userHasSeenOnboardingPrefKey)
+
+    let tips = [
+      Tip(target: .startStopButton, title: "title-1", message: "message-1", actionTitle: "next"),
+      Tip(target: .keyboard, title: "title-2", message: "message-2", actionTitle: "done"),
+    ]
+    let tipProvider = MockTipProvider(tips: tips)
+
+    let environment = makeAppEnvironment(tipProvider: tipProvider, preferences: preferences)
+    let state = AppState(isLoading: true)
+    let loop = AppLoop(environment: environment, initialState: state)
+
+    let (nextState, effect) = loop.nextState(
+      currentState: state,
+      action: .didLoadLevel(.success(makeLevel(id: 42)))
+    )
+
+    #expect(nextState.isLoading == false)
+    #expect(nextState.level?.id == 42)
+    #expect(nextState.hasError == false)
+    #expect(nextState.error == nil)
+    #expect(nextState.question == nil)
+    #expect(nextState.answer == nil)
+    #expect(nextState.highlightedNote == nil)
+    #expect(nextState.isInteractionEnabled == true)
+    #expect(nextState.currentTip == nil)
+    #expect(nextState.accuracy == 0)
+    #expect(nextState.accuracyPerNote.isEmpty == true)
+
+    #expect(effect == nil)
+  }
+
+  @Test
+  func didDismissTip() async throws {
+    let preferences = MockPreferences()
+    preferences.setValue(false, for: .userHasSeenOnboardingPrefKey)
+
+    let tips = [
+      Tip(target: .startStopButton, title: "title-1", message: "message-1", actionTitle: "next"),
+      Tip(target: .keyboard, title: "title-2", message: "message-2", actionTitle: "done"),
+    ]
+    let tipProvider = MockTipProvider(tips: tips)
+
+    let environment = makeAppEnvironment(tipProvider: tipProvider, preferences: preferences)
+    let state = AppState(currentTip: tipProvider.nextTip())
+    let loop = AppLoop(environment: environment, initialState: state)
+
+    let (nextState, effect) = loop.nextState(
+      currentState: state,
+      action: .didDismissTip
+    )
+
+    #expect(nextState.isInteractionEnabled == false)
+    #expect(nextState.currentTip == tips[1])
+    #expect(preferences.value(for: .userHasSeenOnboardingPrefKey) == false)
+    #expect(effect == nil)
+  }
+
+  @Test
+  func didDismissLastTip() async throws {
+    let preferences = MockPreferences()
+    preferences.setValue(false, for: .userHasSeenOnboardingPrefKey)
+
+    let tips = [
+      Tip(target: .startStopButton, title: "title-1", message: "message-1", actionTitle: "next"),
+      Tip(target: .keyboard, title: "title-2", message: "message-2", actionTitle: "done"),
+    ]
+    let tipProvider = MockTipProvider(tips: tips)
+    let _ = tipProvider.nextTip()
+
+    let environment = makeAppEnvironment(tipProvider: tipProvider, preferences: preferences)
+    let state = AppState(currentTip: tipProvider.nextTip())
+    let loop = AppLoop(environment: environment, initialState: state)
+
+    let (nextState, effect) = loop.nextState(
+      currentState: state,
+      action: .didDismissTip
+    )
+
+    #expect(nextState.isInteractionEnabled == true)
+    #expect(nextState.currentTip == nil)
+    #expect(preferences.value(for: .userHasSeenOnboardingPrefKey) == true)
+    #expect(effect == nil)
+  }
+
   // MARK: - Private Helpers
 
   private func makeAppEnvironment(
@@ -1094,6 +1246,7 @@ private final class MockTipProvider: TipProvider {
 
   func nextTip() -> Tip? {
     if index + 1 < tips.count {
+      index += 1
       return tips[index]
     }
 
@@ -1104,18 +1257,22 @@ private final class MockTipProvider: TipProvider {
 // MARK: - MockPreferences
 
 private final class MockPreferences: Preferences {
+  var values: [String: Any] = [:]
+
   func value(for key: String) -> Int? {
-    nil
+    values[key] as? Int
   }
   
   func setValue(_ value: Int, for key: String) {
+    values[key] = value
   }
   
   func value(for key: String) -> Bool {
-    false
+    (values[key] as? Bool) ?? false
   }
   
   func setValue(_ value: Bool, for key: String) {
+    values[key] = value
   }
 }
 
