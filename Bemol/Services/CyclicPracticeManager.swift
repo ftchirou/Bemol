@@ -88,7 +88,9 @@ actor CyclicPracticeManager: PracticeManager {
     guard !session.score.isEmpty else { return level }
 
     try await storage.saveSession(session, level: level)
-    return level.withSessions(level.sessions + [session])
+
+    currentLevel = level.withSessions(level.sessions + [session])
+    return currentLevel!
   }
 
   func useTemporaryLevel(level: Level) async throws -> Level {
@@ -142,8 +144,8 @@ actor CyclicPracticeManager: PracticeManager {
 
     var score = session.score
 
-    if let noteScore = score[note] {
-      score[note] = (noteScore.0 + 1, noteScore.1)
+    if let noteScore = score[question.answer] {
+      score[question.answer] = (noteScore.0 + 1, noteScore.1)
       session = Session(timestamp: session.timestamp, score: score)
 
       self.currentSession = session
@@ -151,7 +153,7 @@ actor CyclicPracticeManager: PracticeManager {
       return session
     }
 
-    score[note] = (1, 0)
+    score[question.answer] = (1, 0)
     session = Session(timestamp: session.timestamp, score: score)
 
     self.currentSession = session
@@ -172,8 +174,8 @@ actor CyclicPracticeManager: PracticeManager {
 
     var score = session.score
 
-    if let noteScore = score[note] {
-      score[note] = (noteScore.0, noteScore.1 + 1)
+    if let noteScore = score[question.answer] {
+      score[question.answer] = (noteScore.0, noteScore.1 + 1)
       session = Session(timestamp: session.timestamp, score: score)
 
       self.currentSession = session
@@ -181,7 +183,7 @@ actor CyclicPracticeManager: PracticeManager {
       return session
     }
 
-    score[note] = (0, 1)
+    score[question.answer] = (0, 1)
     session = Session(timestamp: session.timestamp, score: score)
 
     self.currentSession = session
