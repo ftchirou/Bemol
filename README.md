@@ -54,10 +54,11 @@ Once released to the App Store, **Bemol** will be **free forever** (just like th
 ## How to build and run
 
 1. Install [Xcode](https://developer.apple.com/xcode/). **Bemol** is built with [Swift 6](https://www.swift.org) and [Xcode 16.2](https://developer.apple.com/documentation/xcode-release-notes/xcode-16_2-release-notes).
-2. Clone the repository.
-3. Double-click `Bemol.xcodeproj` to open it in Xcode.
-4. **Bemol** has no third-party dependencies and requires no special tooling. So you can simply press `Run` in Xcode to launch the app in a simulator.
-5. If running on a device, you have to provide the id of your development team in a file named `Signing.xcconfig` that you put under `Configurations/`. The contents of the file should look like this:
+2. Clone the repository and run `cd Bemol/`.
+3. Run `touch ./Configurations/Signing.xcconfig` to create an empty signing config file.
+4. Run `open Bemol.xcodeproj` to open it in Xcode.
+5. Press `Run` in Xcode to launch the app in a simulator.
+6. If running on a device, you have to provide the id of your development team in `./Configurations/Signing.xcconfig`. The contents of the file should look like this:
    
    ```
    // Signing.xcconfig

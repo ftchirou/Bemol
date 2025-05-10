@@ -129,18 +129,14 @@ actor MIDINotePlayer: NotePlayer {
   }
 
   private func loadSoundFont() throws {
-    guard
-      let url = Bundle.main.url(forResource: "sound_font", withExtension: "sf2")
-    else {
-      throw Error.couldNotLoadSoundFont
+    if let url = Bundle.main.url(forResource: "sound_font", withExtension: "sf2") {
+      try sampler.loadSoundBankInstrument(
+        at: url,
+        program: 0,
+        bankMSB: UInt8(kAUSampler_DefaultMelodicBankMSB),
+        bankLSB: UInt8(kAUSampler_DefaultBankLSB)
+      )
     }
-
-    try sampler.loadSoundBankInstrument(
-      at: url,
-      program: 0,
-      bankMSB: UInt8(kAUSampler_DefaultMelodicBankMSB),
-      bankLSB: UInt8(kAUSampler_DefaultBankLSB)
-    )
   }
 
   private func keyNumber(for note: NoteName, octave: UInt8) -> UInt32 {
