@@ -146,7 +146,7 @@ extension NoteName {
   }
 }
 
-// MARK: - Human Reable Naming
+// MARK: - Human Readable Naming
 
 extension NoteName {
   func solfege(inKey key: NoteName) -> String {

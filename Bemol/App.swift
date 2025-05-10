@@ -129,7 +129,6 @@ final class App {
       errorView.topAnchor.constraint(equalTo: view.topAnchor),
       errorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
       errorView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-
     ])
 
     return view
