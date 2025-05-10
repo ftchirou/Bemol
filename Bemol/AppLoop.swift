@@ -82,9 +82,10 @@ final class AppLoop {
     // MARK: - Onboarding Actions
 
     case .didDismissTip:
-      nextState.loadNextTip()
+      nextState.currentTip = environment.tipProvider.nextTip()
+      nextState.isInteractionEnabled = nextState.currentTip == nil
 
-      if nextState.tips.isEmpty {
+      if nextState.currentTip == nil {
         environment.preferences.setValue(true, for: .userHasSeenOnboardingPrefKey)
       }
 
@@ -298,7 +299,8 @@ final class AppLoop {
       }
 
       if !environment.preferences.value(for: .userHasSeenOnboardingPrefKey) {
-        nextState.loadNextTip()
+        nextState.currentTip = environment.tipProvider.nextTip()
+        nextState.isInteractionEnabled = nextState.currentTip == nil
       }
 
       return (nextState, nil)
@@ -488,24 +490,6 @@ final class AppLoop {
           .logWrongAnswer(note, for: question)
       }.mapTo(AppAction.didLogWrongAnswer)
     )
-  }
-}
-
-// MARK: - Tip Handling
-
-extension AppState {
-  mutating func loadNextTip() {
-    isInteractionEnabled = false
-    currentTip = tips.first
-
-    if currentTip == nil {
-      isInteractionEnabled = true
-    }
-
-    if tips.count >= 1 {
-      tips.removeFirst()
-      isInteractionEnabled = false
-    }
   }
 }
 
