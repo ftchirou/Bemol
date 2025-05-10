@@ -35,6 +35,8 @@ actor CyclicPracticeManager: PracticeManager {
   private var currentLevel: Level? = nil
   private var currentSession: Session? = nil
   private var currentQuestion: Question? = nil
+  private var currentQuestionIndex = (0...4).randomElement()!
+  private var currentNotes: [Note] = []
   private var lastAnsweredQuestion: Question? = nil
 
   init(
@@ -91,15 +93,21 @@ actor CyclicPracticeManager: PracticeManager {
 
   func useTemporaryLevel(level: Level) async throws -> Level {
     currentLevel = level
+    currentNotes = level.notes.shuffled()
     return level
   }
 
   func moveToNextQuestion() async throws -> Question {
     guard let level = currentLevel else { throw Error.unexpected }
 
-    // TODO: Implement a better note selection scheme. For example, notes that the user
-    // is weak in should have a high probabibility to be selected.
-    let note = level.notes.randomElement()!
+    if currentQuestionIndex + 1 >= currentNotes.count {
+      currentNotes = currentNotes.shuffled()
+      currentQuestionIndex = 0
+    } else {
+      currentQuestionIndex += 1
+    }
+
+    let note = currentNotes[currentQuestionIndex]
 
     let resolution = if level.isMajor {
       noteResolutionGenerator.resolution(
@@ -191,6 +199,7 @@ actor CyclicPracticeManager: PracticeManager {
     currentLevel = allLevels[cursor]
 
     preferences.setValue(cursor - 1, for: preferenceKey)
+    currentNotes = level.notes.shuffled()
 
     return allLevels[cursor]
   }
