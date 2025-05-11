@@ -265,17 +265,17 @@ final class AppLoop {
         AppEffect { [weak self] in
           guard let self, let level = currentState.level else { throw AppError.unexpected }
 
-          if notes == level.notes {
-            return level
-          }
-
-          if let baseLevel = currentState.baseLevel, notes == baseLevel.notes {
-            return baseLevel
+          let newLevel = if Set(notes) == Set(level.notes) {
+            level
+          } else if let baseLevel = currentState.baseLevel, Set(notes) == Set(baseLevel.notes) {
+            baseLevel
+          } else {
+            level.withNotes(notes)
           }
 
           return try await self.environment
             .practiceManager
-            .useTemporaryLevel(level: level.withNotes(notes))
+            .setCurrentLevel(newLevel)
         }.mapTo(AppAction.didLoadLevel)
       )
 

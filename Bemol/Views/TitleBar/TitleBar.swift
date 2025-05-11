@@ -99,6 +99,12 @@ final class TitleBar: UIView {
     }
   }
 
+  var isDoneButtonEnabled: Bool = false {
+    didSet {
+      doneButton.isEnabled = isDoneButtonEnabled
+    }
+  }
+
   // MARK: - Initialization
 
   override init(frame: CGRect) {

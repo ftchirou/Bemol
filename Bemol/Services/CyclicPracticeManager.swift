@@ -93,7 +93,7 @@ actor CyclicPracticeManager: PracticeManager {
     return currentLevel!
   }
 
-  func useTemporaryLevel(level: Level) async throws -> Level {
+  func setCurrentLevel(_ level: Level) async throws -> Level {
     currentLevel = level
     currentNotes = level.notes.shuffled()
     return level

@@ -169,6 +169,8 @@ extension LevelEditorScreen {
       selectedNotes.append(note)
     }
 
+    titleBar.isDoneButtonEnabled = !selectedNotes.isEmpty
+
     Task {
       try await notePlayer.playNote(note)
     }

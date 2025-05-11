@@ -736,11 +736,9 @@ struct AppLoopTests {
 
     let action = try await task.value
 
-    await #expect(practiceManager.isUseTemporaryLevelCalled == false)
-
     let temporaryLevel =  await practiceManager.getTemporaryLevel()
 
-    #expect(temporaryLevel == nil)
+    #expect(temporaryLevel?.isCustom == false)
 
     guard case .didLoadLevel = action else {
       Issue.record("expected next action to be `didLoadLevel` after `didSelectNotes`")
@@ -1223,7 +1221,7 @@ private actor MockPracticeManager: PracticeManager {
     return makeSession()
   }
 
-  func useTemporaryLevel(level: Level) async throws -> Level {
+  func setCurrentLevel(_ level: Level) async throws -> Level {
     isUseTemporaryLevelCalled = true
     temporaryLevel = level
     return level

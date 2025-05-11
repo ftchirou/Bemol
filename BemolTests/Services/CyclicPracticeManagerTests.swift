@@ -309,7 +309,7 @@ struct CyclicPracticeManagerTests {
     try await manager.prepareToPractice()
     let _ = try await manager.moveToNextLevel()
     let _ = try await manager.startSession()
-    let _ = try await manager.useTemporaryLevel(level: makeLevel(id: 1).withNotes([]))
+    let _ = try await manager.setCurrentLevel(makeLevel(id: 1).withNotes([]))
 
     let question = Question(answer: note, resolution: [])
 
@@ -352,8 +352,8 @@ struct CyclicPracticeManagerTests {
     try await manager.prepareToPractice()
     let _ = try await manager.moveToNextLevel()
     let _ = try await manager.startSession()
-    let level = try await manager.useTemporaryLevel(
-      level: makeLevel(id: 1).withNotes([
+    let level = try await manager.setCurrentLevel(
+      makeLevel(id: 1).withNotes([
         Note(name: .d, octave: 1),
         Note(name: .bFlat, octave: 2),
         Note(name: .g, octave: 1),
@@ -637,8 +637,8 @@ struct CyclicPracticeManagerTests {
       preferences: MockPreferences()
     )
 
-    let level = try await manager.useTemporaryLevel(
-      level: makeLevel(id: 1).withNotes([
+    let level = try await manager.setCurrentLevel(
+      makeLevel(id: 1).withNotes([
         Note(name: .c, octave: 4),
       ])
     )

@@ -29,5 +29,5 @@ protocol PracticeManager: Actor {
   func moveToNextQuestion() async throws -> Question
   func logCorrectAnswer(_ note: Note, for question: Question) async throws -> Session
   func logWrongAnswer(_ note: Note, for question: Question) async throws -> Session
-  func useTemporaryLevel(level: Level) async throws -> Level
+  func setCurrentLevel(_ level: Level) async throws -> Level
 }
