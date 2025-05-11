@@ -83,7 +83,11 @@ final class TipPresenter {
       animations: {
         tipView.alpha = 1
       },
-      completion: { _ in }
+      completion: { completed in
+        if completed {
+          UIAccessibility.post(notification: .screenChanged, argument: tipView)
+        }
+      }
     )
 
     return tipView
@@ -109,6 +113,7 @@ final class TipPresenter {
 
   static func dismiss(_ tipView: TipView, completion: @escaping () -> Void) {
     guard tipView.superview != nil else {
+      UIAccessibility.post(notification: .screenChanged, argument: nil)
       completion()
       return
     }
@@ -121,10 +126,13 @@ final class TipPresenter {
         tipView.alpha = 0
       },
       completion: { _ in
-        if tipView.superview != nil {
+        let superview = tipView.superview
+
+        if superview != nil {
           tipView.removeFromSuperview()
         }
-  
+
+        UIAccessibility.post(notification: .screenChanged, argument: superview)
         completion()
       }
     )

@@ -56,7 +56,7 @@ final class TipView: UIView {
     label.numberOfLines = 1
     label.adjustsFontSizeToFitWidth = true
     label.adjustsFontForContentSizeCategory = true
-    label.maximumContentSizeCategory = .large
+    label.maximumContentSizeCategory = .extraLarge
     label.isUserInteractionEnabled = false
 
     return label
@@ -72,7 +72,7 @@ final class TipView: UIView {
     label.numberOfLines = 0
     label.adjustsFontSizeToFitWidth = true
     label.adjustsFontForContentSizeCategory = true
-    label.maximumContentSizeCategory = .large
+    label.maximumContentSizeCategory = .extraLarge
     label.isUserInteractionEnabled = false
     label.widthAnchor.constraint(greaterThanOrEqualToConstant: .labelMinWidth).isActive = true
 
@@ -95,14 +95,6 @@ final class TipView: UIView {
 
     return button
   }()
-
-  override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-    if button.frame.contains(point) {
-      return button
-    }
-
-    return super.hitTest(point, with: event)
-  }
 
   private lazy var bubble: UIView = {
     let view = UIView()
@@ -163,10 +155,27 @@ final class TipView: UIView {
     self.action = action
     super.init(frame: .zero)
     setUpViewHierarchy()
+    setUpAppearance()
   }
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+
+  // MARK: - Hit Testing
+
+  override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+    if button.frame.contains(point) {
+      return button
+    }
+
+    return super.hitTest(point, with: event)
+  }
+
+  // MARK: - Private Helpers
+
+  private func setUpAppearance() {
+    accessibilityViewIsModal = true
   }
 
   private func setUpViewHierarchy() {
@@ -246,5 +255,5 @@ private extension CGFloat {
 }
 
 extension CGFloat {
-  static let tipViewDefaultMaxWidth: CGFloat = 232
+  static let tipViewDefaultMaxWidth: CGFloat = 256
 }
