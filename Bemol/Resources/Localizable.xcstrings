@@ -1060,19 +1060,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This shows how often you’re correctly identifying notes. Strive to move to the next level only after this shows at least 90% for the current level."
+            "value" : "Your accuracy is the percentage of notes you have correctly identified in the current level or session. You can tap on the accuracy to display your accuracy per note."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Votre niveau de précision indique le pourcentage de notes que vous avez correctement identifiées. Essayez d’aller vers le niveau suivant seulement si votre précision est au minimum 90%."
+            "value" : "Votre niveau de précision indique le pourcentage de notes que vous avez correctement identifiées. En tapant sur votre niveau de précision, vous pourrez voir votre précision par note."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Det här visar hur ofta du kände igen de toner som Bemol spelade. Försök att gå till den nästa nivån bara när det visar åtminstone 90%."
+            "value" : "Ditt resultat visar hur ofta du kände igen de toner som Bemol spelade. Tryck på ditt resultat för att visa ditt resultat per ton."
           }
         }
       }
@@ -1104,19 +1104,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tap here to customize the current level to focus on less or more notes."
+            "value" : "You can customize the current level to focus on less or more notes."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tapez ici pour configurer le niveau courant en y ajoutant et supprimant des notes."
+            "value" : "Vous pouvez configurer le niveau sélectionné en y ajoutant et supprimant des notes."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tryck här för att anpassa den valda nivån. Du kan välja bort eller lägga till toner."
+            "value" : "Du kan anpassa den valda nivån genom att välja bort eller lägga till toner."
           }
         }
       }
@@ -1192,19 +1192,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tap here to go back to the first level in the key of C major."
+            "value" : "The “Home Button” takes you back to the first level in the key of C major."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tapez ici pour retourner au premier niveau dans la clé de Do majeur."
+            "value" : "Le bouton “Accueil” vous permet de retourner au premier niveau dans la clé de Do majeur."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tryck här för att gå tillbaka till den första nivån i C dur."
+            "value" : "Genom att trycka på den “Hem” knappen kan du gå tillbaka till den första nivån i C dur."
           }
         }
       }
@@ -1258,19 +1258,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tap this button when you’re ready to start a session."
+            "value" : "Use the “Start Button” when you’re ready to start a session."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tapez ici lorsque vous êtes prêts à commencer une session."
+            "value" : "Utilisez le bouton “Commencer” lorsque vous êtes prêt à commencer votre première session."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tryck den här knappen när du är redo att börja en session."
+            "value" : "Använd den “Börja” knappen när du är redo att börja en session."
           }
         }
       }
@@ -1325,7 +1325,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Once you find the note, Bemol will play a short melody to resolve the note to its nearest tonic. Listening to it will help cement the relationship between the note and the tonic in your ear. You can even sing along."
+            "value" : "Once you find the note, Bemol will play a short melody to resolve the note to its nearest tonic. Listening to it will help cement the relationship between the note and the tonic in your ear. Don’t hesitate to sing along :)."
           }
         },
         "fr" : {
@@ -1337,7 +1337,7 @@
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "När du har hittat tonen kommer Bemol att spela en kort melodi från tonen till den närmaste tonikan. Detta för att fasta hur tonen förhåller sig till tonikan i dina öron. Tveka inte att sjunga med."
+            "value" : "När du har hittat tonen kommer Bemol att spela en kort melodi från tonen till den närmaste tonikan. Detta för att fasta hur tonen förhåller sig till tonikan i dina öron. Tveka inte att sjunga med :)."
           }
         }
       }
@@ -1392,19 +1392,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "At first, you will train with only the first 4 notes of the scale. Once you get at least 90% accuracy in a level, you can move to the next one which will introduce new notes."
+            "value" : "At first, you will train with only the first 4 notes of the scale. Once you get at least 95% accuracy in a level, you can move to the next one which will introduce new notes."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Au début, vous allez pratiquer avec seulement les 4 premières notes de la gamme. Lorsque vous avez au moins 90% de précision dans un niveau, vous pouvez passer au suivant. Ce dernier introduira de nouvelles notes."
+            "value" : "Au début, vous allez pratiquer avec seulement les 4 premières notes de la gamme. Lorsque vous avez au moins 95% de précision dans un niveau, vous pouvez passer au suivant. Ce dernier introduira de nouvelles notes."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "I början tränar du bara med de första 4 tonerna i skalan. När du når 90% i en nivå kan du gå till nästa nivå. Vilken kommer att introducera nya toner."
+            "value" : "I början tränar du bara med de första 4 tonerna i skalan. När du når 95% i en nivå kan du gå till nästa nivå. Vilken kommer att introducera nya toner."
           }
         }
       }
@@ -1436,19 +1436,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Next"
+            "value" : "Next tip"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Suivant"
+            "value" : "Astuce suivante"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nästa"
+            "value" : "Nästa tips"
           }
         }
       }
@@ -1458,19 +1458,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tap here when you’re ready to move to the next level."
+            "value" : "The “Next Level” button allows you to move to the next level."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tapez ici lorsque vous êtes prêts à passer au niveau suivant."
+            "value" : "Le bouton “Niveau Suivant” vous permet de sélectionner le niveau suivant."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tryck här när du är redo att gå till nästa nivå."
+            "value" : "Den “Nästa Nivå” knappen kan du använda för att gå till nästa nivå."
           }
         }
       }
@@ -1502,19 +1502,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tap here to move back to the previous level."
+            "value" : "The “Previous Level” button takes you back to the previous level."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tapez ici pour aller au niveau précédent."
+            "value" : "Le bouton “Niveau Précédent” vous ramène au niveau précédent."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tryck här för att gå till den föregående nivån."
+            "value" : "Den “Föregående Nivå” knappen använder du för att gå tillbaka till den föregående nivån."
           }
         }
       }
@@ -1546,19 +1546,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tap here to move to a random level. You can use this to challenge yourself after you have mastered all the levels in the keys of C major and C minor."
+            "value" : "You can also let Bemol randomly choose a level for you. You can use this to challenge yourself after you have mastered all the levels in the keys of C major and C minor."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tapez ici pour aller à un niveau au hazard. Utilisez cette fonction, si vous voulez, après avoir maîtrisé les clés de Do majeur et Do mineur."
+            "value" : "Vous pouvez aussi choisir un niveau au hazard. Utilisez cette fonction, si vous voulez, après avoir maîtrisé les clés de Do majeur et Do mineur."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tryck här för att slumpmässigt välja en nivå. Du kan använda detta för att utmana dig efter att du har behärskat nivåerna i både C dur och C moll."
+            "value" : "Du kan också välja en nivå slumpmässigt. Du kan använda detta för att utmana dig efter att du har behärskat nivåerna i både C dur och C moll."
           }
         }
       }
