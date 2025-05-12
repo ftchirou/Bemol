@@ -19,30 +19,35 @@
 
 import Foundation
 
-protocol Preferences {
-  func value(for key: String) -> Int?
-  func setValue(_ value: Int, for key: String)
-
-  func value(for key: String) -> Bool
-  func setValue(_ value: Bool, for key: String)
+enum PreferenceKey: String {
+  case userHasSeenOnboarding = "user.has.seen.onboarding"
+  case latestPracticeCursor = "practice.level.cursor"
 }
 
-// MARK: -
+protocol Preferences {
+  func value(for key: PreferenceKey) -> Int?
+  func setValue(_ value: Int, for key: PreferenceKey)
+
+  func value(for key: PreferenceKey) -> Bool
+  func setValue(_ value: Bool, for key: PreferenceKey)
+}
+
+// MARK: - UserDefaults
 
 extension UserDefaults: Preferences {
-  func value(for key: String) -> Int? {
-    self.value(forKey: key) as? Int
+  func value(for key: PreferenceKey) -> Int? {
+    self.value(forKey: key.rawValue) as? Int
   }
 
-  func setValue(_ value: Int, for key: String) {
-    self.setValue(value, forKey: key)
+  func setValue(_ value: Int, for key: PreferenceKey) {
+    self.setValue(value, forKey: key.rawValue)
   }
 
-  func value(for key: String) -> Bool {
-    self.value(forKey: key) as? Bool ?? false
+  func value(for key: PreferenceKey) -> Bool {
+    self.value(forKey: key.rawValue) as? Bool ?? false
   }
 
-  func setValue(_ value: Bool, for key: String) {
-    self.setValue(value, forKey: key)
+  func setValue(_ value: Bool, for key: PreferenceKey) {
+    self.setValue(value, forKey: key.rawValue)
   }
 }

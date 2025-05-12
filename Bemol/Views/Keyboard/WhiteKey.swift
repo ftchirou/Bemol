@@ -239,5 +239,5 @@ extension WhiteKey: TipHandler {
 }
 
 extension UIControl.Event {
-  static let tipDismissed = UIControl.Event(rawValue: 9847472)
+  static let tipDismissed: UIControl.Event = .applicationReserved
 }

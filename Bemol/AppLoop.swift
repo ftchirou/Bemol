@@ -86,7 +86,7 @@ final class AppLoop {
       nextState.isInteractionEnabled = nextState.currentTip == nil
 
       if nextState.currentTip == nil {
-        environment.preferences.setValue(true, for: .userHasSeenOnboardingPrefKey)
+        environment.preferences.setValue(true, for: .userHasSeenOnboarding)
       }
 
       return (nextState, nil)
@@ -298,7 +298,7 @@ final class AppLoop {
         nextState.baseLevel = level
       }
 
-      if !environment.preferences.value(for: .userHasSeenOnboardingPrefKey) {
+      if !environment.preferences.value(for: .userHasSeenOnboarding) {
         nextState.currentTip = environment.tipProvider.nextTip()
         nextState.isInteractionEnabled = nextState.currentTip == nil
       }
@@ -504,10 +504,4 @@ enum AppError: Error, LocalizedError {
       "💀 Something truly unexpected occurred!"
     }
   }
-}
-
-// MARK: - Preference Keys
-
-extension String {
-  static let userHasSeenOnboardingPrefKey = "user.has.seen.onboarding"
 }
