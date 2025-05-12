@@ -26,6 +26,8 @@ extension UIColor {
       .systemOrange
     } else if progress < 0.8 {
       .amber
+    } else if progress < 0.9 {
+      .darkAmber
     } else {
       .systemGreen
     }
