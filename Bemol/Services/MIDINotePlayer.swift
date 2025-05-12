@@ -48,6 +48,7 @@ actor MIDINotePlayer: NotePlayer {
 
   func prepareToPlay() async throws {
     try loadSoundFont()
+    try AVAudioSession.sharedInstance().setCategory(.playback, options: .duckOthers)
 
     track = sequencer.createAndAppendTrack()
     sequencer.tempoTrack.addEvent(AVExtendedTempoEvent(tempo: bpm), at: 0.0)
