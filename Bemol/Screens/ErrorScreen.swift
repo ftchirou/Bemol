@@ -28,7 +28,6 @@ final class ErrorScreen {
     bar.translatesAutoresizingMaskIntoConstraints = false
     bar.isCancelButtonHidden = true
     bar.isDoneButtonHidden = true
-    bar.title = "Something went wrong. Please try again later. Or maybe play a little with the piano"
 
     return bar
   }()
@@ -38,7 +37,7 @@ final class ErrorScreen {
     keyboardView.translatesAutoresizingMaskIntoConstraints = false
     keyboardView.setEnabledForAllKeys(true)
     keyboardView.setTintForAllNotes(nil)
-    keyboardView.isScrollEnabled = true
+    keyboardView.isScrollEnabled = false
     keyboardView.delegate = KeyboardViewDelegate(
       didPressNote: { [weak self] in self?.didPressNote($0) },
       didReleaseNote: { [weak self] in self?.didReleaseNote($0) }
