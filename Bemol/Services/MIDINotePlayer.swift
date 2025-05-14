@@ -32,7 +32,8 @@ actor MIDINotePlayer: NotePlayer {
   private let audioEngine: AVAudioEngine
   private let sampler: AVAudioUnitSampler
   private let sequencer: AVAudioSequencer
-  private var track: AVMusicTrack?
+  private var chordTrack: AVMusicTrack?
+  private var noteTrack: AVMusicTrack?
 
   private let clock = ContinuousClock()
   private var startTime: ContinuousClock.Instant = .now
@@ -50,7 +51,8 @@ actor MIDINotePlayer: NotePlayer {
     try loadSoundFont()
     try AVAudioSession.sharedInstance().setCategory(.playback, options: .duckOthers)
 
-    track = sequencer.createAndAppendTrack()
+    chordTrack = sequencer.createAndAppendTrack()
+    noteTrack = sequencer.createAndAppendTrack()
     sequencer.tempoTrack.addEvent(AVExtendedTempoEvent(tempo: bpm), at: 0.0)
 
     try audioEngine.start()
@@ -60,7 +62,7 @@ actor MIDINotePlayer: NotePlayer {
   func playNote(_ note: Note) async throws {
     let note = makeMIDINoteEvent(note)
     let beat = sequencer.currentPositionInBeats + beatPrecision
-    track?.addEvent(note, at: beat)
+    noteTrack?.addEvent(note, at: beat)
 
     try await Task.sleep(for: .seconds(sequencer.seconds(forBeats: 0.75)), clock: clock)
   }
@@ -68,14 +70,19 @@ actor MIDINotePlayer: NotePlayer {
   func playCadence(_ cadence: Cadence) async throws {
     try await Task.sleep(for: .seconds(0.25), clock: clock)
 
-    let beat = sequencer.currentPositionInBeats + beatPrecision
     let progression = makeChordProgression(cadence)
+    let beat = sequencer.currentPositionInBeats + beatPrecision
+
+    chordTrack?.isMuted = true
 
     for (i, chord) in progression.enumerated() {
       for j in 0..<chord.count {
-        track?.addEvent(chord[j], at: AVMusicTimeStamp(i) + beat)
+        chordTrack?.addEvent(chord[j], at: AVMusicTimeStamp(i) + beat)
       }
     }
+
+    chordTrack?.isMuted = false
+    sequencer.currentPositionInBeats = beat
 
     try await Task.sleep(for: .seconds(sequencer.seconds(forBeats: 4) + 0.25), clock: clock)
   }
