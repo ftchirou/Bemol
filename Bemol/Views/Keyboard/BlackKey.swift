@@ -92,7 +92,10 @@ final class BlackKey: UIControl {
   // MARK: - Constraints
 
   private lazy var bottomAnchorConstraint = key.bottomAnchor
-    .constraint(equalTo: bevel.bottomAnchor, constant: -.spacingMd)
+    .constraint(
+      equalTo: bevel.bottomAnchor,
+      constant: -.spacingMd * bottomAnchorConstraintConstantMultiplier()
+    )
 
   private lazy var keyOverlayHeightConstraint = keyOverlay.heightAnchor
     .constraint(equalToConstant: 0)
@@ -170,12 +173,12 @@ final class BlackKey: UIControl {
   // MARK: - Tracking
 
   override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
-    bottomAnchorConstraint.constant = -.spacingSm
+    bottomAnchorConstraint.constant = -.spacingSm * bottomAnchorConstraintConstantMultiplier()
     return true
   }
 
   override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
-    bottomAnchorConstraint.constant = -.spacingMd
+    bottomAnchorConstraint.constant = -.spacingMd * bottomAnchorConstraintConstantMultiplier()
   }
 
   // MARK: - Private
@@ -188,7 +191,7 @@ final class BlackKey: UIControl {
 
   private func updateAppearance() {
     if !isEnabled {
-      installOverlay()
+      installInteractionBlocker()
       key.backgroundColor = .clear
       bevel.backgroundColor = .disabledBackKey
       accessibilityTraits = [.button, .notEnabled]
@@ -206,7 +209,7 @@ final class BlackKey: UIControl {
     }
   }
 
-  private func installOverlay() {
+  private func installInteractionBlocker() {
     superview?.addSubview(interactionBlocker)
 
     NSLayoutConstraint.activate([
@@ -238,9 +241,15 @@ final class BlackKey: UIControl {
       bevel.trailingAnchor.constraint(equalTo: trailingAnchor),
       bevel.bottomAnchor.constraint(equalTo: bottomAnchor),
 
-      key.leadingAnchor.constraint(equalTo: bevel.leadingAnchor, constant: .spacingXs),
+      key.leadingAnchor.constraint(
+        equalTo: bevel.leadingAnchor,
+        constant: keyLeadingTrailingConstraintsConstant()
+      ),
       key.topAnchor.constraint(equalTo: bevel.topAnchor),
-      key.trailingAnchor.constraint(equalTo: bevel.trailingAnchor, constant: -.spacingXs),
+      key.trailingAnchor.constraint(
+        equalTo: bevel.trailingAnchor,
+        constant: -keyLeadingTrailingConstraintsConstant()
+      ),
       bottomAnchorConstraint,
 
       label.bottomAnchor.constraint(equalTo: key.bottomAnchor, constant: -.spacingLg),
@@ -256,5 +265,30 @@ final class BlackKey: UIControl {
       bevelOverlay.trailingAnchor.constraint(equalTo: bevel.trailingAnchor),
       bevelOverlay.topAnchor.constraint(equalTo: keyOverlay.topAnchor),
     ])
+  }
+
+  private func keyLeadingTrailingConstraintsConstant() -> CGFloat {
+    switch (
+      traitCollection.verticalSizeClass,
+      traitCollection.horizontalSizeClass
+    ) {
+    case (.regular, .regular):
+        .spacingXs + .spacingXxs + .spacingXxxs
+    default:
+        .spacingXs
+    }
+
+  }
+
+  private func bottomAnchorConstraintConstantMultiplier() -> CGFloat {
+    switch (
+      traitCollection.verticalSizeClass,
+      traitCollection.horizontalSizeClass
+    ) {
+    case (.regular, .regular):
+      1.6
+    default:
+      1.0
+    }
   }
 }

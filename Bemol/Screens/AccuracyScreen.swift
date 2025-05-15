@@ -106,7 +106,10 @@ final class AccuracyScreen {
       titleBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
       titleBar.topAnchor.constraint(equalTo: view.topAnchor),
       titleBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-      titleBar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2),
+      titleBar.heightAnchor.constraint(
+        equalTo: view.heightAnchor,
+        multiplier: titleBarHeightMultiplier()
+      ),
 
       keyboardView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
       keyboardView.topAnchor.constraint(equalTo: titleBar.bottomAnchor),
@@ -141,6 +144,20 @@ final class AccuracyScreen {
 
   init(notePlayer: NotePlayer) {
     self.notePlayer = notePlayer
+  }
+
+  // MARK: - Private Helpers
+
+  private func titleBarHeightMultiplier() -> CGFloat {
+    switch (
+      titleBar.traitCollection.verticalSizeClass,
+      titleBar.traitCollection.horizontalSizeClass
+    ) {
+    case (.regular, .regular):
+      0.10
+    default:
+      0.20
+    }
   }
 }
 

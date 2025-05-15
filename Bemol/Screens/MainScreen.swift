@@ -83,7 +83,7 @@ final class MainScreen {
       navBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
       navBar.heightAnchor.constraint(
         equalTo: view.safeAreaLayoutGuide.heightAnchor,
-        multiplier: 0.20
+        multiplier: navBarHeightMultiplier()
       ),
 
       keyboardView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -129,6 +129,17 @@ final class MainScreen {
       if let tip = state?.tip, tip.target == .keyboard, tip != oldValue?.tip {
         keyboardView.handle(tip)
       }
+    }
+  }
+
+  // MARK: - Private Helpers
+
+  private func navBarHeightMultiplier() -> CGFloat {
+    switch (navBar.traitCollection.verticalSizeClass, navBar.traitCollection.horizontalSizeClass) {
+    case (.regular, .regular):
+      0.10
+    default:
+      0.20
     }
   }
 }
