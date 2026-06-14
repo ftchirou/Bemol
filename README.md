@@ -32,22 +32,7 @@ This ear training method was first described and implemented by [Alain Benbassat
 
 Once the entire scale is mastered, the next level will introduce **chromatic notes**. After this, a new key is introduced. This can go on until the user has practiced in all 12 major and 12 minor keys. Or they can choose just to practice in a random key after they have mastered the keys of C major and C minor.
 
-# How to get it
-
-1. **Bemol** is available on the [AltStore](https://altstore.io).
-    - First, download and install the AltStore PAL app [here](https://altstore.io/#Downloads).
-    - Then, copy [this URL](https://storage.googleapis.com/bemol/alt-store.json) and add it as a source in the AltStore app.
-    - Finally, download **Bemol** from within the AltStore app.
-2. Alternatively, you can install **Bemol** from TestFlight [here](https://testflight.apple.com/join/8vhsQVQQ). This option may be useful if you don't have access to the AltStore or if you prefer to use the cutting-edge version of the app.
-
-<br/>
-
-> [!IMPORTANT]
-> The version of the app in TestFlight is the most recent development version. Which means that it may contain newer features and/or improvements not yet available in the official release on the AltStore. On the other hand, it is also less stable and may contain newer bugs and crashes. You can help and contribute to the development of **Bemol** by reporting these bugs through TestFlight.
-
-# For developers
-
-## How to build and run
+# How to build and run
 
 1. Install [Xcode](https://developer.apple.com/xcode/). **Bemol** is built with [Swift 6](https://www.swift.org) and [Xcode 16.2](https://developer.apple.com/documentation/xcode-release-notes/xcode-16_2-release-notes).
 2. Clone the repository and run `cd Bemol/`.
@@ -64,15 +49,15 @@ Once the entire scale is mastered, the next level will introduce **chromatic not
    ```
 
 > [!TIP]
-> To be able to hear piano sounds (and not sine waves), you'll need to download a [sound font](https://en.wikipedia.org/wiki/SoundFont) in the `sf2` format and save it under `Bemol/Resources/sound_font.sf2`. The TestFlight version of **Bemol** uses an excellent and open-source sound font from [MuseScore](https://musescore.org/en) that you can download [here](https://musescore.org/en/handbook/3/soundfonts-and-sfz-files#list) (look for `MuseScore_General`).
+> To be able to hear piano sounds (and not sine waves), you'll need to download a [sound font](https://en.wikipedia.org/wiki/SoundFont) in the `sf2` format and save it under `Bemol/Resources/sound_font.sf2`. [MuseScore](https://musescore.org/en) provides an excellent and open-source that you can download [here](https://musescore.org/en/handbook/3/soundfonts-and-sfz-files#list) (look for `MuseScore_General`).
 
 
-## How to run the tests
+# How to run the tests
 
 - **Product** -> **Test** in Xcode.
 - Or run `./Scripts/test.sh` from the command line. The tests results bundle will then be available at `Artifacts/test-results.xcresult`.
 
-## How to ship
+# How to ship
 
 Run `./Scripts/upload_to_testflight.sh <marketing_version> <build_version>` to archive and upload a new build to App Store Connect. `./Scripts/next_marketing_version.sh` and `./Scripts/next_build_version.sh` can be used to automatically generate the required arguments.
 
