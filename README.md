@@ -12,11 +12,9 @@
 ## Contents
 - [Background](#background)
 - [How it works](#how-it-works)
-- [How to get it](#how-to-get-it)
-- [For developers](#for-developers)
-  - [How to build and run](#how-to-build-and-run)
-  - [How to run the tests](#how-to-run-the-tests)
-  - [How to ship](#how-to-ship)
+- [How to build and run](#how-to-build-and-run)
+- [How to run the tests](#how-to-run-the-tests)
+- [How to ship](#how-to-ship)
 
 # Background
 
@@ -34,7 +32,7 @@ Once the entire scale is mastered, the next level will introduce **chromatic not
 
 # How to build and run
 
-1. Install [Xcode](https://developer.apple.com/xcode/). **Bemol** is built with [Swift 6](https://www.swift.org) and [Xcode 16.2](https://developer.apple.com/documentation/xcode-release-notes/xcode-16_2-release-notes).
+1. Install [Xcode](https://developer.apple.com/xcode/). **Bemol** is built with [Swift 6](https://www.swift.org) and [Xcode 26.5](https://developer.apple.com/documentation/xcode-release-notes/xcode-26_5-release-notes).
 2. Clone the repository and run `cd Bemol/`.
 3. Run `touch ./Configurations/Signing.xcconfig` to create an empty signing config file.
 4. Run `open Bemol.xcodeproj` to open it in Xcode.
