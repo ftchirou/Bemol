@@ -24,7 +24,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		32147CC42DE25C4E003C3967 /* alt-store.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "alt-store.json"; sourceTree = "<group>"; };
 		322CBD412DD5A8CB0092E1AC /* PRIVACY.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = PRIVACY.md; sourceTree = "<group>"; };
 		324CBF902DC372B7002B3923 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		324CBF912DC37358002B3923 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -129,7 +128,6 @@
 				32A9AD142DBA7B03000B7EDE /* BemolUITests */,
 				32A9AE892DC26A61000B7EDE /* Resources */,
 				32A9AE852DC269B9000B7EDE /* Scripts */,
-				32147CC42DE25C4E003C3967 /* alt-store.json */,
 				32A9AE492DBF9692000B7EDE /* Bemol.xctestplan */,
 				322CBD412DD5A8CB0092E1AC /* PRIVACY.md */,
 				32A9AE642DC11956000B7EDE /* PrivacyInfo.xcprivacy */,
