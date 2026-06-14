@@ -47,7 +47,7 @@ Once the entire scale is mastered, the next level will introduce **chromatic not
    ```
 
 > [!TIP]
-> To be able to hear piano sounds (and not sine waves), you'll need to download a [sound font](https://en.wikipedia.org/wiki/SoundFont) in the `sf2` format and save it under `Bemol/Resources/sound_font.sf2`. [MuseScore](https://musescore.org/en) provides an excellent and open-source that you can download [here](https://musescore.org/en/handbook/3/soundfonts-and-sfz-files#list) (look for `MuseScore_General`).
+> To be able to hear piano sounds (and not sine waves), you'll need to download a [sound font](https://en.wikipedia.org/wiki/SoundFont) in the `sf2` format and save it under `Bemol/Resources/sound_font.sf2`. [MuseScore](https://musescore.org/en) provides an excellent and open-source sound font that you can download [here](https://musescore.org/en/handbook/3/soundfonts-and-sfz-files#list) (look for `MuseScore_General`).
 
 
 # How to run the tests
