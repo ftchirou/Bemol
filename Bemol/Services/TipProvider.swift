@@ -19,7 +19,8 @@
 
 import Foundation
 
-protocol TipProvider {
+@MainActor
+protocol TipProvider: Sendable {
   func nextTip() -> Tip?
 }
 
@@ -37,7 +38,7 @@ final class OnboardingTipProvider: TipProvider {
     return nil
   }
 
-  private var tips =  [
+  private var tips = [
     Tip(
       target: .startStopButton,
       title: String(localized: "tip.howItWorks.title"),

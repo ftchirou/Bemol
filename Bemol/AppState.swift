@@ -37,7 +37,7 @@ struct AppState {
   var hasError: Bool = false
   var isInteractionEnabled: Bool = false
   var currentlyPlayingResolution: [Note] = []
-  var error: Error? = nil
+  var error: (any Error)? = nil
   var currentTip: Tip? = nil
 }
 

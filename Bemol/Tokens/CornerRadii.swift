@@ -18,10 +18,10 @@
 
 import UIKit
 
-public extension CGFloat {
-  static let cornerRadiusZero: CGFloat = 0
-  static let cornerRadiusSm: CGFloat = 4
-  static let cornerRadiusMd: CGFloat = 8
-  static let cornerRadiusLg: CGFloat = 12
-  static let cornerRadiusXl: CGFloat = 16
+extension CGFloat {
+  public static let cornerRadiusZero: CGFloat = 0
+  public static let cornerRadiusSm: CGFloat = 4
+  public static let cornerRadiusMd: CGFloat = 8
+  public static let cornerRadiusLg: CGFloat = 12
+  public static let cornerRadiusXl: CGFloat = 16
 }

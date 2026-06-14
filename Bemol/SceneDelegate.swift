@@ -17,8 +17,8 @@
 ///
 
 import Foundation
-import os
 import UIKit
+import os
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   // MARK: -
@@ -59,7 +59,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   ) {
     guard let scene = (scene as? UIWindowScene) else { return }
 
-    window = UIWindow(frame: scene.screen.bounds)
+    window = UIWindow(windowScene: scene)
     window?.backgroundColor = .black
     window?.makeKeyAndVisible()
 

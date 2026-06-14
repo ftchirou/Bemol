@@ -18,7 +18,8 @@
 
 import Foundation
 
-protocol NotePlayer: Actor {
+@MainActor
+protocol NotePlayer {
   func prepareToPlay() async throws
   func playNote(_ note: Note) async throws
   func playCadence(_ cadence: Cadence) async throws

@@ -60,8 +60,8 @@ struct DiatonicNoteResolutionGenerator: NoteResolutionGenerator {
   }
 }
 
-private extension Note {
-  func resolutionInMajor(_ key: NoteName) -> Resolution {
+extension Note {
+  fileprivate func resolutionInMajor(_ key: NoteName) -> Resolution {
     var firstPattern = [0, 2, 4, 5]
     var secondPattern = [7, 9, 11]
     let index = name.index(inKey: key)
@@ -79,7 +79,7 @@ private extension Note {
     return resolution(key: key, firstPattern: firstPattern, secondPattern: secondPattern)
   }
 
-  func resolutionInMajorChromatics(_ key: NoteName) -> Resolution {
+  fileprivate func resolutionInMajorChromatics(_ key: NoteName) -> Resolution {
     var firstPattern = [0, 2, 4, 5]
     var secondPattern = [7, 9, 11]
     let index = name.index(inKey: key)
@@ -97,7 +97,7 @@ private extension Note {
     return resolution(key: key, firstPattern: firstPattern, secondPattern: secondPattern)
   }
 
-  func resolutionInMinor(_ key: NoteName) -> Resolution {
+  fileprivate func resolutionInMinor(_ key: NoteName) -> Resolution {
     var firstPattern = [0, 2, 3, 5]
     var secondPattern = [7, 8, 11]
     let index = name.index(inKey: key)
@@ -115,7 +115,7 @@ private extension Note {
     return resolution(key: key, firstPattern: firstPattern, secondPattern: secondPattern)
   }
 
-  func resolutionInMinorChromatics(_ key: NoteName) -> Resolution {
+  fileprivate func resolutionInMinorChromatics(_ key: NoteName) -> Resolution {
     var firstPattern = [0, 2, 3, 5]
     var secondPattern = [7, 8, 11]
     let index = name.index(inKey: key)
@@ -133,7 +133,7 @@ private extension Note {
     return resolution(key: key, firstPattern: firstPattern, secondPattern: secondPattern)
   }
 
-  func resolution(
+  fileprivate func resolution(
     key: NoteName,
     firstPattern: [Int],
     secondPattern: [Int]

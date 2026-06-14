@@ -150,7 +150,7 @@ final class WhiteKey: UIControl {
       multiplier: percent
     )
     NSLayoutConstraint.activate([overlayheightAnchorConstraint])
-  
+
     overlay.backgroundColor = color
     overlay.isHidden = false
 

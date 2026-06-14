@@ -62,7 +62,8 @@ final class TipPresenter {
       )
     case .topRight:
       tipView.frame = CGRect(
-        x: targetViewFrame.midX - tipView.intrinsicContentSize.width + (.spacingSm + .caretSize / 2),
+        x: targetViewFrame.midX - tipView.intrinsicContentSize.width
+          + (.spacingSm + .caretSize / 2),
         y: targetViewFrame.maxY + .spacingXs,
         width: tipView.intrinsicContentSize.width,
         height: tipView.intrinsicContentSize.height
@@ -141,10 +142,10 @@ final class TipPresenter {
 
 // MARK: - Constants
 
-private extension TimeInterval {
-  static let animationDuration: TimeInterval = 0.15
+extension TimeInterval {
+  fileprivate static let animationDuration: TimeInterval = 0.15
 }
 
-private extension CGFloat {
-  static let caretSize: CGFloat = 12
+extension CGFloat {
+  fileprivate static let caretSize: CGFloat = 12
 }

@@ -57,7 +57,6 @@ final class NavBar: UIView {
       for: .touchUpInside
     )
 
-
     return button
   }()
 
@@ -89,7 +88,6 @@ final class NavBar: UIView {
       UIAction { [weak self] _ in self?.delegate?.didPressPreviousButton() },
       for: .touchUpInside
     )
-
 
     return button
   }()
@@ -253,11 +251,12 @@ final class NavBar: UIView {
       titleView.title = state?.title
       configureButton.isEnabled = isConfigureButtonEnabled && !isLoading
       startStopButton.isEnabled = isStartStopButtonEnabled && !isLoading
-      startStopButton.configuration?.image = if (state?.startStopButtonMode ?? .start) == .start {
-        UIImage(systemName: "play.fill")
-      } else {
-        UIImage(systemName: "stop.fill")
-      }
+      startStopButton.configuration?.image =
+        if (state?.startStopButtonMode ?? .start) == .start {
+          UIImage(systemName: "play.fill")
+        } else {
+          UIImage(systemName: "stop.fill")
+        }
       repeatButton.isHidden = state?.isRepeatButtonHidden ?? true
       repeatButton.isEnabled = state?.isRepeatButtonEnabled ?? false
       scoreLabel.isHidden = state?.isScoreLabelHidden ?? true
@@ -273,11 +272,12 @@ final class NavBar: UIView {
         loadingIndicator.stopAnimating()
       }
 
-      startStopButton.accessibilityLabel = if (state?.startStopButtonMode ?? .start) == .start {
-        String(localized: "startSession")
-      } else {
-        String(localized: "stopSession")
-      }
+      startStopButton.accessibilityLabel =
+        if (state?.startStopButtonMode ?? .start) == .start {
+          String(localized: "startSession")
+        } else {
+          String(localized: "stopSession")
+        }
 
       if let tip = state?.tip {
         if oldValue?.tip == nil {
@@ -310,7 +310,7 @@ final class NavBar: UIView {
     accessibilityTraits = .header
     accessibilityElements = [
       homeButton, randomButton, previousButton, nextButton, titleView,
-      configureButton, startStopButton, repeatButton, scoreLabel, accuracyRing
+      configureButton, startStopButton, repeatButton, scoreLabel, accuracyRing,
     ]
   }
 
@@ -328,9 +328,11 @@ final class NavBar: UIView {
       accuracyRing.widthAnchor.constraint(equalTo: accuracyRing.heightAnchor),
       accuracyRing.centerYAnchor.constraint(equalTo: centerYAnchor),
 
-      scoreLabel.trailingAnchor.constraint(equalTo: accuracyRing.leadingAnchor, constant: -.spacingSm),
+      scoreLabel.trailingAnchor.constraint(
+        equalTo: accuracyRing.leadingAnchor, constant: -.spacingSm),
       scoreLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-      scoreLabel.leadingAnchor.constraint(greaterThanOrEqualTo: stackView.trailingAnchor, constant: .spacingSm),
+      scoreLabel.leadingAnchor.constraint(
+        greaterThanOrEqualTo: stackView.trailingAnchor, constant: .spacingSm),
     ])
   }
 
@@ -406,25 +408,25 @@ extension NavBar: TipHandler {
   private func edge(for tip: Tip) -> TipView.Edge {
     switch tip.target {
     case .titleView:
-        .topCenter
+      .topCenter
     case .homeButton:
-        .topLeft
+      .topLeft
     case .randomButton:
-        .topLeft
+      .topLeft
     case .previousButton:
-        .topLeft
+      .topLeft
     case .nextButton:
-        .topCenter
+      .topCenter
     case .configureLevelButton:
-        .topCenter
+      .topCenter
     case .startStopButton:
-        .topCenter
+      .topCenter
     case .repeatButton:
-        .topCenter
+      .topCenter
     case .accuracyRing:
-        .topRight
+      .topRight
     case .keyboard:
-        .topCenter
+      .topCenter
     }
   }
 }

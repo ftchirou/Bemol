@@ -9,12 +9,12 @@ struct SessionTests {
     let session = Session(
       timestamp: 1000,
       score: [
-        Note(name: .c, octave: 1): (4, 2),
-        Note(name: .d, octave: 1): (3, 0),
-        Note(name: .e, octave: 1): (0, 8),
-        Note(name: .f, octave: 1): (4, 1),
-        Note(name: .g, octave: 1): (0, 0),
-        Note(name: .c, octave: 2): (2, 1),
+        Note(name: .c, octave: 1): .init(correct: 4, wrong: 2),
+        Note(name: .d, octave: 1): .init(correct: 3, wrong: 0),
+        Note(name: .e, octave: 1): .init(correct: 0, wrong: 8),
+        Note(name: .f, octave: 1): .init(correct: 4, wrong: 1),
+        Note(name: .g, octave: 1): .init(correct: 0, wrong: 0),
+        Note(name: .c, octave: 2): .init(correct: 2, wrong: 1),
       ]
     )
 

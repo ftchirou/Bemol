@@ -49,16 +49,19 @@ enum AppAction {
   case didDismissLevelEditor
   case didSelectNotes([Note])
 
-  // MARK: - Async Actions
+  // MARK: - Practice Actions
 
-  case didLoadLevel(Result<Level, Error>)
-  case didStartSession(Result<Session, Error>)
-  case didLoadQuestion(Result<Question, Error>)
-  case didLogRightAnswer(Result<Session, Error>)
-  case didLogWrongAnswer(Result<Session, Error>)
+  case didLoadLevel(Level)
+  case didStartSession(Session)
+  case didLoadQuestion(Question)
+  case didLogRightAnswer(Session)
+  case didLogWrongAnswer(Session)
+  case didPlayNoteInResolution
+  case didPlayCadence
 
-  case didPlayNoteInResolution(Result<Void, Error>)
-  case didPlayCadence(Result<Void, Error>)
+  // MARK: - Errors
+
+  case errorOccurred(any Error)
 }
 
 // MARK: - CustomStringConvertible
@@ -68,10 +71,8 @@ extension AppAction: CustomStringConvertible {
     switch self {
     case .didLoad:
       "✅  didLoad"
-
     case .didDismissTip:
       "💡 didDismissTip"
-
     case .didPressHomeButton:
       "👆 didPressHome"
     case .didPressRandomButton:
@@ -98,43 +99,22 @@ extension AppAction: CustomStringConvertible {
       "👆 didDismissLevelEditor"
     case .didSelectNotes(let notes):
       "☑️ didSelectNotes \(notes.map { $0.name.letter })"
-
-
-    case .didLoadLevel(.success(let level)):
+    case .didLoadLevel(let level):
       "✅ didLoadLevel - \(level.id) - \(level.title)"
-    case .didLoadLevel(.failure(let error)):
-      "❌ didFailToLoadLevel - \(error.localizedDescription)"
-
-    case .didStartSession(.success(let session)):
+    case .didStartSession(let session):
       "✅ didStartSession at \(session.timestamp)"
-    case .didStartSession(.failure(let error)):
-      "❌ didFailToStartSession - \(error.localizedDescription)"
-
-    case .didLoadQuestion(.success(let question)):
+    case .didLoadQuestion(let question):
       "✅ didLoadQuestion - \(question.id) - \(question.answer.name.letter)"
-    case .didLoadQuestion(.failure(let error)):
-      "❌ didFailToLoadQuestion - \(error.localizedDescription)"
-
-    case .didLogRightAnswer(.success(let session)):
+    case .didLogRightAnswer(let session):
       "👏 didLogRightAnswer in session started at \(session.timestamp)"
-    case .didLogRightAnswer(.failure(let error)):
-      "❌ didFailToLogRightAnswer - \(error.localizedDescription)"
-
-    case .didLogWrongAnswer(.success(let session)):
+    case .didLogWrongAnswer(let session):
       "😅 didLogWrongAnswer in session started at \(session.timestamp)"
-    case .didLogWrongAnswer(.failure(let error)):
-      "❌ didFailToLogWrongAnswer - \(error.localizedDescription)"
-
-    case .didPlayNoteInResolution(.success):
+    case .didPlayNoteInResolution:
       "🎵 didPlayNoteInResolution"
-    case .didPlayNoteInResolution(.failure(let error)):
-      "❌ didFailToPlayNoteInResolution - \(error.localizedDescription)"
-
-    case .didPlayCadence(.success()):
+    case .didPlayCadence:
       "🎶 didPlayCadence"
-    case .didPlayCadence(.failure(let error)):
-      "❌ didFailToPlayCadence - \(error.localizedDescription)"
+    case .errorOccurred(let error):
+      "❌ errorOccurred - \(error.localizedDescription)"
     }
   }
 }
-

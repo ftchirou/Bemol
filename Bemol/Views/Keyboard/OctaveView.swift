@@ -212,7 +212,7 @@ extension OctaveView: TipHandler {
   }
 }
 
-private extension CGRect {
+extension CGRect {
   // Minimum rect that will satisfy the constraints in a key.
-  static let minKeyFrame = CGRect(x: 0, y: 0, width: 48, height: 48)
+  fileprivate static let minKeyFrame = CGRect(x: 0, y: 0, width: 48, height: 48)
 }

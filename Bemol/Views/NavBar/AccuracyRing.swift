@@ -95,7 +95,7 @@ final class AccuracyRing: UIControl {
     isAccessibilityElement = true
     accessibilityTraits = super.accessibilityTraits.union(.button)
   }
-  
+
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
@@ -157,10 +157,13 @@ final class AccuracyRing: UIControl {
 
       label.centerXAnchor.constraint(equalTo: centerXAnchor),
       label.centerYAnchor.constraint(equalTo: centerYAnchor),
-      label.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: (strokeWidth + 2)),
+      label.leadingAnchor.constraint(
+        greaterThanOrEqualTo: leadingAnchor, constant: (strokeWidth + 2)),
       label.topAnchor.constraint(lessThanOrEqualTo: topAnchor, constant: (strokeWidth + 2)),
-      label.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -(strokeWidth + 2)),
-      label.bottomAnchor.constraint(greaterThanOrEqualTo: bottomAnchor, constant: -(strokeWidth + 2)),
+      label.trailingAnchor.constraint(
+        lessThanOrEqualTo: trailingAnchor, constant: -(strokeWidth + 2)),
+      label.bottomAnchor.constraint(
+        greaterThanOrEqualTo: bottomAnchor, constant: -(strokeWidth + 2)),
     ])
   }
 }

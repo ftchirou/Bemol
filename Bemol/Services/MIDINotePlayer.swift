@@ -19,7 +19,7 @@
 import AVFoundation
 import Foundation
 
-actor MIDINotePlayer: NotePlayer {
+final class MIDINotePlayer: NotePlayer {
   enum Error: Swift.Error {
     case couldNotLoadSoundFont
   }
@@ -66,7 +66,7 @@ actor MIDINotePlayer: NotePlayer {
 
     try await Task.sleep(for: .seconds(sequencer.seconds(forBeats: 0.75)), clock: clock)
   }
-  
+
   func playCadence(_ cadence: Cadence) async throws {
     try await Task.sleep(for: .seconds(0.25), clock: clock)
 
@@ -90,13 +90,14 @@ actor MIDINotePlayer: NotePlayer {
   // MARK: - Private Helpers
 
   private func makeMIDINoteEvent(_ note: Note) -> AVMIDINoteEvent {
-    let key = if note.octave == 0 {
-      keyNumber(for: note.name, octave: 3)
-    } else if note.octave == 1 {
-      keyNumber(for: note.name, octave: 4)
-    } else {
-      keyNumber(for: note.name, octave: 5)
-    }
+    let key =
+      if note.octave == 0 {
+        keyNumber(for: note.name, octave: 3)
+      } else if note.octave == 1 {
+        keyNumber(for: note.name, octave: 4)
+      } else {
+        keyNumber(for: note.name, octave: 5)
+      }
 
     return AVMIDINoteEvent(
       channel: 0,

@@ -1,0 +1,27 @@
+SWIFT_VERSION = 6;
+
+SWIFT_STRICT_CONCURRENCY = complete;
+
+SWIFT_APPROACHABLE_CONCURRENCY = NO;
+
+GENERATE_INFOPLIST_FILE = YES;
+
+OTHER_SWIFT_FLAGS = $(inherited) \
+    -enable-upcoming-feature NonisolatedNonsendingByDefault:migrate \
+    -enable-upcoming-feature ExistentialAny:migrate \
+    -enable-upcoming-feature MemberImportVisibility:migrate;
+
+IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+
+TARGETED_DEVICE_FAMILY = 1,2;
+
+INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight;
+
+INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight;
+
+SUPPORTS_MACCATALYST = NO;
+
+SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+
+SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+

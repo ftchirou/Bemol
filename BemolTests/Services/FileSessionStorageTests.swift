@@ -37,11 +37,11 @@ struct FileSessionStorageTests {
 
     let session = try #require(sessions.first)
 
-    #expect(session.timestamp == 1745827200)
+    #expect(session.timestamp == 1_745_827_200)
     #expect(session.score.count == 3)
-    #expect(session.score[Note(name: .c, octave: 1)] ?? (0, 0) == (12, 14))
-    #expect(session.score[Note(name: .d, octave: 2)] ?? (0, 0) == (0, 5))
-    #expect(session.score[Note(name: .gFlat, octave: 1)] ?? (0, 0) == (4, 45))
+    #expect(session.score[Note(name: .c, octave: 1)] ?? .zero == .init(correct: 12, wrong: 14))
+    #expect(session.score[Note(name: .d, octave: 2)] ?? .zero == .init(correct: 0, wrong: 5))
+    #expect(session.score[Note(name: .gFlat, octave: 1)] ?? .zero == .init(correct: 4, wrong: 45))
 
     try? FileManager.default.removeItem(at: sessionsFile)
   }
@@ -62,26 +62,26 @@ struct FileSessionStorageTests {
     #expect(sessions.count == 3)
 
     let first = sessions[0]
-    #expect(first.timestamp == 1745827200)
+    #expect(first.timestamp == 1_745_827_200)
     #expect(first.score.count == 3)
-    #expect(first.score[Note(name: .c, octave: 1)] ?? (0, 0) == (12, 14))
-    #expect(first.score[Note(name: .d, octave: 2)] ?? (0, 0) == (0, 5))
-    #expect(first.score[Note(name: .gFlat, octave: 1)] ?? (0, 0) == (4, 45))
+    #expect(first.score[Note(name: .c, octave: 1)] ?? .zero == .init(correct: 12, wrong: 14))
+    #expect(first.score[Note(name: .d, octave: 2)] ?? .zero == .init(correct: 0, wrong: 5))
+    #expect(first.score[Note(name: .gFlat, octave: 1)] ?? .zero == .init(correct: 4, wrong: 45))
 
     let second = sessions[1]
-    #expect(second.timestamp == 1745827300)
+    #expect(second.timestamp == 1_745_827_300)
     #expect(second.score.count == 4)
-    #expect(second.score[Note(name: .g, octave: 1)] ?? (0, 0) == (15, 9))
-    #expect(second.score[Note(name: .fSharp, octave: 2)] ?? (0, 0) == (4, 3))
-    #expect(second.score[Note(name: .dFlat, octave: 1)] ?? (0, 0) == (8, 24))
-    #expect(second.score[Note(name: .e, octave: 2)] ?? (0, 0) == (1, 0))
+    #expect(second.score[Note(name: .g, octave: 1)] ?? .zero == .init(correct: 15, wrong: 9))
+    #expect(second.score[Note(name: .fSharp, octave: 2)] ?? .zero == .init(correct: 4, wrong: 3))
+    #expect(second.score[Note(name: .dFlat, octave: 1)] ?? .zero == .init(correct: 8, wrong: 24))
+    #expect(second.score[Note(name: .e, octave: 2)] ?? .zero == .init(correct: 1, wrong: 0))
 
     let third = sessions[2]
-    #expect(third.timestamp == 1745827400)
+    #expect(third.timestamp == 1_745_827_400)
     #expect(third.score.count == 3)
-    #expect(third.score[Note(name: .a, octave: 1)] ?? (0, 0) == (10, 0))
-    #expect(third.score[Note(name: .c, octave: 2)] ?? (0, 0) == (50, 24))
-    #expect(third.score[Note(name: .b, octave: 2)] ?? (0, 0) == (41, 20))
+    #expect(third.score[Note(name: .a, octave: 1)] ?? .zero == .init(correct: 10, wrong: 0))
+    #expect(third.score[Note(name: .c, octave: 2)] ?? .zero == .init(correct: 50, wrong: 24))
+    #expect(third.score[Note(name: .b, octave: 2)] ?? .zero == .init(correct: 41, wrong: 20))
 
     try FileManager.default.removeItem(at: sessionsFile)
   }
@@ -100,11 +100,11 @@ struct FileSessionStorageTests {
 
     let session = try #require(sessions.first)
 
-    #expect(session.timestamp == 1745827200)
+    #expect(session.timestamp == 1_745_827_200)
     #expect(session.score.count == 3)
-    #expect(session.score[Note(name: .c, octave: 1)] ?? (0, 0) == (12, 14))
-    #expect(session.score[Note(name: .d, octave: 2)] ?? (0, 0) == (0, 5))
-    #expect(session.score[Note(name: .e, octave: 1)] ?? (0, 0) == (4, 45))
+    #expect(session.score[Note(name: .c, octave: 1)] ?? .zero == .init(correct: 12, wrong: 14))
+    #expect(session.score[Note(name: .d, octave: 2)] ?? .zero == .init(correct: 0, wrong: 5))
+    #expect(session.score[Note(name: .e, octave: 1)] ?? .zero == .init(correct: 4, wrong: 45))
 
     try FileManager.default.removeItem(at: sessionsFile)
   }
@@ -128,26 +128,26 @@ struct FileSessionStorageTests {
     #expect(sessions.count == 3)
 
     let first = sessions[0]
-    #expect(first.timestamp == 1745827200)
+    #expect(first.timestamp == 1_745_827_200)
     #expect(first.score.count == 3)
-    #expect(first.score[Note(name: .c, octave: 1)] ?? (0, 0) == (12, 14))
-    #expect(first.score[Note(name: .d, octave: 2)] ?? (0, 0) == (0, 5))
-    #expect(first.score[Note(name: .gFlat, octave: 1)] ?? (0, 0) == (4, 45))
+    #expect(first.score[Note(name: .c, octave: 1)] ?? .zero == .init(correct: 12, wrong: 14))
+    #expect(first.score[Note(name: .d, octave: 2)] ?? .zero == .init(correct: 0, wrong: 5))
+    #expect(first.score[Note(name: .gFlat, octave: 1)] ?? .zero == .init(correct: 4, wrong: 45))
 
     let second = sessions[1]
-    #expect(second.timestamp == 1745827300)
+    #expect(second.timestamp == 1_745_827_300)
     #expect(second.score.count == 4)
-    #expect(second.score[Note(name: .g, octave: 1)] ?? (0, 0) == (15, 9))
-    #expect(second.score[Note(name: .fSharp, octave: 2)] ?? (0, 0) == (4, 3))
-    #expect(second.score[Note(name: .dFlat, octave: 1)] ?? (0, 0) == (8, 24))
-    #expect(second.score[Note(name: .e, octave: 2)] ?? (0, 0) == (1, 0))
+    #expect(second.score[Note(name: .g, octave: 1)] ?? .zero == .init(correct: 15, wrong: 9))
+    #expect(second.score[Note(name: .fSharp, octave: 2)] ?? .zero == .init(correct: 4, wrong: 3))
+    #expect(second.score[Note(name: .dFlat, octave: 1)] ?? .zero == .init(correct: 8, wrong: 24))
+    #expect(second.score[Note(name: .e, octave: 2)] ?? .zero == .init(correct: 1, wrong: 0))
 
     let third = sessions[2]
-    #expect(third.timestamp == 1745827400)
+    #expect(third.timestamp == 1_745_827_400)
     #expect(third.score.count == 3)
-    #expect(third.score[Note(name: .a, octave: 1)] ?? (0, 0) == (10, 0))
-    #expect(third.score[Note(name: .c, octave: 2)] ?? (0, 0) == (50, 24))
-    #expect(third.score[Note(name: .b, octave: 2)] ?? (0, 0) == (41, 20))
+    #expect(third.score[Note(name: .a, octave: 1)] ?? .zero == .init(correct: 10, wrong: 0))
+    #expect(third.score[Note(name: .c, octave: 2)] ?? .zero == .init(correct: 50, wrong: 24))
+    #expect(third.score[Note(name: .b, octave: 2)] ?? .zero == .init(correct: 41, wrong: 20))
 
     try FileManager.default.removeItem(at: sessionsFile)
   }
@@ -168,7 +168,7 @@ struct FileSessionStorageTests {
     let session = try #require(sessions.first)
 
     for note in NoteName.all {
-      #expect(session.score[Note(name: note, octave: 1)] ?? (0, 0) == (1, 0))
+      #expect(session.score[Note(name: note, octave: 1)] ?? .zero == .init(correct: 1, wrong: 0))
     }
 
     try FileManager.default.removeItem(at: sessionsFile)
@@ -190,7 +190,7 @@ struct FileSessionStorageTests {
     let session = try #require(sessions.first)
 
     for note in NoteName.all {
-      #expect(session.score[Note(name: note, octave: 1)] ?? (0, 0) == (1, 0))
+      #expect(session.score[Note(name: note, octave: 1)] ?? .zero == .init(correct: 1, wrong: 0))
     }
 
     try FileManager.default.removeItem(at: sessionsFile)
@@ -212,7 +212,7 @@ struct FileSessionStorageTests {
     let session = try #require(sessions.first)
 
     for note in NoteName.all {
-      #expect(session.score[Note(name: note, octave: 1)] ?? (0, 0) == (1, 0))
+      #expect(session.score[Note(name: note, octave: 1)] ?? .zero == .init(correct: 1, wrong: 0))
     }
 
     try FileManager.default.removeItem(at: sessionsFile)
@@ -225,9 +225,9 @@ struct FileSessionStorageTests {
     let session = Session(
       timestamp: now,
       score: [
-        Note(name: .c, octave: 1): (12, 34),
-        Note(name: .bFlat, octave: 1): (32, 45),
-        Note(name: .d, octave: 2): (0, 32),
+        Note(name: .c, octave: 1): .init(correct: 12, wrong: 34),
+        Note(name: .bFlat, octave: 1): .init(correct: 32, wrong: 45),
+        Note(name: .d, octave: 2): .init(correct: 0, wrong: 32),
       ]
     )
 
@@ -249,24 +249,24 @@ struct FileSessionStorageTests {
       Session(
         timestamp: now,
         score: [
-          Note(name: .c, octave: 1): (12, 34),
-          Note(name: .bFlat, octave: 1): (32, 45),
-          Note(name: .d, octave: 2): (0, 32),
+          Note(name: .c, octave: 1): .init(correct: 12, wrong: 34),
+          Note(name: .bFlat, octave: 1): .init(correct: 32, wrong: 45),
+          Note(name: .d, octave: 2): .init(correct: 0, wrong: 32),
         ]
       ),
       Session(
         timestamp: now + 100,
         score: [
-          Note(name: .aFlat, octave: 1): (1, 94),
-          Note(name: .d, octave: 2): (0, 43),
-          Note(name: .b, octave: 1): (1, 4),
+          Note(name: .aFlat, octave: 1): .init(correct: 1, wrong: 94),
+          Note(name: .d, octave: 2): .init(correct: 0, wrong: 43),
+          Note(name: .b, octave: 1): .init(correct: 1, wrong: 4),
         ]
       ),
       Session(
         timestamp: now + 200,
         score: [
-          Note(name: .c, octave: 1): (1, 3),
-          Note(name: .d, octave: 1): (4, 21),
+          Note(name: .c, octave: 1): .init(correct: 1, wrong: 3),
+          Note(name: .d, octave: 1): .init(correct: 4, wrong: 21),
         ]
       ),
     ]
@@ -279,11 +279,12 @@ struct FileSessionStorageTests {
 
     let sessionsFile = try sessionsFileURL(for: level.id)
     let contents = try String(contentsOf: sessionsFile, encoding: .utf8)
-    #expect(contents == [
-      "1745827200.0;c:1:12:34,d:2:0:32,asharp:1:32:45",
-      "1745827300.0;d:2:0:43,gsharp:1:1:94,b:1:1:4",
-      "1745827400.0;c:1:1:3,d:1:4:21"
-    ].joined(separator: "\n") + "\n")
+    #expect(
+      contents == [
+        "1745827200.0;c:1:12:34,d:2:0:32,asharp:1:32:45",
+        "1745827300.0;d:2:0:43,gsharp:1:1:94,b:1:1:4",
+        "1745827400.0;c:1:1:3,d:1:4:21",
+      ].joined(separator: "\n") + "\n")
 
     try FileManager.default.removeItem(at: sessionsFile)
   }
@@ -296,17 +297,17 @@ struct FileSessionStorageTests {
       Session(
         timestamp: now,
         score: [
-          Note(name: .c, octave: 1): (12, 34),
-          Note(name: .bFlat, octave: 1): (32, 45),
-          Note(name: .d, octave: 2): (0, 32),
+          Note(name: .c, octave: 1): .init(correct: 12, wrong: 34),
+          Note(name: .bFlat, octave: 1): .init(correct: 32, wrong: 45),
+          Note(name: .d, octave: 2): .init(correct: 0, wrong: 32),
         ]
       ),
       Session(
         timestamp: now + 100,
         score: [
-          Note(name: .aFlat, octave: 1): (1, 94),
-          Note(name: .d, octave: 2): (0, 43),
-          Note(name: .b, octave: 1): (1, 4),
+          Note(name: .aFlat, octave: 1): .init(correct: 1, wrong: 94),
+          Note(name: .d, octave: 2): .init(correct: 0, wrong: 43),
+          Note(name: .b, octave: 1): .init(correct: 1, wrong: 4),
         ]
       ),
       Session(
@@ -316,8 +317,8 @@ struct FileSessionStorageTests {
       Session(
         timestamp: now + 200,
         score: [
-          Note(name: .c, octave: 1): (1, 3),
-          Note(name: .d, octave: 1): (4, 21),
+          Note(name: .c, octave: 1): .init(correct: 1, wrong: 3),
+          Note(name: .d, octave: 1): .init(correct: 4, wrong: 21),
         ]
       ),
       Session(
@@ -334,11 +335,12 @@ struct FileSessionStorageTests {
 
     let sessionsFile = try sessionsFileURL(for: level.id)
     let contents = try String(contentsOf: sessionsFile, encoding: .utf8)
-    #expect(contents == [
-      "1745827200.0;c:1:12:34,d:2:0:32,asharp:1:32:45",
-      "1745827300.0;d:2:0:43,gsharp:1:1:94,b:1:1:4",
-      "1745827400.0;c:1:1:3,d:1:4:21"
-    ].joined(separator: "\n") + "\n")
+    #expect(
+      contents == [
+        "1745827200.0;c:1:12:34,d:2:0:32,asharp:1:32:45",
+        "1745827300.0;d:2:0:43,gsharp:1:1:94,b:1:1:4",
+        "1745827400.0;c:1:1:3,d:1:4:21",
+      ].joined(separator: "\n") + "\n")
 
     try FileManager.default.removeItem(at: sessionsFile)
   }
@@ -348,9 +350,11 @@ struct FileSessionStorageTests {
     let now: TimeInterval = 1745827200.0
     let level = makeLevel(id: 45)
 
-    let notes: [NoteName] = [.c, .cSharp, .d, .dSharp, .e, .f, .fSharp, .g, .gSharp, .a, .aSharp, .b]
-    var score: [Note: (Int, Int)] = [:]
-    notes.forEach { score[Note(name: $0, octave: 1)] = (1, 0)}
+    let notes: [NoteName] = [
+      .c, .cSharp, .d, .dSharp, .e, .f, .fSharp, .g, .gSharp, .a, .aSharp, .b,
+    ]
+    var score: [Note: Score] = [:]
+    notes.forEach { score[Note(name: $0, octave: 1)] = .init(correct: 1, wrong: 0) }
 
     let session = Session(timestamp: now, score: score)
 
@@ -359,7 +363,10 @@ struct FileSessionStorageTests {
 
     let sessionsFile = try sessionsFileURL(for: level.id)
     let contents = try String(contentsOf: sessionsFile, encoding: .utf8)
-    #expect(contents == "1745827200.0;c:1:1:0,csharp:1:1:0,d:1:1:0,dsharp:1:1:0,e:1:1:0,f:1:1:0,fsharp:1:1:0,g:1:1:0,gsharp:1:1:0,a:1:1:0,asharp:1:1:0,b:1:1:0\n")
+    #expect(
+      contents
+        == "1745827200.0;c:1:1:0,csharp:1:1:0,d:1:1:0,dsharp:1:1:0,e:1:1:0,f:1:1:0,fsharp:1:1:0,g:1:1:0,gsharp:1:1:0,a:1:1:0,asharp:1:1:0,b:1:1:0\n"
+    )
 
     try FileManager.default.removeItem(at: sessionsFile)
   }
@@ -370,8 +377,8 @@ struct FileSessionStorageTests {
     let level = makeLevel(id: 46)
 
     let notes: [NoteName] = [.c, .dFlat, .d, .eFlat, .e, .f, .gFlat, .g, .aFlat, .a, .bFlat, .b]
-    var score: [Note: (Int, Int)] = [:]
-    notes.forEach { score[Note(name: $0, octave: 1)] = (1, 0)}
+    var score: [Note: Score] = [:]
+    notes.forEach { score[Note(name: $0, octave: 1)] = .init(correct: 1, wrong: 0) }
 
     let session = Session(timestamp: now, score: score)
 
@@ -380,7 +387,10 @@ struct FileSessionStorageTests {
 
     let sessionsFile = try sessionsFileURL(for: level.id)
     let contents = try String(contentsOf: sessionsFile, encoding: .utf8)
-    #expect(contents == "1745827200.0;c:1:1:0,csharp:1:1:0,d:1:1:0,dsharp:1:1:0,e:1:1:0,f:1:1:0,fsharp:1:1:0,g:1:1:0,gsharp:1:1:0,a:1:1:0,asharp:1:1:0,b:1:1:0\n")
+    #expect(
+      contents
+        == "1745827200.0;c:1:1:0,csharp:1:1:0,d:1:1:0,dsharp:1:1:0,e:1:1:0,f:1:1:0,fsharp:1:1:0,g:1:1:0,gsharp:1:1:0,a:1:1:0,asharp:1:1:0,b:1:1:0\n"
+    )
 
     try FileManager.default.removeItem(at: sessionsFile)
   }

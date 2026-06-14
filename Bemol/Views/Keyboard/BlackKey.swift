@@ -54,7 +54,7 @@ final class BlackKey: UIControl {
     view.layer.cornerRadius = .cornerRadiusLg
     view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
     view.isUserInteractionEnabled = false
-  
+
     return view
   }()
 
@@ -158,7 +158,7 @@ final class BlackKey: UIControl {
     bevelOverlay.backgroundColor = color.darker(0.4)
     keyOverlay.isHidden = false
     bevelOverlay.isHidden = percent <= 0
-    
+
     if percent >= 0.1 {
       label.textColor = color.bestContrastingColor()
     }
@@ -234,7 +234,7 @@ final class BlackKey: UIControl {
     addSubview(bevelOverlay)
     addSubview(keyOverlay)
     addSubview(label)
-    
+
     NSLayoutConstraint.activate([
       bevel.leadingAnchor.constraint(equalTo: leadingAnchor),
       bevel.topAnchor.constraint(equalTo: topAnchor),
@@ -273,9 +273,9 @@ final class BlackKey: UIControl {
       traitCollection.horizontalSizeClass
     ) {
     case (.regular, .regular):
-        .spacingXs + .spacingXxs + .spacingXxxs
+      .spacingXs + .spacingXxs + .spacingXxxs
     default:
-        .spacingXs
+      .spacingXs
     }
 
   }

@@ -50,8 +50,8 @@ actor FileSessionStorage: SessionStorage {
 
     let score = session.score
       .map { ($0.key.name, $0.key.octave, $0.value.correct, $0.value.wrong) }
-      .sorted(by: { $0.0 <  $1.0 })
-      .map { "\($0.0.toString()):\($0.1):\($0.2):\($0.3)"}
+      .sorted(by: { $0.0 < $1.0 })
+      .map { "\($0.0.toString()):\($0.1):\($0.2):\($0.3)" }
       .joined(separator: ",")
 
     guard let line = "\(session.timestamp);\(score)\n".data(using: .utf8) else {
@@ -88,7 +88,7 @@ actor FileSessionStorage: SessionStorage {
       }
 
       let timestamp = TimeInterval(components[0]) ?? 0
-      var score: [Note: (Int, Int)] = [:]
+      var score: [Note: Score] = [:]
 
       for stat in components[1].split(separator: ",") {
         let noteAndValues = stat.split(separator: ":")
@@ -106,7 +106,7 @@ actor FileSessionStorage: SessionStorage {
           continue
         }
 
-        score[Note(name: noteName, octave: noteOctave)] = (correct, wrong)
+        score[Note(name: noteName, octave: noteOctave)] = Score(correct: correct, wrong: wrong)
       }
 
       if !score.isEmpty {
@@ -147,8 +147,8 @@ actor FileSessionStorage: SessionStorage {
   }
 }
 
-private extension NoteName {
-  static func parse(_ substring: Substring, for level: Int) -> NoteName? {
+extension NoteName {
+  fileprivate static func parse(_ substring: Substring, for level: Int) -> NoteName? {
     switch substring.lowercased() {
     case "c": .c
     case "csharp", "dflat": .cSharp
@@ -166,7 +166,7 @@ private extension NoteName {
     }
   }
 
-  func toString() -> String {
+  fileprivate func toString() -> String {
     switch self {
     case .c: "c"
     case .cSharp: "csharp"

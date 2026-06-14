@@ -1,8 +1,8 @@
 ///
-/// Question.swift
+/// MockTipProvider.swift
 /// Bemol
 ///
-/// Copyright 2025 Faiçal Tchirou
+/// Copyright 2026 Faiçal Tchirou
 ///
 /// Bemol is free software: you can redistribute it and/or modify it under the terms of
 /// the GNU General Public License as published by the Free Software Foundation, either version 3
@@ -18,14 +18,22 @@
 
 import Foundation
 
-struct Question: Equatable {
-  let id: UUID
-  let answer: Note
-  let resolution: Resolution
+@testable import Bemol
 
-  init(id: UUID = UUID(), answer: Note, resolution: Resolution) {
-    self.id = id
-    self.answer = answer
-    self.resolution = resolution
+final class MockTipProvider: TipProvider {
+  let tips: [Tip]
+  var index = -1
+
+  init(tips: [Tip] = []) {
+    self.tips = tips
+  }
+
+  func nextTip() -> Tip? {
+    if index + 1 < tips.count {
+      index += 1
+      return tips[index]
+    }
+
+    return nil
   }
 }

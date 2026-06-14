@@ -69,7 +69,7 @@ final class KeyboardView: UIView {
     get { scrollView.isScrollEnabled }
     set { scrollView.isScrollEnabled = newValue }
   }
-  
+
   // MARK: - Properties
 
   private let range: ClosedRange<Octave>
@@ -80,7 +80,7 @@ final class KeyboardView: UIView {
     setUpViewHierarchy()
     setUpOctaveViews()
   }
-  
+
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }

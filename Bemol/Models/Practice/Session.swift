@@ -18,9 +18,18 @@
 
 import Foundation
 
-struct Session {
+struct Score: Equatable {
+  let correct: Int
+  let wrong: Int
+
+  static var zero: Score {
+    Score(correct: 0, wrong: 0)
+  }
+}
+
+struct Session: Equatable {
   let timestamp: TimeInterval
-  let score: [Note: (correct: Int, wrong: Int)]
+  let score: [Note: Score]
 }
 
 extension Session {

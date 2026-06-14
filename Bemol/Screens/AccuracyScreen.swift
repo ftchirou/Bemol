@@ -90,7 +90,8 @@ final class AccuracyScreen {
         keyboardView.setEnabled(true, for: (state?.activeNotes ?? []))
       }
 
-      titleBar.title = state?.context == .level
+      titleBar.title =
+        state?.context == .level
         ? AttributedString(localized: "levelAccuracy")
         : AttributedString(localized: "sessionAccuracy")
     }
@@ -122,7 +123,7 @@ final class AccuracyScreen {
 
   // MARK: - Properties
 
-  private let notePlayer: NotePlayer
+  private let notePlayer: any NotePlayer
 
   private var accuracy: [Note: Double] = [:] {
     didSet {
@@ -142,7 +143,7 @@ final class AccuracyScreen {
 
   // MARK: - Initialization
 
-  init(notePlayer: NotePlayer) {
+  init(notePlayer: any NotePlayer) {
     self.notePlayer = notePlayer
   }
 

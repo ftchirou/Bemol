@@ -18,13 +18,13 @@
 
 import Foundation
 
-enum NoteRange {
+enum NoteRange: Equatable {
   case firstHalfOfOctave
   case secondHalfOfOctave
   case entireOctave
 }
 
-struct Level {
+struct Level: Equatable {
   let id: Int
   let key: NoteName
   let isMajor: Bool

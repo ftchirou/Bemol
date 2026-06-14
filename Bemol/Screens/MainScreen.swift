@@ -63,7 +63,7 @@ final class MainScreen {
       didPressConfigureButton: { [weak self] in self?.didPressConfigureButton() },
       didPressStartStopButton: { [weak self] in self?.didPressStartStopButton() },
       didPressRepeatButton: { [weak self] in self?.didPressRepeatButton() },
-      didPressProgressButton:  { [weak self] in self?.didPressProgressButton() },
+      didPressProgressButton: { [weak self] in self?.didPressProgressButton() },
       didDismissTip: { [weak self] in self?.didDismissTip() }
     )
 

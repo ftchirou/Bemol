@@ -18,12 +18,11 @@
 
 import UIKit
 
-public extension CGFloat {
-  static let spacingXxxs: CGFloat = 1
-  static let spacingXxs: CGFloat = 2
-  static let spacingXs: CGFloat = 8
-  static let spacingSm: CGFloat = 16
-  static let spacingMd: CGFloat = 24
-  static let spacingLg: CGFloat = 32
+extension CGFloat {
+  public static let spacingXxxs: CGFloat = 1
+  public static let spacingXxs: CGFloat = 2
+  public static let spacingXs: CGFloat = 8
+  public static let spacingSm: CGFloat = 16
+  public static let spacingMd: CGFloat = 24
+  public static let spacingLg: CGFloat = 32
 }
-

@@ -41,22 +41,25 @@ struct DiatonicLevelGeneratorTests {
     #expect(dFlatMajorLevel.spansMultipleOctaves == false)
     #expect(dFlatMajorLevel.range == .firstHalfOfOctave)
     #expect(dFlatMajorLevel.sessions.isEmpty == true)
-    #expect(dFlatMajorLevel.notes == [
-      Note(name: .dFlat, octave: 1),
-      Note(name: .eFlat, octave: 1),
-      Note(name: .f, octave: 1),
-      Note(name: .gFlat, octave: 1)
-    ])
-    #expect(dFlatMajorLevel.cadence == Cadence(
-      voices: [.dFlat, .f, .aFlat],
-      roots: [.dFlat, .gFlat, .aFlat, .dFlat],
-      movement: [
-          [0, 0, 0],
-          [0, 1, 2],
-          [-1, -2, 0],
-          [0, 0, 0]
-      ]
-    ))
+    #expect(
+      dFlatMajorLevel.notes == [
+        Note(name: .dFlat, octave: 1),
+        Note(name: .eFlat, octave: 1),
+        Note(name: .f, octave: 1),
+        Note(name: .gFlat, octave: 1),
+      ])
+    #expect(
+      dFlatMajorLevel.cadence
+        == Cadence(
+          voices: [.dFlat, .f, .aFlat],
+          roots: [.dFlat, .gFlat, .aFlat, .dFlat],
+          movement: [
+            [0, 0, 0],
+            [0, 1, 2],
+            [-1, -2, 0],
+            [0, 0, 0],
+          ]
+        ))
   }
 
   @Test
@@ -76,22 +79,25 @@ struct DiatonicLevelGeneratorTests {
     #expect(dFlatMajorLevel.spansMultipleOctaves == false)
     #expect(dFlatMajorLevel.range == .secondHalfOfOctave)
     #expect(dFlatMajorLevel.sessions.isEmpty == true)
-    #expect(dFlatMajorLevel.notes == [
-      Note(name: .aFlat, octave: 1),
-      Note(name: .bFlat, octave: 1),
-      Note(name: .c, octave: 2),
-      Note(name: .dFlat, octave: 2)
-    ])
-    #expect(dFlatMajorLevel.cadence == Cadence(
-      voices: [.dFlat, .f, .aFlat],
-      roots: [.dFlat, .gFlat, .aFlat, .dFlat],
-      movement: [
-          [0, 0, 0],
-          [0, 1, 2],
-          [-1, -2, 0],
-          [0, 0, 0]
-      ]
-    ))
+    #expect(
+      dFlatMajorLevel.notes == [
+        Note(name: .aFlat, octave: 1),
+        Note(name: .bFlat, octave: 1),
+        Note(name: .c, octave: 2),
+        Note(name: .dFlat, octave: 2),
+      ])
+    #expect(
+      dFlatMajorLevel.cadence
+        == Cadence(
+          voices: [.dFlat, .f, .aFlat],
+          roots: [.dFlat, .gFlat, .aFlat, .dFlat],
+          movement: [
+            [0, 0, 0],
+            [0, 1, 2],
+            [-1, -2, 0],
+            [0, 0, 0],
+          ]
+        ))
   }
 
   @Test
@@ -111,26 +117,29 @@ struct DiatonicLevelGeneratorTests {
     #expect(dFlatMajorLevel.spansMultipleOctaves == false)
     #expect(dFlatMajorLevel.range == .entireOctave)
     #expect(dFlatMajorLevel.sessions.isEmpty == true)
-    #expect(dFlatMajorLevel.notes == [
-      Note(name: .dFlat, octave: 1),
-      Note(name: .eFlat, octave: 1),
-      Note(name: .f, octave: 1),
-      Note(name: .gFlat, octave: 1),
-      Note(name: .aFlat, octave: 1),
-      Note(name: .bFlat, octave: 1),
-      Note(name: .c, octave: 2),
-      Note(name: .dFlat, octave: 2)
-    ])
-    #expect(dFlatMajorLevel.cadence == Cadence(
-      voices: [.dFlat, .f, .aFlat],
-      roots: [.dFlat, .gFlat, .aFlat, .dFlat],
-      movement: [
-          [0, 0, 0],
-          [0, 1, 2],
-          [-1, -2, 0],
-          [0, 0, 0]
-      ]
-    ))
+    #expect(
+      dFlatMajorLevel.notes == [
+        Note(name: .dFlat, octave: 1),
+        Note(name: .eFlat, octave: 1),
+        Note(name: .f, octave: 1),
+        Note(name: .gFlat, octave: 1),
+        Note(name: .aFlat, octave: 1),
+        Note(name: .bFlat, octave: 1),
+        Note(name: .c, octave: 2),
+        Note(name: .dFlat, octave: 2),
+      ])
+    #expect(
+      dFlatMajorLevel.cadence
+        == Cadence(
+          voices: [.dFlat, .f, .aFlat],
+          roots: [.dFlat, .gFlat, .aFlat, .dFlat],
+          movement: [
+            [0, 0, 0],
+            [0, 1, 2],
+            [-1, -2, 0],
+            [0, 0, 0],
+          ]
+        ))
   }
 
   @Test
@@ -150,24 +159,27 @@ struct DiatonicLevelGeneratorTests {
     #expect(dFlatMajorLevel.spansMultipleOctaves == false)
     #expect(dFlatMajorLevel.range == .firstHalfOfOctave)
     #expect(dFlatMajorLevel.sessions.isEmpty == true)
-    #expect(dFlatMajorLevel.notes == [
-      Note(name: .dFlat, octave: 1),
-      Note(name: .d, octave: 1),
-      Note(name: .eFlat, octave: 1),
-      Note(name: .e, octave: 1),
-      Note(name: .f, octave: 1),
-      Note(name: .gFlat, octave: 1)
-    ])
-    #expect(dFlatMajorLevel.cadence == Cadence(
-      voices: [.dFlat, .f, .aFlat],
-      roots: [.dFlat, .gFlat, .aFlat, .dFlat],
-      movement: [
-          [0, 0, 0],
-          [0, 1, 2],
-          [-1, -2, 0],
-          [0, 0, 0]
-      ]
-    ))
+    #expect(
+      dFlatMajorLevel.notes == [
+        Note(name: .dFlat, octave: 1),
+        Note(name: .d, octave: 1),
+        Note(name: .eFlat, octave: 1),
+        Note(name: .e, octave: 1),
+        Note(name: .f, octave: 1),
+        Note(name: .gFlat, octave: 1),
+      ])
+    #expect(
+      dFlatMajorLevel.cadence
+        == Cadence(
+          voices: [.dFlat, .f, .aFlat],
+          roots: [.dFlat, .gFlat, .aFlat, .dFlat],
+          movement: [
+            [0, 0, 0],
+            [0, 1, 2],
+            [-1, -2, 0],
+            [0, 0, 0],
+          ]
+        ))
   }
 
   @Test
@@ -187,25 +199,28 @@ struct DiatonicLevelGeneratorTests {
     #expect(dFlatMajorLevel.spansMultipleOctaves == false)
     #expect(dFlatMajorLevel.range == .secondHalfOfOctave)
     #expect(dFlatMajorLevel.sessions.isEmpty == true)
-    #expect(dFlatMajorLevel.notes == [
-      Note(name: .g, octave: 1),
-      Note(name: .aFlat, octave: 1),
-      Note(name: .a, octave: 1),
-      Note(name: .bFlat, octave: 1),
-      Note(name: .b, octave: 1),
-      Note(name: .c, octave: 2),
-      Note(name: .dFlat, octave: 2)
-    ])
-    #expect(dFlatMajorLevel.cadence == Cadence(
-      voices: [.dFlat, .f, .aFlat],
-      roots: [.dFlat, .gFlat, .aFlat, .dFlat],
-      movement: [
-          [0, 0, 0],
-          [0, 1, 2],
-          [-1, -2, 0],
-          [0, 0, 0]
-      ]
-    ))
+    #expect(
+      dFlatMajorLevel.notes == [
+        Note(name: .g, octave: 1),
+        Note(name: .aFlat, octave: 1),
+        Note(name: .a, octave: 1),
+        Note(name: .bFlat, octave: 1),
+        Note(name: .b, octave: 1),
+        Note(name: .c, octave: 2),
+        Note(name: .dFlat, octave: 2),
+      ])
+    #expect(
+      dFlatMajorLevel.cadence
+        == Cadence(
+          voices: [.dFlat, .f, .aFlat],
+          roots: [.dFlat, .gFlat, .aFlat, .dFlat],
+          movement: [
+            [0, 0, 0],
+            [0, 1, 2],
+            [-1, -2, 0],
+            [0, 0, 0],
+          ]
+        ))
   }
 
   @Test
@@ -225,33 +240,35 @@ struct DiatonicLevelGeneratorTests {
     #expect(dFlatMajorLevel.spansMultipleOctaves == false)
     #expect(dFlatMajorLevel.range == .entireOctave)
     #expect(dFlatMajorLevel.sessions.isEmpty == true)
-    #expect(dFlatMajorLevel.notes == [
-      Note(name: .dFlat, octave: 1),
-      Note(name: .d, octave: 1),
-      Note(name: .eFlat, octave: 1),
-      Note(name: .e, octave: 1),
-      Note(name: .f, octave: 1),
-      Note(name: .gFlat, octave: 1),
-      Note(name: .g, octave: 1),
-      Note(name: .aFlat, octave: 1),
-      Note(name: .a, octave: 1),
-      Note(name: .bFlat, octave: 1),
-      Note(name: .b, octave: 1),
-      Note(name: .c, octave: 2),
-      Note(name: .dFlat, octave: 2)
-    ])
-    #expect(dFlatMajorLevel.cadence == Cadence(
-      voices: [.dFlat, .f, .aFlat],
-      roots: [.dFlat, .gFlat, .aFlat, .dFlat],
-      movement: [
-          [0, 0, 0],
-          [0, 1, 2],
-          [-1, -2, 0],
-          [0, 0, 0]
-      ]
-    ))
+    #expect(
+      dFlatMajorLevel.notes == [
+        Note(name: .dFlat, octave: 1),
+        Note(name: .d, octave: 1),
+        Note(name: .eFlat, octave: 1),
+        Note(name: .e, octave: 1),
+        Note(name: .f, octave: 1),
+        Note(name: .gFlat, octave: 1),
+        Note(name: .g, octave: 1),
+        Note(name: .aFlat, octave: 1),
+        Note(name: .a, octave: 1),
+        Note(name: .bFlat, octave: 1),
+        Note(name: .b, octave: 1),
+        Note(name: .c, octave: 2),
+        Note(name: .dFlat, octave: 2),
+      ])
+    #expect(
+      dFlatMajorLevel.cadence
+        == Cadence(
+          voices: [.dFlat, .f, .aFlat],
+          roots: [.dFlat, .gFlat, .aFlat, .dFlat],
+          movement: [
+            [0, 0, 0],
+            [0, 1, 2],
+            [-1, -2, 0],
+            [0, 0, 0],
+          ]
+        ))
   }
-
 
   // MARK: - Minor
 
@@ -272,22 +289,25 @@ struct DiatonicLevelGeneratorTests {
     #expect(fMinorLevel.spansMultipleOctaves == false)
     #expect(fMinorLevel.range == .firstHalfOfOctave)
     #expect(fMinorLevel.sessions.isEmpty == true)
-    #expect(fMinorLevel.notes == [
-      Note(name: .f, octave: 1),
-      Note(name: .g, octave: 1),
-      Note(name: .aFlat, octave: 1),
-      Note(name: .bFlat, octave: 1)
-    ])
-    #expect(fMinorLevel.cadence == Cadence(
-      voices: [.f, .aFlat, .c],
-      roots: [.f, .bFlat, .c, .f],
-      movement: [
-        [0, 0, 0],
-        [0, 2, 1],
-        [-1, -1, 0],
-        [0, 0, 0]
-      ]
-    ))
+    #expect(
+      fMinorLevel.notes == [
+        Note(name: .f, octave: 1),
+        Note(name: .g, octave: 1),
+        Note(name: .aFlat, octave: 1),
+        Note(name: .bFlat, octave: 1),
+      ])
+    #expect(
+      fMinorLevel.cadence
+        == Cadence(
+          voices: [.f, .aFlat, .c],
+          roots: [.f, .bFlat, .c, .f],
+          movement: [
+            [0, 0, 0],
+            [0, 2, 1],
+            [-1, -1, 0],
+            [0, 0, 0],
+          ]
+        ))
   }
 
   @Test
@@ -307,22 +327,25 @@ struct DiatonicLevelGeneratorTests {
     #expect(fMinorLevel.spansMultipleOctaves == false)
     #expect(fMinorLevel.range == .secondHalfOfOctave)
     #expect(fMinorLevel.sessions.isEmpty == true)
-    #expect(fMinorLevel.notes == [
-      Note(name: .c, octave: 2),
-      Note(name: .dFlat, octave: 2),
-      Note(name: .e, octave: 2),
-      Note(name: .f, octave: 2)
-    ])
-    #expect(fMinorLevel.cadence == Cadence(
-      voices: [.f, .aFlat, .c],
-      roots: [.f, .bFlat, .c, .f],
-      movement: [
-        [0, 0, 0],
-        [0, 2, 1],
-        [-1, -1, 0],
-        [0, 0, 0]
-      ]
-    ))
+    #expect(
+      fMinorLevel.notes == [
+        Note(name: .c, octave: 2),
+        Note(name: .dFlat, octave: 2),
+        Note(name: .e, octave: 2),
+        Note(name: .f, octave: 2),
+      ])
+    #expect(
+      fMinorLevel.cadence
+        == Cadence(
+          voices: [.f, .aFlat, .c],
+          roots: [.f, .bFlat, .c, .f],
+          movement: [
+            [0, 0, 0],
+            [0, 2, 1],
+            [-1, -1, 0],
+            [0, 0, 0],
+          ]
+        ))
   }
 
   @Test
@@ -342,26 +365,29 @@ struct DiatonicLevelGeneratorTests {
     #expect(fMinorLevel.spansMultipleOctaves == false)
     #expect(fMinorLevel.range == .entireOctave)
     #expect(fMinorLevel.sessions.isEmpty == true)
-    #expect(fMinorLevel.notes == [
-      Note(name: .f, octave: 1),
-      Note(name: .g, octave: 1),
-      Note(name: .aFlat, octave: 1),
-      Note(name: .bFlat, octave: 1),
-      Note(name: .c, octave: 2),
-      Note(name: .dFlat, octave: 2),
-      Note(name: .e, octave: 2),
-      Note(name: .f, octave: 2)
-    ])
-    #expect(fMinorLevel.cadence == Cadence(
-      voices: [.f, .aFlat, .c],
-      roots: [.f, .bFlat, .c, .f],
-      movement: [
-        [0, 0, 0],
-        [0, 2, 1],
-        [-1, -1, 0],
-        [0, 0, 0]
-      ]
-    ))
+    #expect(
+      fMinorLevel.notes == [
+        Note(name: .f, octave: 1),
+        Note(name: .g, octave: 1),
+        Note(name: .aFlat, octave: 1),
+        Note(name: .bFlat, octave: 1),
+        Note(name: .c, octave: 2),
+        Note(name: .dFlat, octave: 2),
+        Note(name: .e, octave: 2),
+        Note(name: .f, octave: 2),
+      ])
+    #expect(
+      fMinorLevel.cadence
+        == Cadence(
+          voices: [.f, .aFlat, .c],
+          roots: [.f, .bFlat, .c, .f],
+          movement: [
+            [0, 0, 0],
+            [0, 2, 1],
+            [-1, -1, 0],
+            [0, 0, 0],
+          ]
+        ))
   }
 
   @Test
@@ -381,24 +407,27 @@ struct DiatonicLevelGeneratorTests {
     #expect(fMinorLevel.spansMultipleOctaves == false)
     #expect(fMinorLevel.range == .firstHalfOfOctave)
     #expect(fMinorLevel.sessions.isEmpty == true)
-    #expect(fMinorLevel.notes == [
-      Note(name: .f, octave: 1),
-      Note(name: .fSharp, octave: 1),
-      Note(name: .g, octave: 1),
-      Note(name: .aFlat, octave: 1),
-      Note(name: .a, octave: 1),
-      Note(name: .bFlat, octave: 1)
-    ])
-    #expect(fMinorLevel.cadence == Cadence(
-      voices: [.f, .aFlat, .c],
-      roots: [.f, .bFlat, .c, .f],
-      movement: [
-        [0, 0, 0],
-        [0, 2, 1],
-        [-1, -1, 0],
-        [0, 0, 0]
-      ]
-    ))
+    #expect(
+      fMinorLevel.notes == [
+        Note(name: .f, octave: 1),
+        Note(name: .fSharp, octave: 1),
+        Note(name: .g, octave: 1),
+        Note(name: .aFlat, octave: 1),
+        Note(name: .a, octave: 1),
+        Note(name: .bFlat, octave: 1),
+      ])
+    #expect(
+      fMinorLevel.cadence
+        == Cadence(
+          voices: [.f, .aFlat, .c],
+          roots: [.f, .bFlat, .c, .f],
+          movement: [
+            [0, 0, 0],
+            [0, 2, 1],
+            [-1, -1, 0],
+            [0, 0, 0],
+          ]
+        ))
   }
 
   @Test
@@ -418,25 +447,28 @@ struct DiatonicLevelGeneratorTests {
     #expect(fMinorLevel.spansMultipleOctaves == false)
     #expect(fMinorLevel.range == .secondHalfOfOctave)
     #expect(fMinorLevel.sessions.isEmpty == true)
-    #expect(fMinorLevel.notes == [
-      Note(name: .b, octave: 1),
-      Note(name: .c, octave: 2),
-      Note(name: .dFlat, octave: 2),
-      Note(name: .d, octave: 2),
-      Note(name: .eFlat, octave: 2),
-      Note(name: .e, octave: 2),
-      Note(name: .f, octave: 2)
-    ])
-    #expect(fMinorLevel.cadence == Cadence(
-      voices: [.f, .aFlat, .c],
-      roots: [.f, .bFlat, .c, .f],
-      movement: [
-        [0, 0, 0],
-        [0, 2, 1],
-        [-1, -1, 0],
-        [0, 0, 0]
-      ]
-    ))
+    #expect(
+      fMinorLevel.notes == [
+        Note(name: .b, octave: 1),
+        Note(name: .c, octave: 2),
+        Note(name: .dFlat, octave: 2),
+        Note(name: .d, octave: 2),
+        Note(name: .eFlat, octave: 2),
+        Note(name: .e, octave: 2),
+        Note(name: .f, octave: 2),
+      ])
+    #expect(
+      fMinorLevel.cadence
+        == Cadence(
+          voices: [.f, .aFlat, .c],
+          roots: [.f, .bFlat, .c, .f],
+          movement: [
+            [0, 0, 0],
+            [0, 2, 1],
+            [-1, -1, 0],
+            [0, 0, 0],
+          ]
+        ))
   }
 
   @Test
@@ -456,30 +488,33 @@ struct DiatonicLevelGeneratorTests {
     #expect(fMinorLevel.spansMultipleOctaves == false)
     #expect(fMinorLevel.range == .entireOctave)
     #expect(fMinorLevel.sessions.isEmpty == true)
-    #expect(fMinorLevel.notes == [
-      Note(name: .f, octave: 1),
-      Note(name: .fSharp, octave: 1),
-      Note(name: .g, octave: 1),
-      Note(name: .aFlat, octave: 1),
-      Note(name: .a, octave: 1),
-      Note(name: .bFlat, octave: 1),
-      Note(name: .b, octave: 1),
-      Note(name: .c, octave: 2),
-      Note(name: .dFlat, octave: 2),
-      Note(name: .d, octave: 2),
-      Note(name: .eFlat, octave: 2),
-      Note(name: .e, octave: 2),
-      Note(name: .f, octave: 2)
-    ])
-    #expect(fMinorLevel.cadence == Cadence(
-      voices: [.f, .aFlat, .c],
-      roots: [.f, .bFlat, .c, .f],
-      movement: [
-        [0, 0, 0],
-        [0, 2, 1],
-        [-1, -1, 0],
-        [0, 0, 0]
-      ]
-    ))
+    #expect(
+      fMinorLevel.notes == [
+        Note(name: .f, octave: 1),
+        Note(name: .fSharp, octave: 1),
+        Note(name: .g, octave: 1),
+        Note(name: .aFlat, octave: 1),
+        Note(name: .a, octave: 1),
+        Note(name: .bFlat, octave: 1),
+        Note(name: .b, octave: 1),
+        Note(name: .c, octave: 2),
+        Note(name: .dFlat, octave: 2),
+        Note(name: .d, octave: 2),
+        Note(name: .eFlat, octave: 2),
+        Note(name: .e, octave: 2),
+        Note(name: .f, octave: 2),
+      ])
+    #expect(
+      fMinorLevel.cadence
+        == Cadence(
+          voices: [.f, .aFlat, .c],
+          roots: [.f, .bFlat, .c, .f],
+          movement: [
+            [0, 0, 0],
+            [0, 2, 1],
+            [-1, -1, 0],
+            [0, 0, 0],
+          ]
+        ))
   }
 }

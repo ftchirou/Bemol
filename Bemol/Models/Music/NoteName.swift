@@ -41,7 +41,7 @@ enum NoteName: UInt8, Equatable {
   static let bFlat: NoteName = .aSharp
 
   static let all: [NoteName] = [
-    .c, .cSharp, .d, .dSharp, .e, .f, .fSharp, .g, .gSharp, .a, .aSharp, .b
+    .c, .cSharp, .d, .dSharp, .e, .f, .fSharp, .g, .gSharp, .a, .aSharp, .b,
   ]
 
   // MARK: - Indexing
@@ -187,7 +187,7 @@ extension NoteName {
   }
 }
 
-fileprivate let solfegeNames = [
+private let solfegeNames = [
   String(localized: "do").capitalized,
   "\(String(localized: "di").capitalized) / \(String(localized: "ra").capitalized)",
   String(localized: "re").capitalized,

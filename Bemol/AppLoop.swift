@@ -17,6 +17,8 @@
 ///
 
 import Foundation
+import UIKit
+import os
 
 struct AppLoopDelegate {
   let didUpdateState: (AppState) -> Void
@@ -28,6 +30,8 @@ final class AppLoop {
   private(set) var state: AppState
 
   var delegate: AppLoopDelegate?
+
+  private lazy var effectHandler = AppEffectHandler(environment: environment)
 
   init(environment: AppEnvironment, initialState: AppState) {
     self.environment = environment
@@ -44,14 +48,14 @@ final class AppLoop {
 
     if let effect {
       Task {
-        if let action = try? await effect.run() {
+        if let action = await effectHandler.handleEffect(effect) {
           self.dispatch(action)
         }
       }
     }
   }
 
-  func nextState(currentState: AppState, action: AppAction) -> (AppState, AppEffect<AppAction?>?) {
+  func nextState(currentState: AppState, action: AppAction) -> (AppState, AppEffect?) {
     var nextState = currentState
 
     switch action {
@@ -60,24 +64,7 @@ final class AppLoop {
     case .didLoad:
       nextState.isLoading = true
 
-      return (
-        nextState,
-        AppEffect { [weak self] in
-          guard let self else { throw AppError.unexpected }
-
-          try await self.environment
-            .notePlayer
-            .prepareToPlay()
-
-          try await self.environment
-            .practiceManager
-            .prepareToPractice()
-
-          return try await self.environment
-            .practiceManager
-            .moveToNextLevel()
-        }.mapTo(AppAction.didLoadLevel)
-      )
+      return (nextState, .prepareToPractice)
 
     // MARK: - Onboarding Actions
 
@@ -96,46 +83,22 @@ final class AppLoop {
     case .didPressHomeButton:
       nextState.isLoading = true
 
-      return (
-        nextState,
-        AppEffect { [weak self] in
-          guard let self else { throw AppError.unexpected }
-          return try await self.environment.practiceManager.moveToFirstLevel()
-        }.mapTo(AppAction.didLoadLevel)
-      )
+      return (nextState, .loadFirstLevel)
 
     case .didPressRandomButton:
       nextState.isLoading = true
 
-      return (
-        nextState,
-        AppEffect { [weak self] in
-          guard let self else { throw AppError.unexpected }
-          return try await self.environment.practiceManager.moveToRandomLevel()
-        }.mapTo(AppAction.didLoadLevel)
-      )
+      return (nextState, .loadRandomLevel)
 
     case .didPressPreviousLevelButton:
       nextState.isLoading = true
 
-      return (
-        nextState,
-        AppEffect { [weak self] in
-          guard let self else { throw AppError.unexpected }
-          return try await self.environment.practiceManager.moveToPreviousLevel()
-        }.mapTo(AppAction.didLoadLevel)
-      )
+      return (nextState, .loadPreviousLevel)
 
     case .didPressNextLevelButton:
       nextState.isLoading = true
 
-      return (
-        nextState,
-        AppEffect { [weak self] in
-          guard let self else { throw AppError.unexpected }
-          return try await self.environment.practiceManager.moveToNextLevel()
-        }.mapTo(AppAction.didLoadLevel)
-      )
+      return (nextState, .loadNextLevel)
 
     case .didPressConfigureLevelButton:
       nextState.isLevelEditorVisible = true
@@ -147,55 +110,20 @@ final class AppLoop {
       nextState.highlightedNote = nil
 
       if nextState.isPracticing {
-        return (
-          nextState,
-          AppEffect { [weak self] in
-            guard let self else { throw AppError.unexpected }
-            return try await self.environment
-              .practiceManager
-              .startSession()
-          }.mapTo(AppAction.didStartSession)
-        )
+        return (nextState, .startSession)
       }
 
-      return (
-        nextState,
-        AppEffect { [weak self] in
-          guard let self else { throw AppError.unexpected }
-
-          return try await self.environment
-            .practiceManager
-            .stopCurrentSession()
-        }.mapTo(AppAction.didLoadLevel)
-      )
+      return (nextState, .stopSession)
 
     case .didPressRepeatQuestionButton:
-      guard currentState.isPracticing else { return (nextState, nil) }
+      guard
+        currentState.isPracticing,
+        let level = currentState.level,
+        let question = currentState.question
+      else { return (nextState, nil) }
 
       nextState.isInteractionEnabled = false
-
-      return (
-        nextState,
-        AppEffect { [weak self] in
-          guard
-            let self,
-            let level = nextState.level,
-            let question = nextState.question
-          else {
-            throw AppError.unexpected
-          }
-
-          let cadence: () = try await self.environment
-            .notePlayer
-            .playCadence(level.cadence)
-
-          try await self.environment
-            .notePlayer
-            .playNote(question.answer)
-
-          return cadence
-        }.mapTo(AppAction.didPlayCadence)
-      )
+      return (nextState, .repeatQuestion(level, question))
 
     case .didPressAccuracyRing:
       nextState.isAccuracyScreenVisible = true
@@ -207,26 +135,18 @@ final class AppLoop {
     case .didPressNote(let note):
       guard currentState.isPracticing else {
         nextState.highlightedNote = (note, .amber)
-  
-        return (
-          nextState,
-          AppEffect { [weak self] in
-            guard let self else { throw AppError.unexpected }
-
-            try await self.environment
-              .notePlayer
-              .playNote(note)
-
-            return nil
-          }
-        )
+        return (nextState, .playNote(note))
       }
 
-      guard let level = currentState.level, let question = currentState.question else {
+      guard
+        let level = currentState.level,
+        let question = currentState.question
+      else {
         return (nextState, nil)
       }
 
-      let isCorrect = level.spansMultipleOctaves
+      let isCorrect =
+        level.spansMultipleOctaves
         ? note.name == question.answer.name
         : note == question.answer
 
@@ -260,29 +180,23 @@ final class AppLoop {
       return (nextState, nil)
 
     case .didSelectNotes(let notes):
-      return (
-        nextState,
-        AppEffect { [weak self] in
-          guard let self, let level = currentState.level else { throw AppError.unexpected }
+      guard
+        let level = currentState.level,
+        Set(notes) != Set(level.notes)
+      else { return (nextState, nil) }
 
-          let newLevel = if Set(notes) == Set(level.notes) {
-            level
-          } else if let baseLevel = currentState.baseLevel, Set(notes) == Set(baseLevel.notes) {
-            baseLevel
-          } else {
-            level.withNotes(notes)
-          }
+      let newLevel =
+        if let baseLevel = currentState.baseLevel, Set(notes) == Set(baseLevel.notes) {
+          baseLevel
+        } else {
+          level.withNotes(notes)
+        }
 
-          return try await self.environment
-            .practiceManager
-            .setCurrentLevel(newLevel)
-        }.mapTo(AppAction.didLoadLevel)
-      )
-
+      return (nextState, .loadLevel(newLevel))
 
     // MARK: - Async Actions
 
-    case .didLoadLevel(.success(let level)):
+    case .didLoadLevel(let level):
       nextState.isLoading = false
       nextState.hasError = false
       nextState.level = level
@@ -305,7 +219,7 @@ final class AppLoop {
 
       return (nextState, nil)
 
-    case .didStartSession(.success(let session)), .didLogRightAnswer(.success(let session)):
+    case .didStartSession(let session), .didLogRightAnswer(let session):
       nextState.isLoading = false
       nextState.hasError = false
       nextState.session = session
@@ -316,16 +230,9 @@ final class AppLoop {
       nextState.highlightedNote = nil
       nextState.isInteractionEnabled = true
 
-      return (
-        nextState,
-        AppEffect { [weak self] in
-          guard let self else { throw AppError.unexpected }
+      return (nextState, .loadNextQuestion)
 
-          return try await self.environment.practiceManager.moveToNextQuestion()
-        }.mapTo(AppAction.didLoadQuestion)
-      )
-
-    case .didLogWrongAnswer(.success(let session)):
+    case .didLogWrongAnswer(let session):
       nextState.isLoading = false
       nextState.hasError = false
       nextState.session = session
@@ -337,46 +244,27 @@ final class AppLoop {
 
       return (nextState, nil)
 
-    case .didLoadQuestion(.success(let question)):
+    case .didLoadQuestion(let question):
+      guard let level = currentState.level else { return (nextState, nil) }
+
       nextState.isLoading = false
       nextState.hasError = false
       nextState.question = question
       nextState.highlightedNote = nil
       nextState.isInteractionEnabled = false
 
-      return (
-        nextState,
-        AppEffect { [weak self] in
-          guard let self, let level = currentState.level else { throw AppError.unexpected }
-          let cadence: () = try await self.environment
-            .notePlayer
-            .playCadence(level.cadence)
+      return (nextState, .playCadence(level, question))
 
-          try await self.environment
-            .notePlayer
-            .playNote(question.answer)
-
-          return cadence
-        }.mapTo(AppAction.didPlayCadence)
-      )
-
-    case .didPlayCadence(.success):
+    case .didPlayCadence:
       nextState.isInteractionEnabled = true
 
       return (nextState, nil)
 
-    case .didPlayNoteInResolution(.success):
-      if currentState.currentlyPlayingResolution.isEmpty {
-        return (
-          nextState,
-          AppEffect { [weak self] in
-            guard let self, let question = currentState.question else { throw AppError.unexpected }
+    case .didPlayNoteInResolution:
+      guard let question = currentState.question else { return (nextState, nil) }
 
-            return try await self.environment
-              .practiceManager
-              .logCorrectAnswer(question.answer, for: question)
-          }.mapTo(AppAction.didLogRightAnswer)
-        )
+      if currentState.currentlyPlayingResolution.isEmpty {
+        return (nextState, .logRightAnswer(question.answer, question))
       }
 
       let note = currentState.currentlyPlayingResolution[0]
@@ -384,57 +272,13 @@ final class AppLoop {
       nextState.highlightedNote = (note, .systemGreen)
       nextState.currentlyPlayingResolution = Array(currentState.currentlyPlayingResolution[1...])
 
-      return (
-        nextState,
-        AppEffect { [weak self] in
-          guard let self else { throw AppError.unexpected }
-
-          return try await self.environment
-            .notePlayer
-            .playNote(note)
-        }.mapTo(AppAction.didPlayNoteInResolution)
-      )
+      return (nextState, .playNoteInResolution(note))
 
     // MARK: - Error States
 
-    case .didLoadLevel(.failure(let error)):
+    case .errorOccurred(let error):
       nextState.error = error
       nextState.isLoading = false
-      nextState.hasError = true
-      return (nextState, nil)
-
-    case .didStartSession(.failure(let error)):
-      nextState.error = error
-      nextState.isLoading = false
-      nextState.hasError = true
-      return (nextState, nil)
-
-    case .didLoadQuestion(.failure(let error)):
-      nextState.error = error
-      nextState.isLoading = false
-      nextState.hasError = true
-      return (nextState, nil)
-
-    case .didLogRightAnswer(.failure(let error)):
-      nextState.error = error
-      nextState.isLoading = false
-      nextState.hasError = true
-      return (nextState, nil)
-
-    case .didLogWrongAnswer(.failure(let error)):
-      nextState.error = error
-      nextState.isLoading = false
-      nextState.hasError = true
-      return (nextState, nil)
-
-    case .didPlayCadence(.failure(let error)):
-      nextState.error = error
-      nextState.isLoading = false
-      nextState.hasError = true
-      return (nextState, nil)
-
-    case .didPlayNoteInResolution(.failure(let error)):
-      nextState.error = error
       nextState.hasError = true
       return (nextState, nil)
     }
@@ -444,7 +288,7 @@ final class AppLoop {
     currentState: AppState,
     question: Question,
     note: Note
-  ) -> (AppState, AppEffect<AppAction?>?) {
+  ) -> (AppState, AppEffect?) {
     var nextState = currentState
     nextState.answer = note
     nextState.highlightedNote = (note, .systemGreen)
@@ -455,41 +299,20 @@ final class AppLoop {
       nextState.highlightedNote = (note, .systemGreen)
     }
 
-    return (
-      nextState,
-      AppEffect {}.mapTo(AppAction.didPlayNoteInResolution)
-    )
+    return (nextState, .playNoteInResolution(nil))
   }
 
   private func stateForWrongNotePressed(
     currentState: AppState,
     question: Question,
     note: Note
-  ) -> (AppState, AppEffect<AppAction?>?) {
+  ) -> (AppState, AppEffect?) {
     var nextState = currentState
     nextState.answer = note
     nextState.highlightedNote = (note, .systemRed)
     nextState.isInteractionEnabled = false
 
-    return (
-      nextState,
-      AppEffect { [weak self] in
-        guard
-          let self,
-          let question = currentState.question
-        else {
-          throw AppError.unexpected
-        }
-
-        try await self.environment
-          .notePlayer
-          .playNote(note)
-
-        return try await self.environment
-          .practiceManager
-          .logWrongAnswer(note, for: question)
-      }.mapTo(AppAction.didLogWrongAnswer)
-    )
+    return (nextState, .logWrongAnswer(note, question))
   }
 }
 

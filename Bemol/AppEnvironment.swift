@@ -20,9 +20,9 @@ import Foundation
 import os
 
 struct AppEnvironment {
-  let notePlayer: NotePlayer
-  let practiceManager: PracticeManager
-  let tipProvider: TipProvider
-  let preferences: Preferences
+  let notePlayer: any NotePlayer
+  let practiceManager: any PracticeManager
+  let tipProvider: any TipProvider
+  let preferences: any Preferences
   let logger: Logger
 }

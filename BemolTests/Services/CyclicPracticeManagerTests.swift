@@ -21,6 +21,7 @@ import Testing
 
 @testable import Bemol
 
+@MainActor
 struct CyclicPracticeManagerTests {
   @Test
   func logCorrectAnswer() async throws {
@@ -37,7 +38,7 @@ struct CyclicPracticeManagerTests {
     let updatedSession = try await manager.logCorrectAnswer(note, for: question)
 
     #expect(updatedSession.score.count == 1)
-    #expect(updatedSession.score[note] ?? (0, 0) == (1, 0))
+    #expect(updatedSession.score[note] ?? .zero == .init(correct: 1, wrong: 0))
   }
 
   @Test
@@ -59,7 +60,7 @@ struct CyclicPracticeManagerTests {
     let updatedSession = try await manager.logCorrectAnswer(note, for: question3)
 
     #expect(updatedSession.score.count == 1)
-    #expect(updatedSession.score[note] ?? (0, 0) == (3, 0))
+    #expect(updatedSession.score[note] ?? .zero == .init(correct: 3, wrong: 0))
   }
 
   @Test
@@ -79,7 +80,7 @@ struct CyclicPracticeManagerTests {
     let updatedSession = try await manager.logCorrectAnswer(note, for: question)
 
     #expect(updatedSession.score.count == 1)
-    #expect(updatedSession.score[note] ?? (0, 0) == (1, 0))
+    #expect(updatedSession.score[note] ?? .zero == .init(correct: 1, wrong: 0))
   }
 
   @Test
@@ -97,7 +98,7 @@ struct CyclicPracticeManagerTests {
     let updatedSession = try await manager.logWrongAnswer(note, for: question)
 
     #expect(updatedSession.score.count == 1)
-    #expect(updatedSession.score[note] ?? (0, 0) == (0, 1))
+    #expect(updatedSession.score[note] ?? .zero == .init(correct: 0, wrong: 1))
   }
 
   @Test
@@ -119,7 +120,7 @@ struct CyclicPracticeManagerTests {
     let updatedSession = try await manager.logWrongAnswer(note, for: question3)
 
     #expect(updatedSession.score.count == 1)
-    #expect(updatedSession.score[note] ?? (0, 0) == (0, 3))
+    #expect(updatedSession.score[note] ?? .zero == .init(correct: 0, wrong: 3))
   }
 
   @Test
@@ -139,7 +140,7 @@ struct CyclicPracticeManagerTests {
     let updatedSession = try await manager.logWrongAnswer(note, for: question)
 
     #expect(updatedSession.score.count == 1)
-    #expect(updatedSession.score[note] ?? (0, 0) == (0, 1))
+    #expect(updatedSession.score[note] ?? .zero == .init(correct: 0, wrong: 1))
   }
 
   @Test
@@ -165,7 +166,7 @@ struct CyclicPracticeManagerTests {
     let updatedSession = try await manager.logCorrectAnswer(note, for: question5)
 
     #expect(updatedSession.score.count == 1)
-    #expect(updatedSession.score[note] ?? (0, 0) == (3, 2))
+    #expect(updatedSession.score[note] ?? .zero == .init(correct: 3, wrong: 2))
   }
 
   @Test
@@ -192,8 +193,8 @@ struct CyclicPracticeManagerTests {
     let updatedSession = try await manager.logCorrectAnswer(note2, for: question5)
 
     #expect(updatedSession.score.count == 2)
-    #expect(updatedSession.score[note1] ?? (0, 0) == (1, 1))
-    #expect(updatedSession.score[note2] ?? (0, 0) == (2, 1))
+    #expect(updatedSession.score[note1] ?? .zero == .init(correct: 1, wrong: 1))
+    #expect(updatedSession.score[note2] ?? .zero == .init(correct: 2, wrong: 1))
   }
 
   @Test
@@ -220,7 +221,7 @@ struct CyclicPracticeManagerTests {
     let session = try #require(level.sessions.first)
 
     #expect(session.score.count == 1)
-    #expect(session.score[note] ?? (0, 0) == (1, 0))
+    #expect(session.score[note] ?? .zero == .init(correct: 1, wrong: 0))
   }
 
   @Test
@@ -250,7 +251,7 @@ struct CyclicPracticeManagerTests {
     let session = try #require(level.sessions.first)
 
     #expect(session.score.count == 1)
-    #expect(session.score[note] ?? (0, 0) == (1, 0))
+    #expect(session.score[note] ?? .zero == .init(correct: 1, wrong: 0))
 
     // Session #2
 
@@ -264,7 +265,7 @@ struct CyclicPracticeManagerTests {
     let session2 = try #require(level2.sessions.last)
 
     #expect(session2.score.count == 1)
-    #expect(session2.score[note] ?? (0, 0) == (0, 1))
+    #expect(session2.score[note] ?? .zero == .init(correct: 0, wrong: 1))
   }
 
   @Test
@@ -292,7 +293,7 @@ struct CyclicPracticeManagerTests {
     let savedSession = try #require(await storage.getSavedSession())
 
     #expect(savedSession.score.count == 1)
-    #expect(savedSession.score[note] ?? (0, 0) == (1, 0))
+    #expect(savedSession.score[note] ?? .zero == .init(correct: 1, wrong: 0))
   }
 
   @Test
@@ -370,7 +371,6 @@ struct CyclicPracticeManagerTests {
     let preferences = MockPreferences()
     preferences.setValue(1, for: .latestPracticeCursor)
 
-
     let manager = CyclicPracticeManager(
       storage: MockSessionStorage(),
       levelGenerator: MockLevelGenerator(),
@@ -427,29 +427,29 @@ struct CyclicPracticeManagerTests {
 
         level = try await manager.moveToNextLevel()
 
-//        #expect(level.key == key)
-//        #expect(level.isMajor == isMajor)
-//        #expect(level.spansMultipleOctaves == true)
-//        #expect(level.isChromatic == false)
-//        #expect(level.range == .firstHalfOfOctave)
-//
-//        level = try await manager.moveToNextLevel()
-//
-//        #expect(level.key == key)
-//        #expect(level.isMajor == isMajor)
-//        #expect(level.spansMultipleOctaves == true)
-//        #expect(level.isChromatic == false)
-//        #expect(level.range == .secondHalfOfOctave)
-//
-//        level = try await manager.moveToNextLevel()
-//
-//        #expect(level.key == key)
-//        #expect(level.isMajor == isMajor)
-//        #expect(level.spansMultipleOctaves == true)
-//        #expect(level.isChromatic == false)
-//        #expect(level.range == .entireOctave)
-//
-//        level = try await manager.moveToNextLevel()
+        //        #expect(level.key == key)
+        //        #expect(level.isMajor == isMajor)
+        //        #expect(level.spansMultipleOctaves == true)
+        //        #expect(level.isChromatic == false)
+        //        #expect(level.range == .firstHalfOfOctave)
+        //
+        //        level = try await manager.moveToNextLevel()
+        //
+        //        #expect(level.key == key)
+        //        #expect(level.isMajor == isMajor)
+        //        #expect(level.spansMultipleOctaves == true)
+        //        #expect(level.isChromatic == false)
+        //        #expect(level.range == .secondHalfOfOctave)
+        //
+        //        level = try await manager.moveToNextLevel()
+        //
+        //        #expect(level.key == key)
+        //        #expect(level.isMajor == isMajor)
+        //        #expect(level.spansMultipleOctaves == true)
+        //        #expect(level.isChromatic == false)
+        //        #expect(level.range == .entireOctave)
+        //
+        //        level = try await manager.moveToNextLevel()
 
         #expect(level.key == key)
         #expect(level.isMajor == isMajor)
@@ -473,29 +473,29 @@ struct CyclicPracticeManagerTests {
         #expect(level.isChromatic == true)
         #expect(level.range == .entireOctave)
 
-//        level = try await manager.moveToNextLevel()
-//
-//        #expect(level.key == key)
-//        #expect(level.isMajor == isMajor)
-//        #expect(level.spansMultipleOctaves == true)
-//        #expect(level.isChromatic == true)
-//        #expect(level.range == .firstHalfOfOctave)
-//
-//        level = try await manager.moveToNextLevel()
-//
-//        #expect(level.key == key)
-//        #expect(level.isMajor == isMajor)
-//        #expect(level.spansMultipleOctaves == true)
-//        #expect(level.isChromatic == true)
-//        #expect(level.range == .secondHalfOfOctave)
-//
-//        level = try await manager.moveToNextLevel()
-//
-//        #expect(level.key == key)
-//        #expect(level.isMajor == isMajor)
-//        #expect(level.spansMultipleOctaves == true)
-//        #expect(level.isChromatic == true)
-//        #expect(level.range == .entireOctave)
+        //        level = try await manager.moveToNextLevel()
+        //
+        //        #expect(level.key == key)
+        //        #expect(level.isMajor == isMajor)
+        //        #expect(level.spansMultipleOctaves == true)
+        //        #expect(level.isChromatic == true)
+        //        #expect(level.range == .firstHalfOfOctave)
+        //
+        //        level = try await manager.moveToNextLevel()
+        //
+        //        #expect(level.key == key)
+        //        #expect(level.isMajor == isMajor)
+        //        #expect(level.spansMultipleOctaves == true)
+        //        #expect(level.isChromatic == true)
+        //        #expect(level.range == .secondHalfOfOctave)
+        //
+        //        level = try await manager.moveToNextLevel()
+        //
+        //        #expect(level.key == key)
+        //        #expect(level.isMajor == isMajor)
+        //        #expect(level.spansMultipleOctaves == true)
+        //        #expect(level.isChromatic == true)
+        //        #expect(level.range == .entireOctave)
       }
     }
 
@@ -523,29 +523,29 @@ struct CyclicPracticeManagerTests {
       for isMajor in [false, true] {
         var level = try await manager.moveToPreviousLevel()
 
-//        #expect(level.key == key)
-//        #expect(level.isMajor == isMajor)
-//        #expect(level.spansMultipleOctaves == true)
-//        #expect(level.isChromatic == true)
-//        #expect(level.range == .entireOctave)
-//
-//        level = try await manager.moveToPreviousLevel()
-//
-//        #expect(level.key == key)
-//        #expect(level.isMajor == isMajor)
-//        #expect(level.spansMultipleOctaves == true)
-//        #expect(level.isChromatic == true)
-//        #expect(level.range == .secondHalfOfOctave)
-//
-//        level = try await manager.moveToPreviousLevel()
-//
-//        #expect(level.key == key)
-//        #expect(level.isMajor == isMajor)
-//        #expect(level.spansMultipleOctaves == true)
-//        #expect(level.isChromatic == true)
-//        #expect(level.range == .firstHalfOfOctave)
-//
-//        level = try await manager.moveToPreviousLevel()
+        //        #expect(level.key == key)
+        //        #expect(level.isMajor == isMajor)
+        //        #expect(level.spansMultipleOctaves == true)
+        //        #expect(level.isChromatic == true)
+        //        #expect(level.range == .entireOctave)
+        //
+        //        level = try await manager.moveToPreviousLevel()
+        //
+        //        #expect(level.key == key)
+        //        #expect(level.isMajor == isMajor)
+        //        #expect(level.spansMultipleOctaves == true)
+        //        #expect(level.isChromatic == true)
+        //        #expect(level.range == .secondHalfOfOctave)
+        //
+        //        level = try await manager.moveToPreviousLevel()
+        //
+        //        #expect(level.key == key)
+        //        #expect(level.isMajor == isMajor)
+        //        #expect(level.spansMultipleOctaves == true)
+        //        #expect(level.isChromatic == true)
+        //        #expect(level.range == .firstHalfOfOctave)
+        //
+        //        level = try await manager.moveToPreviousLevel()
 
         #expect(level.key == key)
         #expect(level.isMajor == isMajor)
@@ -571,29 +571,29 @@ struct CyclicPracticeManagerTests {
 
         level = try await manager.moveToPreviousLevel()
 
-//        #expect(level.key == key)
-//        #expect(level.isMajor == isMajor)
-//        #expect(level.spansMultipleOctaves == true)
-//        #expect(level.isChromatic == false)
-//        #expect(level.range == .entireOctave)
-//
-//        level = try await manager.moveToPreviousLevel()
-//
-//        #expect(level.key == key)
-//        #expect(level.isMajor == isMajor)
-//        #expect(level.spansMultipleOctaves == true)
-//        #expect(level.isChromatic == false)
-//        #expect(level.range == .secondHalfOfOctave)
-//
-//        level = try await manager.moveToPreviousLevel()
-//
-//        #expect(level.key == key)
-//        #expect(level.isMajor == isMajor)
-//        #expect(level.spansMultipleOctaves == true)
-//        #expect(level.isChromatic == false)
-//        #expect(level.range == .firstHalfOfOctave)
-//
-//        level = try await manager.moveToPreviousLevel()
+        //        #expect(level.key == key)
+        //        #expect(level.isMajor == isMajor)
+        //        #expect(level.spansMultipleOctaves == true)
+        //        #expect(level.isChromatic == false)
+        //        #expect(level.range == .entireOctave)
+        //
+        //        level = try await manager.moveToPreviousLevel()
+        //
+        //        #expect(level.key == key)
+        //        #expect(level.isMajor == isMajor)
+        //        #expect(level.spansMultipleOctaves == true)
+        //        #expect(level.isChromatic == false)
+        //        #expect(level.range == .secondHalfOfOctave)
+        //
+        //        level = try await manager.moveToPreviousLevel()
+        //
+        //        #expect(level.key == key)
+        //        #expect(level.isMajor == isMajor)
+        //        #expect(level.spansMultipleOctaves == true)
+        //        #expect(level.isChromatic == false)
+        //        #expect(level.range == .firstHalfOfOctave)
+        //
+        //        level = try await manager.moveToPreviousLevel()
 
         #expect(level.key == key)
         #expect(level.isMajor == isMajor)
@@ -639,7 +639,7 @@ struct CyclicPracticeManagerTests {
 
     let level = try await manager.setCurrentLevel(
       makeLevel(id: 1).withNotes([
-        Note(name: .c, octave: 4),
+        Note(name: .c, octave: 4)
       ])
     )
     #expect(level.id == 1)
@@ -686,7 +686,7 @@ private struct MockLevelGenerator: LevelGenerator {
       sessions: []
     )
   }
-  
+
   func makeLevel(
     withId id: Int,
     inMinorKey key: NoteName,
@@ -720,7 +720,7 @@ private final class MockNoteResolutionGenerator: NoteResolutionGenerator {
     isResolutionInMajorKeyCalled = true
     return []
   }
-  
+
   func resolution(
     for note: Note,
     inMinorKey key: NoteName,
@@ -739,33 +739,12 @@ private actor MockSessionStorage: SessionStorage {
     isSaveSessionCalled = true
     savedSession = session
   }
-  
+
   func loadSessions(for level: Bemol.Level) async throws -> [Bemol.Session] {
     []
   }
 
   func getSavedSession() async -> Session? {
     savedSession
-  }
-}
-
-// MARK: - Mocks
-
-private final class MockPreferences: Preferences {
-  private var value: Int? = nil
-
-  func value(for key: PreferenceKey) -> Int? {
-    value
-  }
-
-  func setValue(_ value: Int, for key: PreferenceKey) {
-    self.value = value
-  }
-
-  func value(for key: PreferenceKey) -> Bool {
-    false
-  }
-
-  func setValue(_ value: Bool, for key: PreferenceKey) {
   }
 }

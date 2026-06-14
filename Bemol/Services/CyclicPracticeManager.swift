@@ -18,17 +18,17 @@
 
 import Foundation
 
-actor CyclicPracticeManager: PracticeManager {
+final class CyclicPracticeManager: PracticeManager {
   enum Error: Swift.Error {
     case noSessionInProgress
     case unexpected
   }
 
   private let preferenceKey = "practice.level.cursor"
-  private let storage: SessionStorage
-  private let levelGenerator: LevelGenerator
-  private let noteResolutionGenerator: NoteResolutionGenerator
-  private let preferences: Preferences
+  private let storage: any SessionStorage
+  private let levelGenerator: any LevelGenerator
+  private let noteResolutionGenerator: any NoteResolutionGenerator
+  private let preferences: any Preferences
 
   private var allLevels: [Level] = []
   private var cursor = -1
@@ -40,10 +40,10 @@ actor CyclicPracticeManager: PracticeManager {
   private var lastAnsweredQuestion: Question? = nil
 
   init(
-    storage: SessionStorage,
-    levelGenerator: LevelGenerator,
-    noteResolutionGenerator: NoteResolutionGenerator,
-    preferences: Preferences
+    storage: any SessionStorage,
+    levelGenerator: any LevelGenerator,
+    noteResolutionGenerator: any NoteResolutionGenerator,
+    preferences: any Preferences
   ) {
     self.storage = storage
     self.levelGenerator = levelGenerator
@@ -60,7 +60,7 @@ actor CyclicPracticeManager: PracticeManager {
     decrementCursor()
     return try await moveToLevelAtCursor()
   }
-  
+
   func moveToNextLevel() async throws -> Level {
     incrementCursor()
     return try await moveToLevelAtCursor()
@@ -80,7 +80,7 @@ actor CyclicPracticeManager: PracticeManager {
     currentSession = Session(timestamp: Date.now.timeIntervalSince1970, score: [:])
     return currentSession!
   }
-  
+
   func stopCurrentSession() async throws -> Level {
     guard let level = currentLevel else { throw Error.unexpected }
     guard let session = currentSession else { throw Error.noSessionInProgress }
@@ -111,26 +111,27 @@ actor CyclicPracticeManager: PracticeManager {
 
     let note = currentNotes[currentQuestionIndex]
 
-    let resolution = if level.isMajor {
-      noteResolutionGenerator.resolution(
-        for: note,
-        inMajorKey: level.key,
-        includingChromaticNotes: level.isChromatic
-      )
-    } else {
-      noteResolutionGenerator.resolution(
-        for: note,
-        inMinorKey: level.key,
-        includingChromaticNotes: level.isChromatic
-      )
-    }
+    let resolution =
+      if level.isMajor {
+        noteResolutionGenerator.resolution(
+          for: note,
+          inMajorKey: level.key,
+          includingChromaticNotes: level.isChromatic
+        )
+      } else {
+        noteResolutionGenerator.resolution(
+          for: note,
+          inMinorKey: level.key,
+          includingChromaticNotes: level.isChromatic
+        )
+      }
 
     let question = Question(answer: note, resolution: resolution)
     self.currentQuestion = question
 
     return question
   }
-  
+
   func logCorrectAnswer(_ note: Note, for question: Question) async throws -> Session {
     guard var session = currentSession else {
       throw Error.noSessionInProgress
@@ -145,7 +146,7 @@ actor CyclicPracticeManager: PracticeManager {
     var score = session.score
 
     if let noteScore = score[question.answer] {
-      score[question.answer] = (noteScore.0 + 1, noteScore.1)
+      score[question.answer] = Score(correct: noteScore.correct + 1, wrong: noteScore.wrong)
       session = Session(timestamp: session.timestamp, score: score)
 
       self.currentSession = session
@@ -153,14 +154,14 @@ actor CyclicPracticeManager: PracticeManager {
       return session
     }
 
-    score[question.answer] = (1, 0)
+    score[question.answer] = Score(correct: 1, wrong: 0)
     session = Session(timestamp: session.timestamp, score: score)
 
     self.currentSession = session
 
     return session
   }
-  
+
   func logWrongAnswer(_ note: Note, for question: Question) async throws -> Session {
     guard var session = currentSession else {
       throw Error.noSessionInProgress
@@ -175,7 +176,7 @@ actor CyclicPracticeManager: PracticeManager {
     var score = session.score
 
     if let noteScore = score[question.answer] {
-      score[question.answer] = (noteScore.0, noteScore.1 + 1)
+      score[question.answer] = Score(correct: noteScore.correct, wrong: noteScore.wrong + 1)
       session = Session(timestamp: session.timestamp, score: score)
 
       self.currentSession = session
@@ -183,7 +184,7 @@ actor CyclicPracticeManager: PracticeManager {
       return session
     }
 
-    score[question.answer] = (0, 1)
+    score[question.answer] = Score(correct: 0, wrong: 1)
     session = Session(timestamp: session.timestamp, score: score)
 
     self.currentSession = session
@@ -231,7 +232,7 @@ actor CyclicPracticeManager: PracticeManager {
 
     for key in keys {
       for includesChromatics in [false, true] {
-        for spansMultipleOctaves in [false, /* true */] {
+        for spansMultipleOctaves in [false /* true */] {
           for range in [NoteRange.firstHalfOfOctave, .secondHalfOfOctave, .entireOctave] {
             levels.append(
               levelGenerator.makeLevel(
@@ -249,7 +250,7 @@ actor CyclicPracticeManager: PracticeManager {
       }
 
       for includesChromatics in [false, true] {
-        for spansMultipleOctaves in [false, /* true */] {
+        for spansMultipleOctaves in [false /* true */] {
           for range in [NoteRange.firstHalfOfOctave, .secondHalfOfOctave, .entireOctave] {
             levels.append(
               levelGenerator.makeLevel(

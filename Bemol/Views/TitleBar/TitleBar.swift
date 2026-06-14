@@ -41,7 +41,6 @@ final class TitleBar: UIView {
       for: .touchUpInside
     )
 
-
     return button
   }()
 

@@ -112,12 +112,12 @@ final class LevelEditorScreen {
   // MARK: - Properties
 
   private let range: ClosedRange<Octave> = 1...2
-  private let notePlayer: NotePlayer
+  private let notePlayer: any NotePlayer
   private var selectedNotes: [Note] = []
 
   // MARK: - Initialization
 
-  init(notePlayer: NotePlayer) {
+  init(notePlayer: any NotePlayer) {
     self.notePlayer = notePlayer
   }
 

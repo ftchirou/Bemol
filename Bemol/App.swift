@@ -138,7 +138,8 @@ final class App {
 
   private let environment: AppEnvironment
   private let loop: AppLoop
-  private var notePlayer: NotePlayer {
+
+  private var notePlayer: any NotePlayer {
     environment.notePlayer
   }
 
@@ -164,7 +165,7 @@ extension App {
   func didPressStartStopButton() {
     loop.dispatch(.didPressStartStopLevelButton)
   }
-  
+
   func didPressRepeatButton() {
     loop.dispatch(.didPressRepeatQuestionButton)
   }
@@ -172,23 +173,23 @@ extension App {
   func didPressNextButton() {
     loop.dispatch(.didPressNextLevelButton)
   }
-  
+
   func didPressPreviousButton() {
     loop.dispatch(.didPressPreviousLevelButton)
   }
-  
+
   func didPressProgressButton() {
     loop.dispatch(.didPressAccuracyRing)
   }
-  
+
   func didPressConfigureButton() {
     loop.dispatch(.didPressConfigureLevelButton)
   }
-  
+
   func didPressNote(_ note: Note) {
     loop.dispatch(.didPressNote(note))
   }
-  
+
   func didReleaseNote(_ note: Note) {
     loop.dispatch(.didReleaseNote(note))
   }
@@ -226,17 +227,20 @@ extension App {
     main.state = state.mainScreenState
     levelEditor.state = state.levelEditorScreenState
     accuracy.state = state.accuracyScreenState
-    mainView.isHidden = state.isLevelEditorVisible || state.isAccuracyScreenVisible || state.hasError
+    mainView.isHidden =
+      state.isLevelEditorVisible
+      || state.isAccuracyScreenVisible
+      || state.hasError
     errorView.isHidden = !state.hasError
     errorScreen.error = state.error
 
     if state.isAccuracyScreenVisible {
-      accuracy.state = nil // Force a state update.
+      accuracy.state = nil  // Force a state update.
       accuracy.state = state.accuracyScreenState
     }
 
     if state.isLevelEditorVisible {
-      levelEditor.state = nil // Force a state update.
+      levelEditor.state = nil  // Force a state update.
       levelEditor.state = state.levelEditorScreenState
     }
 

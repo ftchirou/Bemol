@@ -18,7 +18,8 @@
 
 import Foundation
 
-protocol PracticeManager: Actor {
+@MainActor
+protocol PracticeManager {
   func prepareToPractice() async throws
   func moveToPreviousLevel() async throws -> Level
   func moveToNextLevel() async throws -> Level

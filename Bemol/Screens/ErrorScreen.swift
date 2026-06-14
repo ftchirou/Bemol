@@ -72,7 +72,7 @@ final class ErrorScreen {
 
   // MARK: - API
 
-  var error: Error? {
+  var error: (any Error)? {
     didSet {
       if let error {
         titleBar.title = AttributedString(error.localizedDescription)
@@ -82,15 +82,15 @@ final class ErrorScreen {
 
   // MARK: - Properties
 
-  private let notePlayer: NotePlayer
+  private let notePlayer: any NotePlayer
   private let colors: [UIColor] = [
     .systemGreen, .systemTeal, .systemCyan, .systemBlue, .systemYellow, .systemPink, .systemPurple,
-    .systemMint, .systemCyan, .systemBrown
+    .systemMint, .systemCyan, .systemBrown,
   ]
 
   // MARK: - Initialization
 
-  init(notePlayer: NotePlayer) {
+  init(notePlayer: any NotePlayer) {
     self.notePlayer = notePlayer
   }
 

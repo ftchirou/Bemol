@@ -1,8 +1,8 @@
 ///
-/// Question.swift
+/// MockNotePlayer.swift
 /// Bemol
 ///
-/// Copyright 2025 Faiçal Tchirou
+/// Copyright 2026 Faiçal Tchirou
 ///
 /// Bemol is free software: you can redistribute it and/or modify it under the terms of
 /// the GNU General Public License as published by the Free Software Foundation, either version 3
@@ -18,14 +18,28 @@
 
 import Foundation
 
-struct Question: Equatable {
-  let id: UUID
-  let answer: Note
-  let resolution: Resolution
+@testable import Bemol
 
-  init(id: UUID = UUID(), answer: Note, resolution: Resolution) {
-    self.id = id
-    self.answer = answer
-    self.resolution = resolution
+final class MockNotePlayer: NotePlayer {
+  var isPrepareToPlayCalled = false
+  var isPlayNoteCalled = false
+  var isPlayCadenceCalled = false
+  var playedNote: Note?
+
+  func prepareToPlay() async throws {
+    isPrepareToPlayCalled = true
+  }
+
+  func playNote(_ note: Note) async throws {
+    isPlayNoteCalled = true
+    playedNote = note
+  }
+
+  func playCadence(_ cadence: Cadence) async throws {
+    isPlayCadenceCalled = true
+  }
+
+  func getPlayedNote() async -> Note? {
+    playedNote
   }
 }

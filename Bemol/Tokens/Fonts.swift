@@ -42,5 +42,3 @@ private func makeFont(
   let font = UIFont.systemFont(ofSize: size, weight: weight)
   return UIFontMetrics(forTextStyle: textStyle).scaledFont(for: font)
 }
-
-

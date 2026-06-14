@@ -157,7 +157,7 @@ final class TipView: UIView {
     setUpViewHierarchy()
     setUpAppearance()
   }
-  
+
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
@@ -186,12 +186,14 @@ final class TipView: UIView {
     addSubview(button)
 
     NSLayoutConstraint.activate([
-      bubble.leadingAnchor.constraint(equalTo: messageLabel.leadingAnchor, constant: -.labelHorizontalMargin),
-      bubble.trailingAnchor.constraint(equalTo: messageLabel.trailingAnchor, constant: .labelHorizontalMargin),
+      bubble.leadingAnchor.constraint(
+        equalTo: messageLabel.leadingAnchor, constant: -.labelHorizontalMargin),
+      bubble.trailingAnchor.constraint(
+        equalTo: messageLabel.trailingAnchor, constant: .labelHorizontalMargin),
       titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .spacingSm),
       messageLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
       button.trailingAnchor.constraint(equalTo: bubble.trailingAnchor, constant: -.spacingSm),
-      labelMaxWidthConstraint
+      labelMaxWidthConstraint,
     ])
 
     switch edge {
@@ -246,12 +248,13 @@ final class TipView: UIView {
 // MARK: - Reusable constants
 
 @MainActor
-private extension CGFloat {
-  static let caretSize: CGFloat = 12
-  static let labelHorizontalMargin: CGFloat = .spacingSm
-  static let labelVerticalMargin: CGFloat = .spacingSm
-  static let labelMaxWidth: CGFloat = tipViewDefaultMaxWidth - (.labelHorizontalMargin * 2)
-  static let labelMinWidth: CGFloat = 64 - (.labelHorizontalMargin * 2)
+extension CGFloat {
+  fileprivate static let caretSize: CGFloat = 12
+  fileprivate static let labelHorizontalMargin: CGFloat = .spacingSm
+  fileprivate static let labelVerticalMargin: CGFloat = .spacingSm
+  fileprivate static let labelMaxWidth: CGFloat =
+    tipViewDefaultMaxWidth - (.labelHorizontalMargin * 2)
+  fileprivate static let labelMinWidth: CGFloat = 64 - (.labelHorizontalMargin * 2)
 }
 
 extension CGFloat {

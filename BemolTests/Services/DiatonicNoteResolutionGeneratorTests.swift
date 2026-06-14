@@ -27,7 +27,7 @@ struct DiatonicNoteResolutionGeneratorTests {
   @Test
   func testResolutionForNotesInCMajor() {
     let generator = DiatonicNoteResolutionGenerator()
-    
+
     let first = generator.resolution(
       for: Note(name: .c, octave: 1),
       inMajorKey: .c,
@@ -49,24 +49,28 @@ struct DiatonicNoteResolutionGeneratorTests {
       includingChromaticNotes: false
     )
 
-    #expect(first == [
-      Note(name: .c, octave: 1)
-    ])
-    #expect(second == [
-      Note(name: .d, octave: 1),
-      Note(name: .c, octave: 1),
-    ])
-    #expect(third == [
-      Note(name: .e, octave: 1),
-      Note(name: .d, octave: 1),
-      Note(name: .c, octave: 1),
-    ])
-    #expect(fourth == [
-      Note(name: .f, octave: 1),
-      Note(name: .e, octave: 1),
-      Note(name: .d, octave: 1),
-      Note(name: .c, octave: 1),
-    ])
+    #expect(
+      first == [
+        Note(name: .c, octave: 1)
+      ])
+    #expect(
+      second == [
+        Note(name: .d, octave: 1),
+        Note(name: .c, octave: 1),
+      ])
+    #expect(
+      third == [
+        Note(name: .e, octave: 1),
+        Note(name: .d, octave: 1),
+        Note(name: .c, octave: 1),
+      ])
+    #expect(
+      fourth == [
+        Note(name: .f, octave: 1),
+        Note(name: .e, octave: 1),
+        Note(name: .d, octave: 1),
+        Note(name: .c, octave: 1),
+      ])
 
     let fifth = generator.resolution(
       for: Note(name: .g, octave: 1),
@@ -89,24 +93,28 @@ struct DiatonicNoteResolutionGeneratorTests {
       includingChromaticNotes: false
     )
 
-    #expect(fifth == [
-      Note(name: .g, octave: 1),
-      Note(name: .a, octave: 1),
-      Note(name: .b, octave: 1),
-      Note(name: .c, octave: 2),
-    ])
-    #expect(sixth == [
-      Note(name: .a, octave: 1),
-      Note(name: .b, octave: 1),
-      Note(name: .c, octave: 2),
-    ])
-    #expect(seventh == [
-      Note(name: .b, octave: 1),
-      Note(name: .c, octave: 2),
-    ])
-    #expect(nextFirst == [
-      Note(name: .c, octave: 2),
-    ])
+    #expect(
+      fifth == [
+        Note(name: .g, octave: 1),
+        Note(name: .a, octave: 1),
+        Note(name: .b, octave: 1),
+        Note(name: .c, octave: 2),
+      ])
+    #expect(
+      sixth == [
+        Note(name: .a, octave: 1),
+        Note(name: .b, octave: 1),
+        Note(name: .c, octave: 2),
+      ])
+    #expect(
+      seventh == [
+        Note(name: .b, octave: 1),
+        Note(name: .c, octave: 2),
+      ])
+    #expect(
+      nextFirst == [
+        Note(name: .c, octave: 2)
+      ])
   }
 
   @Test
@@ -144,33 +152,39 @@ struct DiatonicNoteResolutionGeneratorTests {
       includingChromaticNotes: true
     )
 
-    #expect(first == [
-      Note(name: .c, octave: 1)
-    ])
-    #expect(minorSecond == [
-      Note(name: .cSharp, octave: 1),
-      Note(name: .c, octave: 1)
-    ])
-    #expect(second == [
-      Note(name: .d, octave: 1),
-      Note(name: .c, octave: 1),
-    ])
-    #expect(minorThird == [
-      Note(name: .eFlat, octave: 1),
-      Note(name: .d, octave: 1),
-      Note(name: .c, octave: 1),
-    ])
-    #expect(third == [
-      Note(name: .e, octave: 1),
-      Note(name: .d, octave: 1),
-      Note(name: .c, octave: 1),
-    ])
-    #expect(fourth == [
-      Note(name: .f, octave: 1),
-      Note(name: .e, octave: 1),
-      Note(name: .d, octave: 1),
-      Note(name: .c, octave: 1),
-    ])
+    #expect(
+      first == [
+        Note(name: .c, octave: 1)
+      ])
+    #expect(
+      minorSecond == [
+        Note(name: .cSharp, octave: 1),
+        Note(name: .c, octave: 1),
+      ])
+    #expect(
+      second == [
+        Note(name: .d, octave: 1),
+        Note(name: .c, octave: 1),
+      ])
+    #expect(
+      minorThird == [
+        Note(name: .eFlat, octave: 1),
+        Note(name: .d, octave: 1),
+        Note(name: .c, octave: 1),
+      ])
+    #expect(
+      third == [
+        Note(name: .e, octave: 1),
+        Note(name: .d, octave: 1),
+        Note(name: .c, octave: 1),
+      ])
+    #expect(
+      fourth == [
+        Note(name: .f, octave: 1),
+        Note(name: .e, octave: 1),
+        Note(name: .d, octave: 1),
+        Note(name: .c, octave: 1),
+      ])
 
     let diminishedFifth = generator.resolution(
       for: Note(name: .gFlat, octave: 1),
@@ -208,42 +222,49 @@ struct DiatonicNoteResolutionGeneratorTests {
       includingChromaticNotes: true
     )
 
-    #expect(diminishedFifth == [
-      Note(name: .gFlat, octave: 1),
-      Note(name: .g, octave: 1),
-      Note(name: .a, octave: 1),
-      Note(name: .b, octave: 1),
-      Note(name: .c, octave: 2),
-    ])
-    #expect(fifth == [
-      Note(name: .g, octave: 1),
-      Note(name: .a, octave: 1),
-      Note(name: .b, octave: 1),
-      Note(name: .c, octave: 2),
-    ])
-    #expect(augmentedFifth == [
-      Note(name: .gSharp, octave: 1),
-      Note(name: .a, octave: 1),
-      Note(name: .b, octave: 1),
-      Note(name: .c, octave: 2),
-    ])
-    #expect(sixth == [
-      Note(name: .a, octave: 1),
-      Note(name: .b, octave: 1),
-      Note(name: .c, octave: 2),
-    ])
-    #expect(minorSeventh == [
-      Note(name: .bFlat, octave: 1),
-      Note(name: .b, octave: 1),
-      Note(name: .c, octave: 2),
-    ])
-    #expect(seventh == [
-      Note(name: .b, octave: 1),
-      Note(name: .c, octave: 2),
-    ])
-    #expect(nextFirst == [
-      Note(name: .c, octave: 2),
-    ])
+    #expect(
+      diminishedFifth == [
+        Note(name: .gFlat, octave: 1),
+        Note(name: .g, octave: 1),
+        Note(name: .a, octave: 1),
+        Note(name: .b, octave: 1),
+        Note(name: .c, octave: 2),
+      ])
+    #expect(
+      fifth == [
+        Note(name: .g, octave: 1),
+        Note(name: .a, octave: 1),
+        Note(name: .b, octave: 1),
+        Note(name: .c, octave: 2),
+      ])
+    #expect(
+      augmentedFifth == [
+        Note(name: .gSharp, octave: 1),
+        Note(name: .a, octave: 1),
+        Note(name: .b, octave: 1),
+        Note(name: .c, octave: 2),
+      ])
+    #expect(
+      sixth == [
+        Note(name: .a, octave: 1),
+        Note(name: .b, octave: 1),
+        Note(name: .c, octave: 2),
+      ])
+    #expect(
+      minorSeventh == [
+        Note(name: .bFlat, octave: 1),
+        Note(name: .b, octave: 1),
+        Note(name: .c, octave: 2),
+      ])
+    #expect(
+      seventh == [
+        Note(name: .b, octave: 1),
+        Note(name: .c, octave: 2),
+      ])
+    #expect(
+      nextFirst == [
+        Note(name: .c, octave: 2)
+      ])
   }
 
   @Test
@@ -271,24 +292,28 @@ struct DiatonicNoteResolutionGeneratorTests {
       includingChromaticNotes: false
     )
 
-    #expect(first == [
-      Note(name: .eFlat, octave: 1)
-    ])
-    #expect(second == [
-      Note(name: .f, octave: 1),
-      Note(name: .eFlat, octave: 1),
-    ])
-    #expect(third == [
-      Note(name: .g, octave: 1),
-      Note(name: .f, octave: 1),
-      Note(name: .eFlat, octave: 1),
-    ])
-    #expect(fourth == [
-      Note(name: .aFlat, octave: 1),
-      Note(name: .g, octave: 1),
-      Note(name: .f, octave: 1),
-      Note(name: .eFlat, octave: 1),
-    ])
+    #expect(
+      first == [
+        Note(name: .eFlat, octave: 1)
+      ])
+    #expect(
+      second == [
+        Note(name: .f, octave: 1),
+        Note(name: .eFlat, octave: 1),
+      ])
+    #expect(
+      third == [
+        Note(name: .g, octave: 1),
+        Note(name: .f, octave: 1),
+        Note(name: .eFlat, octave: 1),
+      ])
+    #expect(
+      fourth == [
+        Note(name: .aFlat, octave: 1),
+        Note(name: .g, octave: 1),
+        Note(name: .f, octave: 1),
+        Note(name: .eFlat, octave: 1),
+      ])
 
     let fifth = generator.resolution(
       for: Note(name: .bFlat, octave: 1),
@@ -311,24 +336,28 @@ struct DiatonicNoteResolutionGeneratorTests {
       includingChromaticNotes: false
     )
 
-    #expect(fifth == [
-      Note(name: .bFlat, octave: 1),
-      Note(name: .c, octave: 2),
-      Note(name: .d, octave: 2),
-      Note(name: .eFlat, octave: 2),
-    ])
-    #expect(sixth == [
-      Note(name: .c, octave: 2),
-      Note(name: .d, octave: 2),
-      Note(name: .eFlat, octave: 2),
-    ])
-    #expect(seventh == [
-      Note(name: .d, octave: 2),
-      Note(name: .eFlat, octave: 2),
-    ])
-    #expect(nextFirst == [
-      Note(name: .eFlat, octave: 2),
-    ])
+    #expect(
+      fifth == [
+        Note(name: .bFlat, octave: 1),
+        Note(name: .c, octave: 2),
+        Note(name: .d, octave: 2),
+        Note(name: .eFlat, octave: 2),
+      ])
+    #expect(
+      sixth == [
+        Note(name: .c, octave: 2),
+        Note(name: .d, octave: 2),
+        Note(name: .eFlat, octave: 2),
+      ])
+    #expect(
+      seventh == [
+        Note(name: .d, octave: 2),
+        Note(name: .eFlat, octave: 2),
+      ])
+    #expect(
+      nextFirst == [
+        Note(name: .eFlat, octave: 2)
+      ])
   }
 
   @Test
@@ -366,33 +395,39 @@ struct DiatonicNoteResolutionGeneratorTests {
       includingChromaticNotes: true
     )
 
-    #expect(first == [
-      Note(name: .eFlat, octave: 1)
-    ])
-    #expect(minorSecond == [
-      Note(name: .e, octave: 1),
-      Note(name: .eFlat, octave: 1),
-    ])
-    #expect(second == [
-      Note(name: .f, octave: 1),
-      Note(name: .eFlat, octave: 1),
-    ])
-    #expect(minorThird == [
-      Note(name: .gFlat, octave: 1),
-      Note(name: .f, octave: 1),
-      Note(name: .eFlat, octave: 1),
-    ])
-    #expect(third == [
-      Note(name: .g, octave: 1),
-      Note(name: .f, octave: 1),
-      Note(name: .eFlat, octave: 1),
-    ])
-    #expect(fourth == [
-      Note(name: .aFlat, octave: 1),
-      Note(name: .g, octave: 1),
-      Note(name: .f, octave: 1),
-      Note(name: .eFlat, octave: 1),
-    ])
+    #expect(
+      first == [
+        Note(name: .eFlat, octave: 1)
+      ])
+    #expect(
+      minorSecond == [
+        Note(name: .e, octave: 1),
+        Note(name: .eFlat, octave: 1),
+      ])
+    #expect(
+      second == [
+        Note(name: .f, octave: 1),
+        Note(name: .eFlat, octave: 1),
+      ])
+    #expect(
+      minorThird == [
+        Note(name: .gFlat, octave: 1),
+        Note(name: .f, octave: 1),
+        Note(name: .eFlat, octave: 1),
+      ])
+    #expect(
+      third == [
+        Note(name: .g, octave: 1),
+        Note(name: .f, octave: 1),
+        Note(name: .eFlat, octave: 1),
+      ])
+    #expect(
+      fourth == [
+        Note(name: .aFlat, octave: 1),
+        Note(name: .g, octave: 1),
+        Note(name: .f, octave: 1),
+        Note(name: .eFlat, octave: 1),
+      ])
 
     let diminishedFifth = generator.resolution(
       for: Note(name: .a, octave: 1),
@@ -430,46 +465,52 @@ struct DiatonicNoteResolutionGeneratorTests {
       includingChromaticNotes: true
     )
 
-    #expect(diminishedFifth == [
-      Note(name: .a, octave: 1),
-      Note(name: .bFlat, octave: 1),
-      Note(name: .c, octave: 2),
-      Note(name: .d, octave: 2),
-      Note(name: .eFlat, octave: 2),
-    ])
-    #expect(fifth == [
-      Note(name: .bFlat, octave: 1),
-      Note(name: .c, octave: 2),
-      Note(name: .d, octave: 2),
-      Note(name: .eFlat, octave: 2),
-    ])
-    #expect(augmentedFifth == [
-      Note(name: .b, octave: 1),
-      Note(name: .c, octave: 2),
-      Note(name: .d, octave: 2),
-      Note(name: .eFlat, octave: 2),
-    ])
-    #expect(sixth == [
-      Note(name: .c, octave: 2),
-      Note(name: .d, octave: 2),
-      Note(name: .eFlat, octave: 2),
-    ])
-    #expect(minorSeventh == [
-      Note(name: .dFlat, octave: 2),
-      Note(name: .d, octave: 2),
-      Note(name: .eFlat, octave: 2),
-    ])
-    #expect(seventh == [
-      Note(name: .d, octave: 2),
-      Note(name: .eFlat, octave: 2),
-    ])
-    #expect(nextFirst == [
-      Note(name: .eFlat, octave: 2),
-    ])
+    #expect(
+      diminishedFifth == [
+        Note(name: .a, octave: 1),
+        Note(name: .bFlat, octave: 1),
+        Note(name: .c, octave: 2),
+        Note(name: .d, octave: 2),
+        Note(name: .eFlat, octave: 2),
+      ])
+    #expect(
+      fifth == [
+        Note(name: .bFlat, octave: 1),
+        Note(name: .c, octave: 2),
+        Note(name: .d, octave: 2),
+        Note(name: .eFlat, octave: 2),
+      ])
+    #expect(
+      augmentedFifth == [
+        Note(name: .b, octave: 1),
+        Note(name: .c, octave: 2),
+        Note(name: .d, octave: 2),
+        Note(name: .eFlat, octave: 2),
+      ])
+    #expect(
+      sixth == [
+        Note(name: .c, octave: 2),
+        Note(name: .d, octave: 2),
+        Note(name: .eFlat, octave: 2),
+      ])
+    #expect(
+      minorSeventh == [
+        Note(name: .dFlat, octave: 2),
+        Note(name: .d, octave: 2),
+        Note(name: .eFlat, octave: 2),
+      ])
+    #expect(
+      seventh == [
+        Note(name: .d, octave: 2),
+        Note(name: .eFlat, octave: 2),
+      ])
+    #expect(
+      nextFirst == [
+        Note(name: .eFlat, octave: 2)
+      ])
   }
 
   // MARK: - Minor
-
 
   @Test
   func testResolutionForNotesInCMinor() {
@@ -496,24 +537,28 @@ struct DiatonicNoteResolutionGeneratorTests {
       includingChromaticNotes: false
     )
 
-    #expect(first == [
-      Note(name: .c, octave: 1)
-    ])
-    #expect(second == [
-      Note(name: .d, octave: 1),
-      Note(name: .c, octave: 1),
-    ])
-    #expect(minorThird == [
-      Note(name: .eFlat, octave: 1),
-      Note(name: .d, octave: 1),
-      Note(name: .c, octave: 1),
-    ])
-    #expect(fourth == [
-      Note(name: .f, octave: 1),
-      Note(name: .eFlat, octave: 1),
-      Note(name: .d, octave: 1),
-      Note(name: .c, octave: 1),
-    ])
+    #expect(
+      first == [
+        Note(name: .c, octave: 1)
+      ])
+    #expect(
+      second == [
+        Note(name: .d, octave: 1),
+        Note(name: .c, octave: 1),
+      ])
+    #expect(
+      minorThird == [
+        Note(name: .eFlat, octave: 1),
+        Note(name: .d, octave: 1),
+        Note(name: .c, octave: 1),
+      ])
+    #expect(
+      fourth == [
+        Note(name: .f, octave: 1),
+        Note(name: .eFlat, octave: 1),
+        Note(name: .d, octave: 1),
+        Note(name: .c, octave: 1),
+      ])
 
     let fifth = generator.resolution(
       for: Note(name: .g, octave: 1),
@@ -536,29 +581,34 @@ struct DiatonicNoteResolutionGeneratorTests {
       includingChromaticNotes: false
     )
 
-    #expect(fifth == [
-      Note(name: .g, octave: 1),
-      Note(name: .gSharp, octave: 1),
-      Note(name: .b, octave: 1),
-      Note(name: .c, octave: 2),
-    ])
+    #expect(
+      fifth == [
+        Note(name: .g, octave: 1),
+        Note(name: .gSharp, octave: 1),
+        Note(name: .b, octave: 1),
+        Note(name: .c, octave: 2),
+      ])
 
-    #expect(augmentedFifth == [
-      Note(name: .gSharp, octave: 1),
-      Note(name: .b, octave: 1),
-      Note(name: .c, octave: 2),
-    ])
-    #expect(raisedSixth == [
-      Note(name: .b, octave: 1),
-      Note(name: .c, octave: 2),
-    ])
-    #expect(raisedSixth == [
-      Note(name: .b, octave: 1),
-      Note(name: .c, octave: 2),
-    ])
-    #expect(nextFirst == [
-      Note(name: .c, octave: 2),
-    ])
+    #expect(
+      augmentedFifth == [
+        Note(name: .gSharp, octave: 1),
+        Note(name: .b, octave: 1),
+        Note(name: .c, octave: 2),
+      ])
+    #expect(
+      raisedSixth == [
+        Note(name: .b, octave: 1),
+        Note(name: .c, octave: 2),
+      ])
+    #expect(
+      raisedSixth == [
+        Note(name: .b, octave: 1),
+        Note(name: .c, octave: 2),
+      ])
+    #expect(
+      nextFirst == [
+        Note(name: .c, octave: 2)
+      ])
   }
 
   @Test
@@ -596,34 +646,40 @@ struct DiatonicNoteResolutionGeneratorTests {
       includingChromaticNotes: true
     )
 
-    #expect(first == [
-      Note(name: .c, octave: 1)
-    ])
-    #expect(minorSecond == [
-      Note(name: .dFlat, octave: 1),
-      Note(name: .c, octave: 1),
-    ])
-    #expect(second == [
-      Note(name: .d, octave: 1),
-      Note(name: .c, octave: 1),
-    ])
-    #expect(minorThird == [
-      Note(name: .eFlat, octave: 1),
-      Note(name: .d, octave: 1),
-      Note(name: .c, octave: 1),
-    ])
-    #expect(majorThird == [
-      Note(name: .e, octave: 1),
-      Note(name: .eFlat, octave: 1),
-      Note(name: .d, octave: 1),
-      Note(name: .c, octave: 1),
-    ])
-    #expect(fourth == [
-      Note(name: .f, octave: 1),
-      Note(name: .eFlat, octave: 1),
-      Note(name: .d, octave: 1),
-      Note(name: .c, octave: 1),
-    ])
+    #expect(
+      first == [
+        Note(name: .c, octave: 1)
+      ])
+    #expect(
+      minorSecond == [
+        Note(name: .dFlat, octave: 1),
+        Note(name: .c, octave: 1),
+      ])
+    #expect(
+      second == [
+        Note(name: .d, octave: 1),
+        Note(name: .c, octave: 1),
+      ])
+    #expect(
+      minorThird == [
+        Note(name: .eFlat, octave: 1),
+        Note(name: .d, octave: 1),
+        Note(name: .c, octave: 1),
+      ])
+    #expect(
+      majorThird == [
+        Note(name: .e, octave: 1),
+        Note(name: .eFlat, octave: 1),
+        Note(name: .d, octave: 1),
+        Note(name: .c, octave: 1),
+      ])
+    #expect(
+      fourth == [
+        Note(name: .f, octave: 1),
+        Note(name: .eFlat, octave: 1),
+        Note(name: .d, octave: 1),
+        Note(name: .c, octave: 1),
+      ])
 
     let diminishedFifth = generator.resolution(
       for: Note(name: .gFlat, octave: 1),
@@ -656,36 +712,42 @@ struct DiatonicNoteResolutionGeneratorTests {
       includingChromaticNotes: true
     )
 
-    #expect(diminishedFifth == [
-      Note(name: .gFlat, octave: 1),
-      Note(name: .g, octave: 1),
-      Note(name: .gSharp, octave: 1),
-      Note(name: .b, octave: 1),
-      Note(name: .c, octave: 2),
-    ])
-    #expect(fifth == [
-      Note(name: .g, octave: 1),
-      Note(name: .gSharp, octave: 1),
-      Note(name: .b, octave: 1),
-      Note(name: .c, octave: 2),
-    ])
-    #expect(augmentedFifth == [
-      Note(name: .gSharp, octave: 1),
-      Note(name: .b, octave: 1),
-      Note(name: .c, octave: 2),
-    ])
-    #expect(sixth == [
-      Note(name: .a, octave: 1),
-      Note(name: .b, octave: 1),
-      Note(name: .c, octave: 2),
-    ])
-    #expect(raisedSixth == [
-      Note(name: .b, octave: 1),
-      Note(name: .c, octave: 2),
-    ])
-    #expect(nextFirst == [
-      Note(name: .c, octave: 2),
-    ])
+    #expect(
+      diminishedFifth == [
+        Note(name: .gFlat, octave: 1),
+        Note(name: .g, octave: 1),
+        Note(name: .gSharp, octave: 1),
+        Note(name: .b, octave: 1),
+        Note(name: .c, octave: 2),
+      ])
+    #expect(
+      fifth == [
+        Note(name: .g, octave: 1),
+        Note(name: .gSharp, octave: 1),
+        Note(name: .b, octave: 1),
+        Note(name: .c, octave: 2),
+      ])
+    #expect(
+      augmentedFifth == [
+        Note(name: .gSharp, octave: 1),
+        Note(name: .b, octave: 1),
+        Note(name: .c, octave: 2),
+      ])
+    #expect(
+      sixth == [
+        Note(name: .a, octave: 1),
+        Note(name: .b, octave: 1),
+        Note(name: .c, octave: 2),
+      ])
+    #expect(
+      raisedSixth == [
+        Note(name: .b, octave: 1),
+        Note(name: .c, octave: 2),
+      ])
+    #expect(
+      nextFirst == [
+        Note(name: .c, octave: 2)
+      ])
   }
 
   @Test
@@ -713,24 +775,28 @@ struct DiatonicNoteResolutionGeneratorTests {
       includingChromaticNotes: false
     )
 
-    #expect(first == [
-      Note(name: .eFlat, octave: 1)
-    ])
-    #expect(second == [
-      Note(name: .f, octave: 1),
-      Note(name: .eFlat, octave: 1),
-    ])
-    #expect(minorThird == [
-      Note(name: .gFlat, octave: 1),
-      Note(name: .f, octave: 1),
-      Note(name: .eFlat, octave: 1),
-    ])
-    #expect(fourth == [
-      Note(name: .aFlat, octave: 1),
-      Note(name: .gFlat, octave: 1),
-      Note(name: .f, octave: 1),
-      Note(name: .eFlat, octave: 1),
-    ])
+    #expect(
+      first == [
+        Note(name: .eFlat, octave: 1)
+      ])
+    #expect(
+      second == [
+        Note(name: .f, octave: 1),
+        Note(name: .eFlat, octave: 1),
+      ])
+    #expect(
+      minorThird == [
+        Note(name: .gFlat, octave: 1),
+        Note(name: .f, octave: 1),
+        Note(name: .eFlat, octave: 1),
+      ])
+    #expect(
+      fourth == [
+        Note(name: .aFlat, octave: 1),
+        Note(name: .gFlat, octave: 1),
+        Note(name: .f, octave: 1),
+        Note(name: .eFlat, octave: 1),
+      ])
 
     let fifth = generator.resolution(
       for: Note(name: .bFlat, octave: 1),
@@ -753,24 +819,28 @@ struct DiatonicNoteResolutionGeneratorTests {
       includingChromaticNotes: false
     )
 
-    #expect(fifth == [
-      Note(name: .bFlat, octave: 1),
-      Note(name: .b, octave: 1),
-      Note(name: .d, octave: 2),
-      Note(name: .eFlat, octave: 2),
-    ])
-    #expect(augmentedFifth == [
-      Note(name: .b, octave: 1),
-      Note(name: .d, octave: 2),
-      Note(name: .eFlat, octave: 2),
-    ])
-    #expect(raisedSixth == [
-      Note(name: .d, octave: 2),
-      Note(name: .eFlat, octave: 2),
-    ])
-    #expect(nextFirst == [
-      Note(name: .eFlat, octave: 2),
-    ])
+    #expect(
+      fifth == [
+        Note(name: .bFlat, octave: 1),
+        Note(name: .b, octave: 1),
+        Note(name: .d, octave: 2),
+        Note(name: .eFlat, octave: 2),
+      ])
+    #expect(
+      augmentedFifth == [
+        Note(name: .b, octave: 1),
+        Note(name: .d, octave: 2),
+        Note(name: .eFlat, octave: 2),
+      ])
+    #expect(
+      raisedSixth == [
+        Note(name: .d, octave: 2),
+        Note(name: .eFlat, octave: 2),
+      ])
+    #expect(
+      nextFirst == [
+        Note(name: .eFlat, octave: 2)
+      ])
   }
 
   @Test
@@ -803,30 +873,35 @@ struct DiatonicNoteResolutionGeneratorTests {
       includingChromaticNotes: true
     )
 
-    #expect(first == [
-      Note(name: .eFlat, octave: 1)
-    ])
-    #expect(second == [
-      Note(name: .f, octave: 1),
-      Note(name: .eFlat, octave: 1),
-    ])
-    #expect(minorThird == [
-      Note(name: .gFlat, octave: 1),
-      Note(name: .f, octave: 1),
-      Note(name: .eFlat, octave: 1),
-    ])
-    #expect(majorThird == [
-      Note(name: .g, octave: 1),
-      Note(name: .gFlat, octave: 1),
-      Note(name: .f, octave: 1),
-      Note(name: .eFlat, octave: 1),
-    ])
-    #expect(fourth == [
-      Note(name: .aFlat, octave: 1),
-      Note(name: .gFlat, octave: 1),
-      Note(name: .f, octave: 1),
-      Note(name: .eFlat, octave: 1),
-    ])
+    #expect(
+      first == [
+        Note(name: .eFlat, octave: 1)
+      ])
+    #expect(
+      second == [
+        Note(name: .f, octave: 1),
+        Note(name: .eFlat, octave: 1),
+      ])
+    #expect(
+      minorThird == [
+        Note(name: .gFlat, octave: 1),
+        Note(name: .f, octave: 1),
+        Note(name: .eFlat, octave: 1),
+      ])
+    #expect(
+      majorThird == [
+        Note(name: .g, octave: 1),
+        Note(name: .gFlat, octave: 1),
+        Note(name: .f, octave: 1),
+        Note(name: .eFlat, octave: 1),
+      ])
+    #expect(
+      fourth == [
+        Note(name: .aFlat, octave: 1),
+        Note(name: .gFlat, octave: 1),
+        Note(name: .f, octave: 1),
+        Note(name: .eFlat, octave: 1),
+      ])
 
     let diminishedFifth = generator.resolution(
       for: Note(name: .a, octave: 1),
@@ -864,40 +939,47 @@ struct DiatonicNoteResolutionGeneratorTests {
       includingChromaticNotes: true
     )
 
-    #expect(diminishedFifth == [
-      Note(name: .a, octave: 1),
-      Note(name: .bFlat, octave: 1),
-      Note(name: .b, octave: 1),
-      Note(name: .d, octave: 2),
-      Note(name: .eFlat, octave: 2),
-    ])
-    #expect(fifth == [
-      Note(name: .bFlat, octave: 1),
-      Note(name: .b, octave: 1),
-      Note(name: .d, octave: 2),
-      Note(name: .eFlat, octave: 2),
-    ])
-    #expect(augmentedFifth == [
-      Note(name: .b, octave: 1),
-      Note(name: .d, octave: 2),
-      Note(name: .eFlat, octave: 2),
-    ])
-    #expect(sixth == [
-      Note(name: .c, octave: 2),
-      Note(name: .d, octave: 2),
-      Note(name: .eFlat, octave: 2),
-    ])
-    #expect(raisedSixth == [
-      Note(name: .dFlat, octave: 2),
-      Note(name: .d, octave: 2),
-      Note(name: .eFlat, octave: 2),
-    ])
-    #expect(seventh == [
-      Note(name: .d, octave: 2),
-      Note(name: .eFlat, octave: 2),
-    ])
-    #expect(nextFirst == [
-      Note(name: .eFlat, octave: 2),
-    ])
+    #expect(
+      diminishedFifth == [
+        Note(name: .a, octave: 1),
+        Note(name: .bFlat, octave: 1),
+        Note(name: .b, octave: 1),
+        Note(name: .d, octave: 2),
+        Note(name: .eFlat, octave: 2),
+      ])
+    #expect(
+      fifth == [
+        Note(name: .bFlat, octave: 1),
+        Note(name: .b, octave: 1),
+        Note(name: .d, octave: 2),
+        Note(name: .eFlat, octave: 2),
+      ])
+    #expect(
+      augmentedFifth == [
+        Note(name: .b, octave: 1),
+        Note(name: .d, octave: 2),
+        Note(name: .eFlat, octave: 2),
+      ])
+    #expect(
+      sixth == [
+        Note(name: .c, octave: 2),
+        Note(name: .d, octave: 2),
+        Note(name: .eFlat, octave: 2),
+      ])
+    #expect(
+      raisedSixth == [
+        Note(name: .dFlat, octave: 2),
+        Note(name: .d, octave: 2),
+        Note(name: .eFlat, octave: 2),
+      ])
+    #expect(
+      seventh == [
+        Note(name: .d, octave: 2),
+        Note(name: .eFlat, octave: 2),
+      ])
+    #expect(
+      nextFirst == [
+        Note(name: .eFlat, octave: 2)
+      ])
   }
 }

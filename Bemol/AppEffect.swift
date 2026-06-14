@@ -18,27 +18,20 @@
 
 import Foundation
 
-struct AppEffect<T> {
-  private let effect: () async throws -> T
-
-  init(effect: @escaping () async throws -> T) {
-    self.effect = effect
-  }
-
-  func mapTo<U>(
-    _ transform: @escaping (Result<T, any Error>) -> U
-  ) -> AppEffect<U> {
-    AppEffect<U> {
-      do {
-        let result = try await effect()
-        return transform(.success(result))
-      } catch {
-        return transform(.failure(error))
-      }
-    }
-  }
-
-  func run() async throws -> T {
-    try await effect()
-  }
+enum AppEffect: Equatable {
+  case prepareToPractice
+  case loadLevel(Level)
+  case loadFirstLevel
+  case loadRandomLevel
+  case loadPreviousLevel
+  case loadNextLevel
+  case startSession
+  case stopSession
+  case playNote(Note)
+  case playNoteInResolution(Note?)
+  case repeatQuestion(Level, Question)
+  case playCadence(Level, Question)
+  case loadNextQuestion
+  case logRightAnswer(Note, Question)
+  case logWrongAnswer(Note, Question)
 }

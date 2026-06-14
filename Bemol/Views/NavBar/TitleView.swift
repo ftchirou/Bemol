@@ -70,7 +70,7 @@ final class TitleView: UIView {
     setUpViewHierarchy()
     setUpAppearance()
   }
-  
+
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
@@ -96,7 +96,8 @@ final class TitleView: UIView {
       label.centerYAnchor.constraint(equalTo: background.centerYAnchor),
       label.trailingAnchor.constraint(equalTo: background.trailingAnchor, constant: -.spacingSm),
       label.topAnchor.constraint(lessThanOrEqualTo: background.topAnchor, constant: .spacingXxs),
-      label.bottomAnchor.constraint(greaterThanOrEqualTo: background.bottomAnchor, constant: -.spacingXxs),
+      label.bottomAnchor.constraint(
+        greaterThanOrEqualTo: background.bottomAnchor, constant: -.spacingXxs),
     ])
   }
 }

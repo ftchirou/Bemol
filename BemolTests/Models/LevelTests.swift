@@ -27,12 +27,12 @@ struct LevelTests {
         Session(
           timestamp: 1000,
           score: [
-            Note(name: .c, octave: 1): (4, 2),
-            Note(name: .d, octave: 1): (3, 0),
-            Note(name: .e, octave: 1): (0, 8),
-            Note(name: .f, octave: 1): (4, 1),
-            Note(name: .g, octave: 1): (0, 0),
-            Note(name: .c, octave: 2): (2, 1),
+            Note(name: .c, octave: 1): .init(correct: 4, wrong: 2),
+            Note(name: .d, octave: 1): .init(correct: 3, wrong: 0),
+            Note(name: .e, octave: 1): .init(correct: 0, wrong: 8),
+            Note(name: .f, octave: 1): .init(correct: 4, wrong: 1),
+            Note(name: .g, octave: 1): .init(correct: 0, wrong: 0),
+            Note(name: .c, octave: 2): .init(correct: 2, wrong: 1),
           ]
         )
       ]
@@ -73,24 +73,24 @@ struct LevelTests {
         Session(
           timestamp: 1000,
           score: [
-            Note(name: .c, octave: 1): (4, 2),
-            Note(name: .e, octave: 1): (0, 8),
+            Note(name: .c, octave: 1): .init(correct: 4, wrong: 2),
+            Note(name: .e, octave: 1): .init(correct: 0, wrong: 8),
           ]
         ),
         Session(
           timestamp: 1100,
           score: [
-            Note(name: .d, octave: 1): (3, 0),
-            Note(name: .f, octave: 1): (4, 1),
+            Note(name: .d, octave: 1): .init(correct: 3, wrong: 0),
+            Note(name: .f, octave: 1): .init(correct: 4, wrong: 1),
           ]
         ),
         Session(
           timestamp: 1200,
           score: [
-            Note(name: .g, octave: 1): (0, 0),
-            Note(name: .c, octave: 2): (2, 1),
+            Note(name: .g, octave: 1): .init(correct: 0, wrong: 0),
+            Note(name: .c, octave: 2): .init(correct: 2, wrong: 1),
           ]
-        )
+        ),
       ]
     )
 
@@ -127,8 +127,8 @@ struct LevelTests {
         Session(
           timestamp: 1000,
           score: [
-            Note(name: .c, octave: 1): (5, 0),
-            Note(name: .d, octave: 1): (6, 0),
+            Note(name: .c, octave: 1): .init(correct: 5, wrong: 0),
+            Note(name: .d, octave: 1): .init(correct: 6, wrong: 0),
           ]
         )
       ]
@@ -165,8 +165,8 @@ struct LevelTests {
         Session(
           timestamp: 1000,
           score: [
-            Note(name: .c, octave: 1): (5, 0),
-            Note(name: .d, octave: 1): (6, 0),
+            Note(name: .c, octave: 1): .init(correct: 5, wrong: 0),
+            Note(name: .d, octave: 1): .init(correct: 6, wrong: 0),
           ]
         )
       ]
@@ -200,14 +200,14 @@ struct LevelTests {
         Session(
           timestamp: 1000,
           score: [
-            Note(name: .c, octave: 1): (5, 0),
-            Note(name: .d, octave: 1): (6, 0),
+            Note(name: .c, octave: 1): .init(correct: 5, wrong: 0),
+            Note(name: .d, octave: 1): .init(correct: 6, wrong: 0),
           ]
         )
       ]
     )
     let newLevel = level.withSessions([
-      Session(timestamp: 1200, score: [Note(name: .bFlat, octave: 2): (1, 0)])
+      Session(timestamp: 1200, score: [Note(name: .bFlat, octave: 2): .init(correct: 1, wrong: 0)])
     ])
 
     #expect(newLevel.id == level.id)
@@ -223,7 +223,7 @@ struct LevelTests {
     let session = try #require(newLevel.sessions.first)
 
     #expect(session.timestamp == 1200.0)
-    #expect(session.score[Note(name: .bFlat, octave: 2)] ?? (0, 0) == (1, 0))
+    #expect(session.score[Note(name: .bFlat, octave: 2)] ?? .zero == .init(correct: 1, wrong: 0))
     #expect(session.score[Note(name: .c, octave: 1)] == nil)
     #expect(session.score[Note(name: .d, octave: 1)] == nil)
   }
