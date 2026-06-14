@@ -2,7 +2,7 @@
 /// CyclicPracticeManager.swift
 /// Bemol
 ///
-/// Copyright 2025 Faiçal Tchirou
+/// Copyright 2026 Faiçal Tchirou
 ///
 /// Bemol is free software: you can redistribute it and/or modify it under the terms of
 /// the GNU General Public License as published by the Free Software Foundation, either version 3
