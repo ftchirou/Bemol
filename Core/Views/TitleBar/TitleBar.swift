@@ -32,40 +32,24 @@ struct TitleBarDelegate {
   let didPressDoneButton: () -> Void
 }
 
-#if os(macOS)
-final class TitleBar: NSView {
-  var delegate: TitleBarDelegate?
-  var title: AttributedString?
-  var isCancelButtonHidden: Bool = false
-  var isDoneButtonHidden: Bool = false
-  var isDoneButtonEnabled: Bool = false
-}
-#endif
 
-#if os(iOS)
 @MainActor
-final class TitleBar: UIView {
+final class TitleBar: View {
   // MARK: - Subviews
-  private lazy var cancelButton: UIButton = {
-    let button = UIButton(configuration: .plain())
-    button.translatesAutoresizingMaskIntoConstraints = false
-    button.configuration?.title = String(localized: "cancel")
-    button.configuration?.baseForegroundColor = .systemOrange
-    button.configuration?.titleAlignment = .center
-    button.configuration?.buttonSize = .small
-    button.setContentHuggingPriority(.required, for: .horizontal)
-    button.setContentCompressionResistancePriority(.required, for: .horizontal)
+  private lazy var cancelButton: Button = {
+    let button = Button.secondary(title: String(localized: "cancel"))
+    button.setUp()
     button.addAction(
-      UIAction { [weak self] _ in self?.delegate?.didPressCancelButton() },
+      Action { [weak self] _ in self?.delegate?.didPressCancelButton() },
       for: .touchUpInside
     )
 
     return button
   }()
 
-  private lazy var label: UILabel = {
-    let label = UILabel()
-    label.translatesAutoresizingMaskIntoConstraints = false
+  private lazy var label: Label = {
+    let label = Label()
+    label.setUp()
     label.font = .body
     label.textAlignment = .center
     label.textColor = .buttonForeground
@@ -75,18 +59,11 @@ final class TitleBar: UIView {
     return label
   }()
 
-  private lazy var doneButton: UIButton = {
-    let button = UIButton(configuration: .filled())
-    button.translatesAutoresizingMaskIntoConstraints = false
-    button.configuration?.title = String(localized: "done")
-    button.configuration?.baseBackgroundColor = .systemOrange
-    button.configuration?.baseForegroundColor = .buttonForeground
-    button.configuration?.titleAlignment = .center
-    button.configuration?.buttonSize = .small
-    button.setContentHuggingPriority(.required, for: .horizontal)
-    button.setContentCompressionResistancePriority(.required, for: .horizontal)
+  private lazy var doneButton: Button = {
+    let button = Button.primary(title: String(localized: "done"))
+    button.setUp()
     button.addAction(
-      UIAction { [weak self] _ in self?.delegate?.didPressDoneButton() },
+      Action { [weak self] _ in self?.delegate?.didPressDoneButton() },
       for: .touchUpInside
     )
 
@@ -138,7 +115,7 @@ final class TitleBar: UIView {
   // MARK: - Private
 
   private func setUpAppearance() {
-    backgroundColor = .black
+    backgroundStyle = .black
   }
 
   private func setUpViewHierarchy() {
@@ -159,5 +136,4 @@ final class TitleBar: UIView {
     ])
   }
 }
-#endif
 

@@ -43,7 +43,7 @@ final class LevelEditorScreen {
 
   private lazy var titleBar: TitleBar = {
     let bar = TitleBar()
-    bar.translatesAutoresizingMaskIntoConstraints = false
+    bar.setUp()
     bar.title = AttributedString(String(localized: "selectNotes"))
     bar.delegate = TitleBarDelegate(
       didPressCancelButton: { [weak self] in self?.didPressCancelButton() },
@@ -55,7 +55,7 @@ final class LevelEditorScreen {
 
   private lazy var keyboardView: KeyboardView = {
     let keyboardView = KeyboardView(range: range)
-    keyboardView.translatesAutoresizingMaskIntoConstraints = false
+    keyboardView.setUp()
     keyboardView.isScrollEnabled = false
     keyboardView.delegate = KeyboardViewDelegate(
       didPressNote: { [weak self] in self?.didPressNote($0) },

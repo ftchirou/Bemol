@@ -26,14 +26,66 @@ enum ButtonSize {
 
 #if os(macOS)
 import AppKit
+
 @MainActor
 final class Button: Control {
-  init(type: ButtonType, title: String, size: ButtonSize, foregroundColor: Color) {
+
+  // MARK: - Factories
+
+  static func secondary(title: String) -> Button {
+    let button = NSButton(title: title, target: nil, action: nil)
+    button.setUp()
+    button.tintProminence = .secondary
+    button.setContentHuggingPriority(.required, for: .horizontal)
+    button.setContentCompressionResistancePriority(.required, for: .horizontal)
+    button.sizeToFit()
+
+    return .init(button)
+  }
+
+  static func primary(title: String) -> Button {
+    let button = NSButton(title: title, target: nil, action: nil)
+    button.setUp()
+    button.tintProminence = .primary
+    button.setContentHuggingPriority(.required, for: .horizontal)
+    button.setContentCompressionResistancePriority(.required, for: .horizontal)
+    button.sizeToFit()
+
+    return .init(button)
+  }
+
+  // MARK: - Private API
+
+  private let button: NSButton
+  private var primaryAction: Action? = nil
+
+  private init(_ button: NSButton) {
+    self.button = button
     super.init(frame: .zero)
+
+    addSubview(button)
+    LayoutConstraint.activate([
+      button.leadingAnchor.constraint(equalTo: leadingAnchor),
+      button.topAnchor.constraint(equalTo: topAnchor),
+      button.bottomAnchor.constraint(equalTo: bottomAnchor),
+      button.trailingAnchor.constraint(equalTo: trailingAnchor),
+    ])
   }
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+
+  // MARK: - Actions
+
+  override func addAction(_ action: Action, for controlEvents: Control.Event) {
+    self.primaryAction = action
+    button.action = #selector(performAction)
+    button.target = self
+  }
+
+  @objc private func performAction() {
+    primaryAction?.perform()
   }
 }
 #endif
@@ -41,15 +93,34 @@ final class Button: Control {
 
 #if os(iOS)
 import UIKit
+typealias Button = UIButton
 
-@MainActor
-final class Button: Control {
-  init(type: ButtonType, title: String, size: ButtonSize, foregroundColor: Color) {
-    super.init(frame: .zero)
+extension Button {
+  static func secondary(title: String) -> Button {
+    let button = UIButton(configuration: .plain())
+    button.setUp()
+    button.configuration?.title = title
+    button.configuration?.baseForegroundColor = .systemOrange
+    button.configuration?.titleAlignment = .center
+    button.configuration?.buttonSize = .small
+    button.setContentHuggingPriority(.required, for: .horizontal)
+    button.setContentCompressionResistancePriority(.required, for: .horizontal)
+
+    return button
   }
 
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
+  static func primary(title: String) -> Button {
+    let button = UIButton(configuration: .filled())
+    button.translatesAutoresizingMaskIntoConstraints = false
+    button.configuration?.title = String(localized: "done")
+    button.configuration?.baseBackgroundColor = .systemOrange
+    button.configuration?.baseForegroundColor = .buttonForeground
+    button.configuration?.titleAlignment = .center
+    button.configuration?.buttonSize = .small
+    button.setContentHuggingPriority(.required, for: .horizontal)
+    button.setContentCompressionResistancePriority(.required, for: .horizontal)
+
+    return button
   }
 }
 #endif

@@ -152,35 +152,35 @@ final class OctaveView: View {
 
     accidentalNotes[.dFlat]?.frame = CGRect(
       x: naturalNotes[.c]!.frame.maxX - (whiteKeyWidth / 3),
-      y: 0,
+      y: -1,
       width: blackKeyWidth,
       height: blackKeyHeight
     )
 
     accidentalNotes[.eFlat]?.frame = CGRect(
       x: naturalNotes[.d]!.frame.maxX - (whiteKeyWidth / 5),
-      y: 0,
+      y: -1,
       width: blackKeyWidth,
       height: blackKeyHeight
     )
 
     accidentalNotes[.gFlat]?.frame = CGRect(
       x: naturalNotes[.f]!.frame.maxX - (whiteKeyWidth / 3),
-      y: 0,
+      y: -1,
       width: blackKeyWidth,
       height: blackKeyHeight
     )
 
     accidentalNotes[.aFlat]?.frame = CGRect(
       x: naturalNotes[.g]!.frame.maxX - (blackKeyWidth / 2),
-      y: 0,
+      y: -1,
       width: blackKeyWidth,
       height: blackKeyHeight
     )
 
     accidentalNotes[.bFlat]?.frame = CGRect(
       x: naturalNotes[.a]!.frame.maxX - (whiteKeyWidth / 5),
-      y: 0,
+      y: -1,
       width: blackKeyWidth,
       height: blackKeyHeight
     )

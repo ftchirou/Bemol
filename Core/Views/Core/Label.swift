@@ -41,8 +41,9 @@ final class Label: NSTextField {
   }
 
   var textAlignment: NSTextAlignment {
-    get { alignment }
-    set { alignment = newValue }
+    // TODO
+    get { .center }
+    set { }
   }
 
   var attributedText: NSAttributedString? {

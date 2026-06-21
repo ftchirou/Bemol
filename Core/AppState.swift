@@ -58,19 +58,19 @@ extension AppState {
     return MainScreenState(
       isLoading: isLoading,
       key: level?.key ?? .c,
-      isPreviousButtonEnabled: !isPracticing && isInteractionEnabled,
-      isNextButtonEnabled: !isPracticing && isInteractionEnabled,
+      isPreviousButtonEnabled: !isPracticing && isInteractionEnabled && !isModalVisible,
+      isNextButtonEnabled: !isPracticing && isInteractionEnabled && !isModalVisible,
       title: title,
-      isConfigureButtonEnabled: !isPracticing && isInteractionEnabled,
-      isStartStopButtonEnabled: isInteractionEnabled,
+      isConfigureButtonEnabled: !isPracticing && isInteractionEnabled && !isModalVisible,
+      isStartStopButtonEnabled: isInteractionEnabled && !isModalVisible,
       startStopButtonMode: isPracticing ? .stop : .start,
       isRepeatButtonHidden: !isPracticing,
-      isRepeatButtonEnabled: isInteractionEnabled,
+      isRepeatButtonEnabled: isInteractionEnabled && !isModalVisible,
       isScoreLabelHidden: !isPracticing,
       scoreText: scoreText,
       scoreAccessibilityText: scoreAccessibilityText,
       accuracy: accuracy,
-      isAccuracyRingEnabled: isInteractionEnabled,
+      isAccuracyRingEnabled: isInteractionEnabled && !isModalVisible,
       accuracyRingAccessibilityText: accuracyRingAccessibilityText,
       isKeyboardEnabled: isInteractionEnabled,
       activeNotes: level?.notes ?? [],
@@ -94,6 +94,10 @@ extension AppState {
       accuracyPerNote: accuracyPerNote,
       activeNotes: level?.notes ?? []
     )
+  }
+
+  private var isModalVisible: Bool {
+    isLevelEditorVisible || isAccuracyScreenVisible
   }
 
   private var scoreText: AttributedString {

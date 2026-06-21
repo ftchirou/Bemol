@@ -242,6 +242,17 @@
         }
       }
     },
+    "earTraining" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ear training"
+          }
+        }
+      }
+    },
     "F" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -340,18 +351,18 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Go to the C major level"
+            "value" : "Go to the first C major level"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Sélectionner le niveau Do majeur"
           }
         },
         "sv" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Välj den C dur nivån"
           }
         }
@@ -537,6 +548,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "li"
+          }
+        }
+      }
+    },
+    "lookAtStats" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take a look at how well you’re doing"
           }
         }
       }
@@ -1592,6 +1614,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Slumpmässig nivå"
+          }
+        }
+      }
+    },
+    "yourScore" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your score in the current session"
           }
         }
       }

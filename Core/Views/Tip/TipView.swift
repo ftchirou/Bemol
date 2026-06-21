@@ -95,13 +95,8 @@ final class TipView: View {
   }()
 
   private lazy var button: Button = {
-    let button = Button(
-      type: .plain,
-      title: action.title,
-      size: .small,
-      foregroundColor: .systemOrange
-    )
-    button.translatesAutoresizingMaskIntoConstraints = false
+    let button = Button.primary(title: action.title)
+    button.setUp()
     button.addAction(
       Action { [weak self] _ in
         self?.action.perform()

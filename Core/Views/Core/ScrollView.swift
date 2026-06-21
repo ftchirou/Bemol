@@ -39,6 +39,7 @@ extension ScrollView {
   }
 
   var isScrollEnabled: Bool {
+    // TODO
     get { true }
     set {}
   }
@@ -54,6 +55,20 @@ extension ScrollView {
       contentView.topAnchor.constraint(equalTo: clipView.topAnchor),
       contentView.bottomAnchor.constraint(equalTo: clipView.bottomAnchor),
     ])
+  }
+
+  func scrollTo(_ point: CGPoint, animated: Bool) {
+    guard animated else {
+      scroll(contentView, to: point)
+      return
+    }
+
+    // https://stackoverflow.com/a/49672274
+    NSAnimationContext.beginGrouping()
+    NSAnimationContext.current.duration = 0.2
+    contentView.animator().setBoundsOrigin(point)
+    reflectScrolledClipView(contentView)
+    NSAnimationContext.endGrouping()
   }
 }
 #endif
@@ -73,6 +88,10 @@ extension ScrollView {
       contentView.bottomAnchor.constraint(equalTo: contentLayoutGuide.bottomAnchor),
       contentLayoutGuide.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
     ])
+  }
+
+  func scrollTo(_ point: CGPoint, animated: Bool) {
+    setContentOffset(point, animated: animated)
   }
 }
 #endif

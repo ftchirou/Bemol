@@ -101,11 +101,9 @@ final class KeyboardView: View {
   // MARK: - API
 
   func scrollTo(note: Note, animated: Bool = true) {
-    #if os(iOS)
     if let view = octaveViews[Int(note.octave - range.lowerBound)].view(for: note.name) {
-      scrollView.setContentOffset(CGPoint(x: view.frame.minX, y: 0), animated: animated)
+      scrollView.scrollTo(CGPoint(x: view.frame.minX, y: 0), animated: animated)
     }
-    #endif
   }
 
   func setEnabled(_ enabled: Bool, for notes: [Note]) {

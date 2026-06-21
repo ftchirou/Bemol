@@ -1,5 +1,5 @@
 ///
-/// Action.swift
+/// NSProgressIndicator+Color.swift
 /// Bemol
 ///
 /// Copyright 2026 Faiçal Tchirou
@@ -14,27 +14,11 @@
 ///
 /// You should have received a copy of the GNU General Public License along with Foobar.
 /// If not, see <https://www.gnu.org/licenses/>.
-///
 
-#if os(macOS)
 import AppKit
 
-@MainActor
-public final class Action {
-  private let handler: (Action) -> Void
-
-  init(handler: @escaping (Action) -> Void) {
-    self.handler = handler
-  }
-
-  func perform() {
-    handler(self)
+extension NSProgressIndicator {
+  func setColor(_ color: NSColor) {
+    // TODO
   }
 }
-#endif
-
-
-#if os(iOS)
-import UIKit
-typealias Action = UIAction
-#endif

@@ -19,8 +19,12 @@
 #if os(macOS)
 import AppKit
 
+@MainActor
 open class Control: NSControl {
-  struct Event: Hashable {
+
+  // MARK: - Event
+
+  public struct Event: Hashable {
     static var touchUpInside: Control.Event = .init(rawValue: 1)
     static var touchDown: Control.Event = .init(rawValue: 2)
 
@@ -31,15 +35,19 @@ open class Control: NSControl {
     }
   }
 
+  // MARK: -
+
   open var isSelected: Bool = false {
     didSet {
       isHighlighted = isSelected
     }
   }
 
+  // MARK: - Actions
+
   private var actions: [Control.Event: Action] = [:]
 
-  func addAction(
+  open func addAction(
     _ action: Action,
     for controlEvents: Control.Event
   ) {
@@ -58,12 +66,14 @@ open class Control: NSControl {
   }
 
   override open func mouseDown(with event: NSEvent) {
-    if beginTracking(Touch(), with: event) {
+    if isEnabled && beginTracking(Touch(), with: event) {
       actions[.touchDown]?.perform()
     }
   }
 
   override open func mouseUp(with event: NSEvent) {
+    guard isEnabled else { return }
+
     endTracking(nil, with: event)
     actions[.touchUpInside]?.perform()
   }

@@ -114,7 +114,10 @@ final class MainScreen {
       let activeNotes = state?.activeNotes ?? []
       let oldActiveNotes = oldValue?.activeNotes ?? []
 
+#if os(iOS)
       navBar.state = state?.navBarState
+#endif
+
       keyboardView.isUserInteractionEnabled = state?.isKeyboardEnabled ?? true
 
       if oldValue == nil || key != oldKey || activeNotes != oldActiveNotes {
@@ -143,9 +146,9 @@ final class MainScreen {
 
   private func navBarHeightMultiplier() -> CGFloat {
 #if os(macOS)
-    0.10
+    0
 #endif
-
+    
 #if os(iOS)
     switch (navBar.traitCollection.verticalSizeClass, navBar.traitCollection.horizontalSizeClass) {
     case (.regular, .regular):
