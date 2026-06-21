@@ -23,15 +23,6 @@
         "identifier" : "32A9AD062DBA7B03000B7EDE",
         "name" : "BemolTests"
       }
-    },
-    {
-      "enabled" : false,
-      "parallelizable" : true,
-      "target" : {
-        "containerPath" : "container:Bemol.xcodeproj",
-        "identifier" : "32A9AD102DBA7B03000B7EDE",
-        "name" : "BemolUITests"
-      }
     }
   ],
   "version" : 1

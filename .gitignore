@@ -4,6 +4,7 @@ xcuserdata/
 Artifacts/
 private_keys/
 Certificates/
-Configurations/Signing.xcconfig
-Bemol/Resources/sound_font.sf2
+iOS/Configurations/Signing.xcconfig
+macOS/Configurations/Signing.xcconfig
+Core/Resources/sound_font.sf2
 Screenshots/
