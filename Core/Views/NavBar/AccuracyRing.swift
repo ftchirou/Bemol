@@ -161,6 +161,8 @@ final class AccuracyRing: Control {
       clockwise: true
     )
 
+    let color = isEnabled ? self.color : Color.lightGray
+
     backgroundLayer.frame = rings.bounds
     backgroundLayer.lineWidth = strokeWidth
     backgroundLayer.strokeColor = color.withAlphaComponent(0.5).cgColor
@@ -172,6 +174,8 @@ final class AccuracyRing: Control {
     foregroundLayer.strokeColor = color.cgColor
     foregroundLayer.path = foregroundPath.cgPath
     foregroundLayer.fillColor = Color.clear.cgColor
+
+    label.textColor = color
 
     rings.rotate(by: .pi * 3 / 2)
   }
