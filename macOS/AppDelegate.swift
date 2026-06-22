@@ -57,13 +57,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
   // MARK: - Toolbar Items
 
-  private lazy var startStopButton: NSToolbarItem = {
+  private lazy var startStopButtonToolbarItem: NSToolbarItem = {
     let item = NSToolbarItem(itemIdentifier: .startStopSessionButton)
     item.toolTip = String(localized: "startSession")
     item.image = NSImage(systemSymbolName: "play.fill", accessibilityDescription: nil)
     item.isEnabled = true
     item.action = #selector(startStopSessionButtonTapped)
     item.target = self
+
+    return item
+  }()
+
+  private lazy var accuracyRingToolbarItem: NSToolbarItem = {
+    let item = NSToolbarItem(itemIdentifier: .accuracyButton)
+    item.toolTip = String(localized: "accuracyInLevel")
+    item.view = accuracyRing
+    item.isEnabled = true
+
+    return item
+  }()
+
+  private lazy var scoreLabelToolbarItem: NSToolbarItem = {
+    let item = NSToolbarItem(itemIdentifier: .scoreLabel)
+    item.toolTip = String(localized: "yourScore")
+    item.view = scoreLabel
 
     return item
   }()
@@ -77,60 +94,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     return label
   }()
 
-  private lazy var accuracyRing: NSProgressIndicator = {
-    let indicator = NSProgressIndicator()
-    indicator.translatesAutoresizingMaskIntoConstraints = false
-    indicator.controlSize = NSControl.ControlSize.regular
-    indicator.style = .spinning
-    indicator.minValue = 0
-    indicator.maxValue = 1
-    indicator.isIndeterminate = false
+  private lazy var accuracyRing: AccuracyRing = {
+    let ring = AccuracyRing()
+    ring.setUp()
+    ring.strokeWidth = 3
+    ring.widthAnchor.constraint(equalToConstant: 92).isActive = true
+    ring.heightAnchor.constraint(equalToConstant: 32).isActive = true
+    ring.addAction(
+      Action { [weak self] _ in self?.accuracyButtonTapped() },
+      for: .touchUpInside
+    )
 
-    return indicator
-  }()
-
-  private lazy var accuracyRingButton: NSButton = {
-    let button = NSButton(title: "", target: self, action: #selector(accuracyButtonTapped))
-    button.translatesAutoresizingMaskIntoConstraints = false
-    button.isTransparent = true
-
-    return button
-  }()
-
-  private lazy var accuracyLabel: Label = {
-    let label = Label()
-    label.translatesAutoresizingMaskIntoConstraints = false
-    label.font = .systemFont(ofSize: 6.5, weight: .semibold)
-
-    return label
-  }()
-
-  private lazy var accuracyView: NSView = {
-    let view = NSView()
-    view.translatesAutoresizingMaskIntoConstraints = false
-    view.addSubview(accuracyRing)
-    view.addSubview(accuracyLabel)
-    view.addSubview(accuracyRingButton)
-
-    NSLayoutConstraint.activate([
-      view.widthAnchor.constraint(equalTo: accuracyRing.widthAnchor),
-      view.heightAnchor.constraint(equalTo: accuracyRing.heightAnchor),
-
-      accuracyRing.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      accuracyRing.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-      accuracyRing.topAnchor.constraint(equalTo: view.topAnchor),
-      accuracyRing.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-
-      accuracyRingButton.leadingAnchor.constraint(equalTo: accuracyRing.leadingAnchor),
-      accuracyRingButton.trailingAnchor.constraint(equalTo: accuracyRing.trailingAnchor),
-      accuracyRingButton.topAnchor.constraint(equalTo: accuracyRing.topAnchor),
-      accuracyRingButton.bottomAnchor.constraint(equalTo: accuracyRing.bottomAnchor),
-
-      accuracyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      accuracyLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-    ])
-
-    return view
+    return ring
   }()
 
   private lazy var isToolbarItemEnabled: [NSToolbarItem.Identifier: Bool] = [:]
@@ -153,7 +128,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     window = NSWindow(contentViewController: rootViewController())
     window?.appearance = NSAppearance(named: .vibrantDark)
     window?.title = String(localized: "bemol")
-    window?.subtitle = "Ear training"
+    window?.subtitle = String(localized: "earTraining")
     window?.toolbar = toolbar
     window?.isReleasedWhenClosed = true
     window?.styleMask.insert(.borderless)
@@ -217,25 +192,23 @@ extension AppDelegate {
     isToolbarItemEnabled[.repeatButton] = state.isRepeatButtonEnabled
     isToolbarItemEnabled[.accuracyButton] = state.isAccuracyRingEnabled
 
-    startStopButton.image = NSImage(
+    startStopButtonToolbarItem.image = NSImage(
       systemSymbolName: state.startStopButtonMode == .start ? "play.fill" : "stop.fill",
       accessibilityDescription: nil
     )
-    startStopButton.toolTip = state.startStopButtonMode == .start
+    startStopButtonToolbarItem.toolTip = state.startStopButtonMode == .start
       ? String(localized: "startSession")
       : String(localized: "stopSession")
 
     scoreLabel.attributedText = state.scoreText.flatMap { NSAttributedString($0) }
     scoreLabel.isHidden = state.isScoreLabelHidden
+    scoreLabelToolbarItem.toolTip = state.scoreAccessibilityText
 
-    accuracyRing.doubleValue = Double(state.accuracy)
-    accuracyRing.setColor(Color.color(for: Double(state.accuracy)))
-    accuracyRingButton.isEnabled = state.isAccuracyRingEnabled
-
-    let formatter = NumberFormatter()
-    formatter.numberStyle = .percent
-    accuracyLabel.text = formatter.string(from: NSNumber(floatLiteral: Double(state.accuracy)))
-    accuracyLabel.textColor = Color.color(for: Double(state.accuracy))
+    accuracyRing.accuracy = state.accuracy
+    accuracyRing.isEnabled = state.isAccuracyRingEnabled
+    accuracyRingToolbarItem.toolTip = state.startStopButtonMode == .start
+      ? String(localized: "accuracyInLevel")
+      : String(localized: "accuracyInSession")
 
     NSApplication.shared.setWindowsNeedUpdate(true)
   }
@@ -329,7 +302,7 @@ extension AppDelegate: NSToolbarDelegate {
       return item
 
     case .startStopSessionButton:
-      return startStopButton
+      return startStopButtonToolbarItem
 
     case .repeatButton:
       let item = NSToolbarItem(itemIdentifier: itemIdentifier)
@@ -342,19 +315,10 @@ extension AppDelegate: NSToolbarDelegate {
       return item
 
     case .scoreLabel:
-      let item = NSToolbarItem(itemIdentifier: itemIdentifier)
-      item.toolTip = String(localized: "yourScore")
-      item.view = scoreLabel
-
-      return item
+      return scoreLabelToolbarItem
 
     case .accuracyButton:
-      let item = NSToolbarItem(itemIdentifier: itemIdentifier)
-      item.toolTip = String(localized: "lookAtStats")
-      item.view = accuracyView
-      item.isEnabled = true
-
-      return item
+      return accuracyRingToolbarItem
 
     default:
       return nil

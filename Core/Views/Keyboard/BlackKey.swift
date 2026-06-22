@@ -38,7 +38,6 @@ final class BlackKey: Control {
     label.adjustsFontForContentSizeCategory = true
     label.adjustsFontSizeToFitWidth = true
     label.isUserInteractionEnabled = false
-    label.transform = CGAffineTransform(rotationAngle: .pi * 3 / 2)
 
     return label
   }()
@@ -188,7 +187,25 @@ final class BlackKey: Control {
     bottomAnchorConstraint.constant = -.spacingMd * bottomAnchorConstraintConstantMultiplier()
   }
 
+#if os(iOS)
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    performLayout()
+  }
+#endif
+
+#if os(macOS)
+  override func layout() {
+    super.layout()
+    performLayout()
+  }
+#endif
+
   // MARK: - Private
+
+  private func performLayout() {
+    label.rotate(by: .pi * 3 / 2)
+  }
 
   private func setUpAppearance() {
     setUpAccessibility()

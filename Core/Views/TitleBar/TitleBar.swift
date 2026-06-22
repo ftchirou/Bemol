@@ -127,9 +127,10 @@ final class TitleBar: View {
       cancelButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .spacingMd),
       cancelButton.centerYAnchor.constraint(equalTo: centerYAnchor),
 
-      label.leadingAnchor.constraint(equalTo: cancelButton.trailingAnchor, constant: .spacingMd),
+      label.leadingAnchor.constraint(greaterThanOrEqualTo: cancelButton.trailingAnchor, constant: .spacingMd),
+      label.centerXAnchor.constraint(equalTo: centerXAnchor),
       label.centerYAnchor.constraint(equalTo: centerYAnchor),
-      label.trailingAnchor.constraint(equalTo: doneButton.leadingAnchor, constant: -.spacingMd),
+      label.trailingAnchor.constraint(lessThanOrEqualTo: doneButton.leadingAnchor, constant: -.spacingMd),
 
       doneButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.spacingMd),
       doneButton.centerYAnchor.constraint(equalTo: centerYAnchor),

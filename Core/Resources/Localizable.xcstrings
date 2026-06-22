@@ -24,6 +24,28 @@
         }
       }
     },
+    "accuracyInLevel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your accuracy in this level. Click to see a breakdown per note."
+          }
+        }
+      }
+    },
+    "accuracyInSession" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your accuracy in the current practice session. Click to see a breakdown per note."
+          }
+        }
+      }
+    },
     "B" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -548,17 +570,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "li"
-          }
-        }
-      }
-    },
-    "lookAtStats" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Take a look at how well you’re doing"
           }
         }
       }

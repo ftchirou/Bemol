@@ -55,7 +55,6 @@ final class AccuracyRing: Control {
     view.translatesAutoresizingMaskIntoConstraints = false
     view.addSublayer(backgroundLayer)
     view.addSublayer(foregroundLayer)
-    view.transform = CGAffineTransform(rotationAngle: .pi * 3 / 2)
     view.isUserInteractionEnabled = false
 
     return view
@@ -90,9 +89,13 @@ final class AccuracyRing: Control {
     }
   }
 
-  // MARK: - Properties
+  var strokeWidth: CGFloat = 6 {
+    didSet {
+      setNeedsLayout()
+    }
+  }
 
-  private let strokeWidth: CGFloat = 6
+  // MARK: - Properties
 
   private var color: Color = .systemTeal {
     didSet { label.textColor = color }
@@ -116,16 +119,14 @@ final class AccuracyRing: Control {
 
   // MARK: - Tracking
 
-#if os(iOS)
-  override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+  override func beginTracking(_ touch: Touch, with event: UIEvent?) -> Bool {
     transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
     return true
   }
 
-  override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
+  override func endTracking(_ touch: Touch?, with event: UIEvent?) {
     transform = CGAffineTransform(scaleX: 1, y: 1)
   }
-#endif
 
   // MARK: - Layout
 
@@ -145,30 +146,34 @@ final class AccuracyRing: Control {
 
   private func performLayout() {
     let backgroundPath = BezierPath(
-      arcCenter: CGPoint(x: frame.width / 2, y: frame.height / 2),
-      radius: frame.width / 2,
+      arcCenter: CGPoint(x: rings.frame.width / 2, y: rings.frame.height / 2),
+      radius: rings.frame.width / 2,
       startAngle: 0,
       endAngle: .pi * 2,
       clockwise: true
     )
 
     let foregroundPath = BezierPath(
-      arcCenter: CGPoint(x: frame.width / 2, y: frame.height / 2),
-      radius: frame.width / 2,
+      arcCenter: CGPoint(x: rings.frame.width / 2, y: rings.frame.height / 2),
+      radius: rings.frame.width / 2,
       startAngle: 0,
       endAngle: CGFloat(accuracy) * (.pi * 2),
       clockwise: true
     )
 
-    backgroundLayer.frame = bounds
+    backgroundLayer.frame = rings.bounds
     backgroundLayer.lineWidth = strokeWidth
     backgroundLayer.strokeColor = color.withAlphaComponent(0.5).cgColor
     backgroundLayer.path = backgroundPath.cgPath
+    backgroundLayer.fillColor = Color.clear.cgColor
 
-    foregroundLayer.frame = bounds
+    foregroundLayer.frame = rings.bounds
     foregroundLayer.lineWidth = strokeWidth
     foregroundLayer.strokeColor = color.cgColor
     foregroundLayer.path = foregroundPath.cgPath
+    foregroundLayer.fillColor = Color.clear.cgColor
+
+    rings.rotate(by: .pi * 3 / 2)
   }
 
   // MARK: - Private
@@ -180,9 +185,12 @@ final class AccuracyRing: Control {
     LayoutConstraint.activate([
       rings.leadingAnchor.constraint(equalTo: leadingAnchor),
       rings.topAnchor.constraint(equalTo: topAnchor),
-      rings.trailingAnchor.constraint(equalTo: trailingAnchor),
+      rings.widthAnchor.constraint(equalTo: heightAnchor),
       rings.bottomAnchor.constraint(equalTo: bottomAnchor),
+    ])
 
+#if os(iOS)
+    LayoutConstraint.activate([
       label.centerXAnchor.constraint(equalTo: centerXAnchor),
       label.centerYAnchor.constraint(equalTo: centerYAnchor),
       label.leadingAnchor.constraint(
@@ -193,5 +201,16 @@ final class AccuracyRing: Control {
       label.bottomAnchor.constraint(
         greaterThanOrEqualTo: bottomAnchor, constant: -(strokeWidth + 2)),
     ])
+#endif
+
+#if os(macOS)
+    LayoutConstraint.activate([
+      label.centerYAnchor.constraint(equalTo: centerYAnchor),
+      label.leadingAnchor.constraint(equalTo: rings.trailingAnchor, constant: .spacingXs),
+      label.topAnchor.constraint(lessThanOrEqualTo: topAnchor, constant: (strokeWidth + 2)),
+      label.bottomAnchor.constraint(
+        greaterThanOrEqualTo: bottomAnchor, constant: -(strokeWidth + 2)),
+    ])
+#endif
   }
 }

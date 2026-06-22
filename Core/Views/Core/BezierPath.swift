@@ -29,11 +29,16 @@ extension BezierPath {
       clockwise: Bool
   ) {
     self.init()
+    let startAngle = Measurement(value: startAngle, unit: UnitAngle.radians)
+      .converted(to: .degrees).value
+    let endAngle = Measurement(value: endAngle, unit: UnitAngle.radians)
+      .converted(to: .degrees).value
+
     appendArc(
       withCenter: center,
       radius: radius,
-      startAngle: startAngle,
-      endAngle: endAngle,
+      startAngle: -startAngle,
+      endAngle: -endAngle,
       clockwise: clockwise
     )
   }

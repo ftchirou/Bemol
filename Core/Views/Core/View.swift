@@ -56,10 +56,8 @@ extension View {
   }
 
   var transform: CGAffineTransform {
-    get { (layer?.sublayerTransform).flatMap { CATransform3DGetAffineTransform($0) } ?? .identity }
-    set {
-//      layer?.sublayerTransform = CATransform3DMakeAffineTransform(newValue)
-    }
+    get { (layer?.transform).flatMap { CATransform3DGetAffineTransform($0) } ?? .identity }
+    set { layer?.transform = CATransform3DMakeAffineTransform(newValue) }
   }
 
   var shadowColor: CGColor {
@@ -99,8 +97,20 @@ extension View {
 
   func setUp() {
     wantsLayer = true
-    layer?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
     translatesAutoresizingMaskIntoConstraints = false
+  }
+
+  func rotate(by angleRadians: CGFloat) {
+    let rotation = CGAffineTransform(rotationAngle: -angleRadians)
+    let translation = CGAffineTransform(
+      translationX: (bounds.height / 2) + (bounds.width / 2),
+      y: 0
+    )
+
+    // We're rotating about (0, 0) on macOS, so we need to translate
+    // after the rotation to obtain the same effect as on iOS.
+    let transform = rotation.concatenating(translation)
+    layer?.transform = CATransform3DMakeAffineTransform(transform)
   }
 
   func bringSubviewToFront(_ view: View) {
@@ -169,6 +179,10 @@ extension View {
 
   func addSublayer(_ layer: CALayer) {
     self.layer.addSublayer(layer)
+  }
+
+  func rotate(by angleRadians: CGFloat) {
+    transform = CGAffineTransform(rotationAngle: angleRadians)
   }
 
   func setAccessibilityLabel(_ accessibilityLabel: String?) {
