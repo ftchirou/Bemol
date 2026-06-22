@@ -1,5 +1,5 @@
 ///
-/// Debug.xcconfig
+/// UserDefaults+Preferences.swift
 /// Bemol
 ///
 /// Copyright 2026 Faiçal Tchirou
@@ -16,24 +16,27 @@
 /// If not, see <https://www.gnu.org/licenses/>.
 ///
 
-// Configuration settings file format documentation can be found at:
-// https://help.apple.com/xcode/#/dev745c5c974
+import Foundation
 
-SWIFT_VERSION = 6;
+extension UserDefaults: Preferences {
+  func value(for key: PreferenceKey) -> Int? {
+    self.value(forKey: key.rawValue) as? Int
+  }
 
-SWIFT_STRICT_CONCURRENCY = complete;
+  func setValue(_ value: Int, for key: PreferenceKey) {
+    self.setValue(value, forKey: key.rawValue)
+  }
 
-SWIFT_APPROACHABLE_CONCURRENCY = NO;
+  func value(for key: PreferenceKey) -> Bool {
+    if key == .userHasSeenOnboarding {
+      // Temporarily disable the onboarding process.
+      return true
+    }
 
-GENERATE_INFOPLIST_FILE = YES;
+    return self.value(forKey: key.rawValue) as? Bool ?? false
+  }
 
-OTHER_SWIFT_FLAGS = $(inherited) \
-    -enable-upcoming-feature NonisolatedNonsendingByDefault:migrate \
-    -enable-upcoming-feature ExistentialAny:migrate \
-    -enable-upcoming-feature MemberImportVisibility:migrate;
-
-MACOS_DEPLOYMENT_TARGET = 26.5;
-
-PRODUCT_NAME = Bemol;
-
-PRODUCT_BUNDLE_IDENTIFIER = com.tchirou.apps.bemol.macos;
+  func setValue(_ value: Bool, for key: PreferenceKey) {
+    self.setValue(value, forKey: key.rawValue)
+  }
+}

@@ -6,5 +6,5 @@ private_keys/
 Certificates/
 iOS/Configurations/Signing.xcconfig
 macOS/Configurations/Signing.xcconfig
-Core/Resources/sound_font.sf2
+Shared/Resources/sound_font.sf2
 Screenshots/

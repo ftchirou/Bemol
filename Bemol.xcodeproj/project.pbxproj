@@ -6,29 +6,45 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		3215DAE52FE9E1EA00B94FCD /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 32A9AE642DC11956000B7EDE /* PrivacyInfo.xcprivacy */; };
+		3215DAE62FE9E1EA00B94FCD /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 32A9AE642DC11956000B7EDE /* PrivacyInfo.xcprivacy */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
-		32A9AD082DBA7B03000B7EDE /* PBXContainerItemProxy */ = {
+		321422E02FE9BA0D00BEDF1F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 32A9ACE62DBA7B01000B7EDE /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 32A9ACED2DBA7B01000B7EDE;
-			remoteInfo = Bemol;
+			remoteGlobalIDString = 32F339102FE70F700007F4E2;
+			remoteInfo = Bemol.macOS;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		321422DC2FE9BA0D00BEDF1F /* Bemol.Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Bemol.Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		322CBD412DD5A8CB0092E1AC /* PRIVACY.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = PRIVACY.md; sourceTree = "<group>"; };
 		324CBF902DC372B7002B3923 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		324CBF912DC37358002B3923 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		32A9ACEE2DBA7B01000B7EDE /* Bemol.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bemol.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		32A9AD072DBA7B03000B7EDE /* BemolTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BemolTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		32A9AE492DBF9692000B7EDE /* Bemol.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Bemol.xctestplan; sourceTree = "<group>"; };
 		32A9AE642DC11956000B7EDE /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		32F339112FE70F700007F4E2 /* Bemol.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bemol.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		32F3398A2FE733220007F4E2 /* Exceptions for "Core" folder in "Bemol.iOS" target */ = {
+		3215DAE42FE9E18900B94FCD /* Exceptions for "macOS" folder in "Bemol.macOS" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Configurations/Debug.xcconfig,
+				Configurations/Release.xcconfig,
+				Configurations/Shared.xcconfig,
+				Configurations/Signing.xcconfig,
+				Configurations/Versioning.xcconfig,
+			);
+			target = 32F339102FE70F700007F4E2 /* Bemol.macOS */;
+		};
+		32F3398A2FE733220007F4E2 /* Exceptions for "Shared" folder in "Bemol.iOS" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				App.swift,
@@ -98,7 +114,7 @@
 			);
 			target = 32A9ACED2DBA7B01000B7EDE /* Bemol.iOS */;
 		};
-		32F3398B2FE733220007F4E2 /* Exceptions for "Core" folder in "Bemol.macOS" target */ = {
+		32F3398B2FE733220007F4E2 /* Exceptions for "Shared" folder in "Bemol.macOS" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				App.swift,
@@ -171,6 +187,7 @@
 		32F339A92FE734E70007F4E2 /* Exceptions for "iOS" folder in "Bemol.iOS" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				"Bemol-iOS-Info.plist",
 				Configurations/Debug.xcconfig,
 				Configurations/Release.xcconfig,
 				Configurations/Shared.xcconfig,
@@ -186,6 +203,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		321422DD2FE9BA0D00BEDF1F /* Tests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Tests;
+			sourceTree = "<group>";
+		};
 		32A9ACF02DBA7B01000B7EDE /* iOS */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -194,36 +216,34 @@
 			path = iOS;
 			sourceTree = "<group>";
 		};
-		32A9AD0A2DBA7B03000B7EDE /* BemolTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = BemolTests;
-			sourceTree = "<group>";
-		};
 		32F339122FE70F700007F4E2 /* macOS */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				3215DAE42FE9E18900B94FCD /* Exceptions for "macOS" folder in "Bemol.macOS" target */,
+			);
 			path = macOS;
 			sourceTree = "<group>";
 		};
-		32F339892FE733180007F4E2 /* Core */ = {
+		32F339892FE733180007F4E2 /* Shared */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				32F3398B2FE733220007F4E2 /* Exceptions for "Core" folder in "Bemol.macOS" target */,
-				32F3398A2FE733220007F4E2 /* Exceptions for "Core" folder in "Bemol.iOS" target */,
+				32F3398B2FE733220007F4E2 /* Exceptions for "Shared" folder in "Bemol.macOS" target */,
+				32F3398A2FE733220007F4E2 /* Exceptions for "Shared" folder in "Bemol.iOS" target */,
 			);
-			path = Core;
+			path = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		32A9ACEB2DBA7B01000B7EDE /* Frameworks */ = {
+		321422D92FE9BA0D00BEDF1F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		32A9AD042DBA7B03000B7EDE /* Frameworks */ = {
+		32A9ACEB2DBA7B01000B7EDE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -243,10 +263,10 @@
 		32A9ACE52DBA7B01000B7EDE = {
 			isa = PBXGroup;
 			children = (
-				32F339892FE733180007F4E2 /* Core */,
+				32F339892FE733180007F4E2 /* Shared */,
 				32A9ACF02DBA7B01000B7EDE /* iOS */,
 				32F339122FE70F700007F4E2 /* macOS */,
-				32A9AD0A2DBA7B03000B7EDE /* BemolTests */,
+				321422DD2FE9BA0D00BEDF1F /* Tests */,
 				32A9AE492DBF9692000B7EDE /* Bemol.xctestplan */,
 				322CBD412DD5A8CB0092E1AC /* PRIVACY.md */,
 				32A9AE642DC11956000B7EDE /* PrivacyInfo.xcprivacy */,
@@ -260,8 +280,8 @@
 			isa = PBXGroup;
 			children = (
 				32A9ACEE2DBA7B01000B7EDE /* Bemol.app */,
-				32A9AD072DBA7B03000B7EDE /* BemolTests.xctest */,
 				32F339112FE70F700007F4E2 /* Bemol.app */,
+				321422DC2FE9BA0D00BEDF1F /* Bemol.Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -269,6 +289,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		321422DB2FE9BA0D00BEDF1F /* Bemol.Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 321422E22FE9BA0D00BEDF1F /* Build configuration list for PBXNativeTarget "Bemol.Tests" */;
+			buildPhases = (
+				321422D82FE9BA0D00BEDF1F /* Sources */,
+				321422D92FE9BA0D00BEDF1F /* Frameworks */,
+				321422DA2FE9BA0D00BEDF1F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				321422E12FE9BA0D00BEDF1F /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				321422DD2FE9BA0D00BEDF1F /* Tests */,
+			);
+			name = Bemol.Tests;
+			packageProductDependencies = (
+			);
+			productName = Tests;
+			productReference = 321422DC2FE9BA0D00BEDF1F /* Bemol.Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		32A9ACED2DBA7B01000B7EDE /* Bemol.iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 32A9AD1A2DBA7B03000B7EDE /* Build configuration list for PBXNativeTarget "Bemol.iOS" */;
@@ -290,29 +333,6 @@
 			productName = Bemol;
 			productReference = 32A9ACEE2DBA7B01000B7EDE /* Bemol.app */;
 			productType = "com.apple.product-type.application";
-		};
-		32A9AD062DBA7B03000B7EDE /* BemolTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 32A9AD1F2DBA7B03000B7EDE /* Build configuration list for PBXNativeTarget "BemolTests" */;
-			buildPhases = (
-				32A9AD032DBA7B03000B7EDE /* Sources */,
-				32A9AD042DBA7B03000B7EDE /* Frameworks */,
-				32A9AD052DBA7B03000B7EDE /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				32A9AD092DBA7B03000B7EDE /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				32A9AD0A2DBA7B03000B7EDE /* BemolTests */,
-			);
-			name = BemolTests;
-			packageProductDependencies = (
-			);
-			productName = BemolTests;
-			productReference = 32A9AD072DBA7B03000B7EDE /* BemolTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		32F339102FE70F700007F4E2 /* Bemol.macOS */ = {
 			isa = PBXNativeTarget;
@@ -346,12 +366,12 @@
 				LastSwiftUpdateCheck = 2650;
 				LastUpgradeCheck = 2650;
 				TargetAttributes = {
+					321422DB2FE9BA0D00BEDF1F = {
+						CreatedOnToolsVersion = 26.5;
+						TestTargetID = 32F339102FE70F700007F4E2;
+					};
 					32A9ACED2DBA7B01000B7EDE = {
 						CreatedOnToolsVersion = 16.2;
-					};
-					32A9AD062DBA7B03000B7EDE = {
-						CreatedOnToolsVersion = 16.2;
-						TestTargetID = 32A9ACED2DBA7B01000B7EDE;
 					};
 					32F339102FE70F700007F4E2 = {
 						CreatedOnToolsVersion = 26.5;
@@ -376,23 +396,24 @@
 			targets = (
 				32F339102FE70F700007F4E2 /* Bemol.macOS */,
 				32A9ACED2DBA7B01000B7EDE /* Bemol.iOS */,
-				32A9AD062DBA7B03000B7EDE /* BemolTests */,
+				321422DB2FE9BA0D00BEDF1F /* Bemol.Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		32A9ACEC2DBA7B01000B7EDE /* Resources */ = {
+		321422DA2FE9BA0D00BEDF1F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		32A9AD052DBA7B03000B7EDE /* Resources */ = {
+		32A9ACEC2DBA7B01000B7EDE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3215DAE62FE9E1EA00B94FCD /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,20 +421,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3215DAE52FE9E1EA00B94FCD /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		32A9ACEA2DBA7B01000B7EDE /* Sources */ = {
+		321422D82FE9BA0D00BEDF1F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		32A9AD032DBA7B03000B7EDE /* Sources */ = {
+		32A9ACEA2DBA7B01000B7EDE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -430,14 +452,56 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		32A9AD092DBA7B03000B7EDE /* PBXTargetDependency */ = {
+		321422E12FE9BA0D00BEDF1F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 32A9ACED2DBA7B01000B7EDE /* Bemol.iOS */;
-			targetProxy = 32A9AD082DBA7B03000B7EDE /* PBXContainerItemProxy */;
+			target = 32F339102FE70F700007F4E2 /* Bemol.macOS */;
+			targetProxy = 321422E02FE9BA0D00BEDF1F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		321422E32FE9BA0D00BEDF1F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tchirou.apps.bemol.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bemol.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Bemol";
+			};
+			name = Debug;
+		};
+		321422E42FE9BA0D00BEDF1F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tchirou.apps.bemol.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bemol.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Bemol";
+			};
+			name = Release;
+		};
 		32A9AD1B2DBA7B03000B7EDE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReferenceAnchor = 32A9ACF02DBA7B01000B7EDE /* iOS */;
@@ -463,7 +527,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = "$(MARKETING_VERSION)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tchirou.apps.bemol;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tchirou.apps.bemol.ios;
 				PRODUCT_NAME = "$(PRODUCT_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -501,7 +565,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = "$(MARKETING_VERSION)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tchirou.apps.bemol;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tchirou.apps.bemol.ios;
 				PRODUCT_NAME = "$(PRODUCT_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -639,46 +703,6 @@
 			};
 			name = Release;
 		};
-		32A9AD202DBA7B03000B7EDE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReferenceAnchor = 32A9ACF02DBA7B01000B7EDE /* iOS */;
-			baseConfigurationReferenceRelativePath = Configurations/Debug.xcconfig;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = tchirou.com.BemolTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bemol.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Bemol";
-			};
-			name = Debug;
-		};
-		32A9AD212DBA7B03000B7EDE /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReferenceAnchor = 32A9ACF02DBA7B01000B7EDE /* iOS */;
-			baseConfigurationReferenceRelativePath = Configurations/Release.xcconfig;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = tchirou.com.BemolTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bemol.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Bemol";
-			};
-			name = Release;
-		};
 		32F339322FE70F710007F4E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReferenceAnchor = 32F339122FE70F700007F4E2 /* macOS */;
@@ -714,7 +738,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 26.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tchirou.Bemol-macOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tchirou.apps.bemol.macos;
 				PRODUCT_NAME = "$(PRODUCT_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
@@ -762,7 +786,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 26.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tchirou.Bemol-macOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tchirou.apps.bemol.macos;
 				PRODUCT_NAME = "$(PRODUCT_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
@@ -778,6 +802,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		321422E22FE9BA0D00BEDF1F /* Build configuration list for PBXNativeTarget "Bemol.Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				321422E32FE9BA0D00BEDF1F /* Debug */,
+				321422E42FE9BA0D00BEDF1F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		32A9ACE92DBA7B01000B7EDE /* Build configuration list for PBXProject "Bemol" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -792,15 +825,6 @@
 			buildConfigurations = (
 				32A9AD1B2DBA7B03000B7EDE /* Debug */,
 				32A9AD1C2DBA7B03000B7EDE /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		32A9AD1F2DBA7B03000B7EDE /* Build configuration list for PBXNativeTarget "BemolTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				32A9AD202DBA7B03000B7EDE /* Debug */,
-				32A9AD212DBA7B03000B7EDE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

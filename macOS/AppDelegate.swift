@@ -123,6 +123,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
   func applicationDidFinishLaunching(_ aNotification: Notification) {
     let toolbar = NSToolbar()
+    toolbar.displayMode = .iconOnly
     toolbar.delegate = self
 
     window = NSWindow(contentViewController: rootViewController())
@@ -139,12 +140,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     loop.dispatch(.didLoad)
   }
 
+  func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+    true
+  }
+
   func applicationWillTerminate(_ aNotification: Notification) {
-    // Insert code here to tear down your application
   }
 
   func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
-    return true
+    false
   }
 
   // MARK: - Private Helpers
@@ -153,7 +157,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     app.view.setUp()
 
     let viewController = NSViewController()
-    viewController.view.frame = NSRect(x: 0, y: 0, width: 860, height: 360)
+    viewController.view.frame = NSRect(x: 0, y: 0, width: 860, height: 340)
     viewController.view.setUp()
     viewController.view.backgroundStyle = .black
     viewController.view.addSubview(app.view)
@@ -206,9 +210,16 @@ extension AppDelegate {
 
     accuracyRing.accuracy = state.accuracy
     accuracyRing.isEnabled = state.isAccuracyRingEnabled
-    accuracyRingToolbarItem.toolTip = state.startStopButtonMode == .start
-      ? String(localized: "accuracyInLevel")
-      : String(localized: "accuracyInSession")
+    accuracyRingToolbarItem.toolTip = switch (state.startStopButtonMode, state.isAccuracyRingEnabled) {
+    case (.start, true):
+      String(localized: "accuracyInLevelWithCTA")
+    case (.start, false):
+      String(localized: "accuracyInLevel")
+    case (.stop, true):
+      String(localized: "accuracyInSessionWithCTA")
+    case (.stop, false):
+      String(localized: "accuracyInSession")
+    }
 
     NSApplication.shared.setWindowsNeedUpdate(true)
   }
@@ -219,29 +230,21 @@ extension AppDelegate {
 extension AppDelegate: NSToolbarDelegate {
   func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
     return [
-      .firstLevelButton,
-      .randomLevelButton,
-      .previousLevelButton,
-      .nextLevelButton,
-      .configureLevelButton,
-      .startStopSessionButton,
-      .repeatButton,
+      .levelSelectionGroup,
+      .levelNavigationGroup,
+      .practiceSessionGroup,
       .scoreLabel,
-      .accuracyButton
+      .accuracyButton,
     ]
   }
 
   func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
     return [
-      .firstLevelButton,
-      .randomLevelButton,
-      .previousLevelButton,
-      .nextLevelButton,
-      .configureLevelButton,
-      .startStopSessionButton,
-      .repeatButton,
+      .levelSelectionGroup,
+      .levelNavigationGroup,
+      .practiceSessionGroup,
       .scoreLabel,
-      .accuracyButton
+      .accuracyButton,
     ]
   }
 
@@ -251,68 +254,65 @@ extension AppDelegate: NSToolbarDelegate {
     willBeInsertedIntoToolbar flag: Bool
   ) -> NSToolbarItem? {
     switch itemIdentifier {
-    case .firstLevelButton:
-      let item = NSToolbarItem(itemIdentifier: .firstLevelButton)
-      item.toolTip = String(localized: "goToCMajor")
-      item.image = NSImage(systemSymbolName: "c.circle.fill", accessibilityDescription: nil)
-      item.action = #selector(firstLevelButtonTapped)
-      item.target = self
-      item.isEnabled = isToolbarItemEnabled[.firstLevelButton] ?? false
+    case .levelSelectionGroup:
+      let firstLevelButtonItem = NSToolbarItem(itemIdentifier: .firstLevelButton)
+      firstLevelButtonItem.toolTip = String(localized: "goToCMajor")
+      firstLevelButtonItem.image = NSImage(systemSymbolName: "c.circle.fill", accessibilityDescription: nil)
+      firstLevelButtonItem.action = #selector(firstLevelButtonTapped)
+      firstLevelButtonItem.target = self
+      firstLevelButtonItem.isEnabled = isToolbarItemEnabled[.firstLevelButton] ?? false
 
-      return item
+      let randomLevelButtonItem = NSToolbarItem(itemIdentifier: .randomLevelButton)
+      randomLevelButtonItem.toolTip = String(localized: "goToRandomLevel")
+      randomLevelButtonItem.image = NSImage(systemSymbolName: "shuffle.circle.fill", accessibilityDescription: nil)
+      randomLevelButtonItem.action = #selector(randomLevelButtonTapped)
+      randomLevelButtonItem.target = self
+      randomLevelButtonItem.isEnabled = true
 
-    case .randomLevelButton:
-      let item = NSToolbarItem(itemIdentifier: itemIdentifier)
-      item.toolTip = String(localized: "goToRandomLevel")
-      item.image = NSImage(systemSymbolName: "shuffle.circle.fill", accessibilityDescription: nil)
-      item.action = #selector(randomLevelButtonTapped)
-      item.target = self
-      item.isEnabled = true
+      let group = NSToolbarItemGroup(itemIdentifier: itemIdentifier)
+      group.subitems = [firstLevelButtonItem, randomLevelButtonItem]
 
-      return item
+      return group
 
-    case .previousLevelButton:
-      let item = NSToolbarItem(itemIdentifier: itemIdentifier)
-      item.toolTip = String(localized: "goToPreviousLevel")
-      item.image = NSImage(systemSymbolName: "chevron.left", accessibilityDescription: nil)
-      item.action = #selector(previousLevelButtonTapped)
-      item.target = self
-      item.isEnabled = true
+    case .levelNavigationGroup:
+      let previousLevelButtonItem = NSToolbarItem(itemIdentifier: .previousLevelButton)
+      previousLevelButtonItem.toolTip = String(localized: "goToPreviousLevel")
+      previousLevelButtonItem.image = NSImage(systemSymbolName: "chevron.left", accessibilityDescription: nil)
+      previousLevelButtonItem.action = #selector(previousLevelButtonTapped)
+      previousLevelButtonItem.target = self
+      previousLevelButtonItem.isEnabled = true
 
-      return item
+      let nextLevelButtonItem = NSToolbarItem(itemIdentifier: .nextLevelButton)
+      nextLevelButtonItem.toolTip = String(localized: "goToNextLevel")
+      nextLevelButtonItem.image = NSImage(systemSymbolName: "chevron.right", accessibilityDescription: nil)
+      nextLevelButtonItem.isEnabled = true
+      nextLevelButtonItem.action = #selector(nextLevelButtonTapped)
+      nextLevelButtonItem.target = self
 
-    case .nextLevelButton:
-      let item = NSToolbarItem(itemIdentifier: itemIdentifier)
-      item.toolTip = String(localized: "goToNextLevel")
-      item.image = NSImage(systemSymbolName: "chevron.right", accessibilityDescription: nil)
-      item.isEnabled = true
-      item.action = #selector(nextLevelButtonTapped)
-      item.target = self
+      let group = NSToolbarItemGroup(itemIdentifier: itemIdentifier)
+      group.subitems = [previousLevelButtonItem, nextLevelButtonItem]
 
-      return item
+      return group
 
-    case .configureLevelButton:
-      let item = NSToolbarItem(itemIdentifier: itemIdentifier)
-      item.toolTip = String(localized: "configureLevel")
-      item.image = NSImage(systemSymbolName: "slider.vertical.3", accessibilityDescription: nil)
-      item.isEnabled = true
-      item.action = #selector(configureLevelButtonTapped)
-      item.target = self
+    case .practiceSessionGroup:
+      let configureLevelButtonItem = NSToolbarItem(itemIdentifier: .configureLevelButton)
+      configureLevelButtonItem.toolTip = String(localized: "configureLevel")
+      configureLevelButtonItem.image = NSImage(systemSymbolName: "slider.vertical.3", accessibilityDescription: nil)
+      configureLevelButtonItem.isEnabled = true
+      configureLevelButtonItem.action = #selector(configureLevelButtonTapped)
+      configureLevelButtonItem.target = self
 
-      return item
+      let repeatButtonItem = NSToolbarItem(itemIdentifier: .repeatButton)
+      repeatButtonItem.toolTip = String(localized: "replayQuestion")
+      repeatButtonItem.image = NSImage(systemSymbolName: "repeat", accessibilityDescription: nil)
+      repeatButtonItem.isEnabled = true
+      repeatButtonItem.action = #selector(repeatButtonTapped)
+      repeatButtonItem.target = self
 
-    case .startStopSessionButton:
-      return startStopButtonToolbarItem
+      let group = NSToolbarItemGroup(itemIdentifier: itemIdentifier)
+      group.subitems = [configureLevelButtonItem, startStopButtonToolbarItem, repeatButtonItem]
 
-    case .repeatButton:
-      let item = NSToolbarItem(itemIdentifier: itemIdentifier)
-      item.toolTip = String(localized: "replayQuestion")
-      item.image = NSImage(systemSymbolName: "repeat", accessibilityDescription: nil)
-      item.isEnabled = true
-      item.action = #selector(repeatButtonTapped)
-      item.target = self
-
-      return item
+      return group
 
     case .scoreLabel:
       return scoreLabelToolbarItem
@@ -369,6 +369,10 @@ extension AppDelegate {
 // MARK: - Toolbar Identifiers
 
 private extension NSToolbarItem.Identifier {
+  static let levelSelectionGroup = NSToolbarItem.Identifier(rawValue: "levelSelectonGroup")
+  static let levelNavigationGroup = NSToolbarItem.Identifier(rawValue: "levelNavigationGroup")
+  static let practiceSessionGroup = NSToolbarItem.Identifier(rawValue: "practiceSessionGroup")
+
   static let firstLevelButton = NSToolbarItem.Identifier(rawValue: "firstLevelButton")
   static let randomLevelButton = NSToolbarItem.Identifier(rawValue: "randomLevelButton")
   static let previousLevelButton = NSToolbarItem.Identifier(rawValue: "previousLevelButton")
