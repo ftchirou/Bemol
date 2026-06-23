@@ -1,14 +1,14 @@
-name: Upload to TestFlight
+name: Make iOS App
 on:
   push:
     branches:
       - main
 env:
-  DEVELOPER_DIR: /Applications/Xcode_16.2.app/Contents/Developer
+  DEVELOPER_DIR: /Applications/Xcode_26.5.app/Contents/Developer
 
 jobs:
   upload:
-    runs-on: macos-15-large
+    runs-on: macos-26-large
     steps:
     - uses: actions/checkout@v4
       with:
@@ -20,14 +20,14 @@ jobs:
       uses: actions/cache@v4
       with:
         key: sound_font
-        path: ./Bemol/Resources/sound_font.sf2
+        path: ./Shared/Resources/sound_font.sf2
 
     - if: ${{ steps.load-cached-sound-font.outputs.cache-hit != 'true' }}
       name: Download sound font
       env:
         SOUND_FONT_URL: ${{ secrets.SOUND_FONT_URL }}
       run: |
-        curl -L -o ./Bemol/Resources/sound_font.sf2 ${SOUND_FONT_URL}
+        curl -L -o ./Shared/Resources/sound_font.sf2 ${SOUND_FONT_URL}
 
     - name: Set up the development team
       env:
@@ -41,20 +41,20 @@ jobs:
         APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
         APP_STORE_CONNECT_API_KEY_CONTENTS: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENTS }}
       run: |
-        mkdir ./private_keys
+        mkdir ./iOS/private_keys
         echo -e "$APP_STORE_CONNECT_API_KEY_CONTENTS" > ./private_keys/AuthKey_${APP_STORE_CONNECT_API_KEY}.p8
 
     - name: Install the Apple certificates
       # https://docs.github.com/en/actions/deployment/deploying-xcode-applications/installing-an-apple-certificate-on-macos-runners-for-xcode-development
       env:
-        DEVELOPMENT_CERTIFICATE: ${{ secrets.DEVELOPMENT_CERTIFICATE }}
-        DEVELOPMENT_CERTIFICATE_PASSPHRASE: ${{ secrets.DEVELOPMENT_CERTIFICATE_PASSPHRASE }}
-        DISTRIBUTION_CERTIFICATE: ${{ secrets.DISTRIBUTION_CERTIFICATE }}
-        DISTRIBUTION_CERTIFICATE_PASSPHRASE: ${{ secrets.DISTRIBUTION_CERTIFICATE_PASSPHRASE }}
+        DEVELOPMENT_CERTIFICATE: ${{ secrets.IOS_DEVELOPMENT_CERTIFICATE }}
+        DEVELOPMENT_CERTIFICATE_PASSPHRASE: ${{ secrets.IOS_DEVELOPMENT_CERTIFICATE_PASSPHRASE }}
+        DISTRIBUTION_CERTIFICATE: ${{ secrets.IOS_DISTRIBUTION_CERTIFICATE }}
+        DISTRIBUTION_CERTIFICATE_PASSPHRASE: ${{ secrets.IOS_DISTRIBUTION_CERTIFICATE_PASSPHRASE }}
         KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
       run: |
-        development_certificate=$RUNNER_TEMP/BemolDevelopmentCertificate.p12
-        distribution_certificate=$RUNNER_TEMP/BemolDistributionCertificate.p12
+        development_certificate=$RUNNER_TEMP/BemolIOSDevelopmentCertificate.p12
+        distribution_certificate=$RUNNER_TEMP/BemolIOSDistributionCertificate.p12
         keychain_path=$RUNNER_TEMP/certificates.keychain-db
 
         echo -n "$DEVELOPMENT_CERTIFICATE" | base64 --decode -o $development_certificate
@@ -78,10 +78,10 @@ jobs:
       run: |
         chmod +x ./Scripts/next_marketing_version.sh
         chmod +x ./Scripts/next_build_version.sh
-        chmod +x ./Scripts/upload_to_testflight.sh
+        chmod +x ./Scripts/make_ios_app.sh
         marketing_version=`./Scripts/next_marketing_version.sh`
         build_version=`./Scripts/next_build_version.sh`
-        ./Scripts/upload_to_testflight.sh $marketing_version $build_version
+        ./Scripts/make_ios_app.sh $marketing_version $build_version
         echo "TAG_NAME=$marketing_version" >> "$GITHUB_OUTPUT"
 
     - name: Create tag

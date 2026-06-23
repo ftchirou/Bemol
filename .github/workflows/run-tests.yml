@@ -3,11 +3,11 @@ on:
   pull_request:
     branches: [ main, develop ]
 env:
-  DEVELOPER_DIR: /Applications/Xcode_16.2.app/Contents/Developer
+  DEVELOPER_DIR: /Applications/Xcode_26.5.app/Contents/Developer
 
 jobs:
   test:
-    runs-on: macos-15-large
+    runs-on: macos-26-large
     steps:
     - uses: actions/checkout@v4
   
@@ -16,7 +16,7 @@ jobs:
         DEVELOPMENT_TEAM: ${{ secrets.DEVELOPMENT_TEAM }}
       run: |
         configuration="CODE_SIGN_STYLE = Automatic\nDEVELOPMENT_TEAM = ${DEVELOPMENT_TEAM}\n"
-        echo -e "$configuration" > ./Configurations/Signing.xcconfig
+        echo -e "$configuration" > ./macOS/Configurations/Signing.xcconfig
 
     - name: Run tests
       run: |
@@ -24,7 +24,7 @@ jobs:
         ./Scripts/test.sh
 
     - name: Publish test results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: test-results.xcresult
         path: ./Artifacts/test-results.xcresult

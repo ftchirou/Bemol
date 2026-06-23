@@ -15,7 +15,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "32F339102FE70F700007F4E2"
+               BlueprintIdentifier = "32617A972FEAFC5B006F8BFB"
                BuildableName = "Bemol.app"
                BlueprintName = "Bemol.macOS"
                ReferencedContainer = "container:Bemol.xcodeproj">
@@ -34,19 +34,6 @@
             default = "YES">
          </TestPlanReference>
       </TestPlans>
-      <Testables>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "321422DB2FE9BA0D00BEDF1F"
-               BuildableName = "Bemol.Tests.xctest"
-               BlueprintName = "Bemol.Tests"
-               ReferencedContainer = "container:Bemol.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -63,7 +50,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "32F339102FE70F700007F4E2"
+            BlueprintIdentifier = "32617A972FEAFC5B006F8BFB"
             BuildableName = "Bemol.app"
             BlueprintName = "Bemol.macOS"
             ReferencedContainer = "container:Bemol.xcodeproj">
@@ -80,7 +67,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "32F339102FE70F700007F4E2"
+            BlueprintIdentifier = "32617A972FEAFC5B006F8BFB"
             BuildableName = "Bemol.app"
             BlueprintName = "Bemol.macOS"
             ReferencedContainer = "container:Bemol.xcodeproj">

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# upload_to_testflight.sh
+# make_ios_app.sh
 # Bemol
 #
 # Copyright 2025 Faiçal Tchirou
@@ -17,18 +17,20 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 
-# Usage: ./upload_to_testflight.sh <marketing_version> <build_version>.
+# Usage: ./make_ios_app.sh <marketing_version> <build_version>.
 #
 set -e
 
-export_path="./Artifacts"
+cd "$(dirname "$0")" || exit 1
+cd .. || exit 1
 
-# Clean up on exit.
+export_path="./Artifacts/iOS"
+
 trap "rm -rf $export_path" EXIT
 
 if [ $# -lt 2 ]; then
     echo "Missing one or more arguments!"
-    echo "Usage: ./upload_to_testflight.sh <marketing_version> <build_version>"
+    echo "Usage: ./upload_ios_to_testflight.sh <marketing_version> <build_version>"
     exit 1
 fi
 
@@ -48,65 +50,64 @@ if [[ -z "${APP_STORE_CONNECT_API_ISSUER}" ]]; then
 fi
 
 rm -rf $export_path
-mkdir $export_path
+mkdir -p $export_path
 
 marketing_version=$1
 build_version=$2
 archive_path="$export_path/Bemol.xcarchive"
 ipa_path="$export_path/Bemol.ipa"
-export_options_plist_path="./Resources/TestFlightExportOptions.plist"
-authentication_key_path=`realpath ./private_keys/AuthKey_${APP_STORE_CONNECT_API_KEY}.p8`
+export_options_plist_path="./iOS/TestFlightExportOptions.plist"
+authentication_key_path=$(realpath ./iOS/private_keys/AuthKey_"${APP_STORE_CONNECT_API_KEY}".p8)
 
-# Set the marketing version
 echo "Setting the marketing version to $marketing_version ..."
 sed -i -E "s/MARKETING_VERSION.*/MARKETING_VERSION = $marketing_version/g" \
-          ./Configurations/Versioning.xcconfig
+          ./iOS/Configurations/Versioning.xcconfig
 
-# Set the build version
 echo "Setting the build version to $build_version ..."
 sed -i -E "s/CURRENT_PROJECT_VERSION.*/CURRENT_PROJECT_VERSION = $build_version/g" \
-          ./Configurations/Versioning.xcconfig
+          ./iOS/Configurations/Versioning.xcconfig
 
-# Archive Bemol
+rm ./iOS/Configurations/Versioning.xcconfig-E
+
 echo "Archiving ..."
 xcodebuild -project Bemol.xcodeproj \
-           -scheme Bemol \
+           -scheme Bemol.iOS \
+           -xcconfig ./iOS/Configurations/Release.xcconfig \
            -allowProvisioningUpdates \
            -configuration Release \
            -archivePath $archive_path \
-           -authenticationKeyPath $authentication_key_path \
-           -authenticationKeyID ${APP_STORE_CONNECT_API_KEY} \
-           -authenticationKeyIssuerID ${APP_STORE_CONNECT_API_ISSUER} \
+           -authenticationKeyPath "$authentication_key_path" \
+           -authenticationKeyID "$APP_STORE_CONNECT_API_KEY" \
+           -authenticationKeyIssuerID "$APP_STORE_CONNECT_API_ISSUER" \
            archive
 
-# Export the archive
 echo "Exporting ..."
 xcodebuild -exportArchive \
            -allowProvisioningUpdates \
            -archivePath $archive_path \
            -exportPath $export_path \
            -exportOptionsPlist $export_options_plist_path \
-           -authenticationKeyPath $authentication_key_path \
-           -authenticationKeyID ${APP_STORE_CONNECT_API_KEY} \
-           -authenticationKeyIssuerID ${APP_STORE_CONNECT_API_ISSUER}
+           -authenticationKeyPath "$authentication_key_path" \
+           -authenticationKeyID "$APP_STORE_CONNECT_API_KEY" \
+           -authenticationKeyIssuerID "$APP_STORE_CONNECT_API_ISSUER"
 
-# Validate the ipa
 echo "Validating ..."
 xcrun altool --validate-app \
              --file $ipa_path \
              --type ios \
-             --apiKey ${APP_STORE_CONNECT_API_KEY} \
-             --apiIssuer ${APP_STORE_CONNECT_API_ISSUER}
+             --apiKey "$APP_STORE_CONNECT_API_KEY" \
+             --apiIssuer "$APP_STORE_CONNECT_API_ISSUER" \
+             --p8-file-path "$authentication_key_path"
 
-# Upload to TestFlight
-echo "Uploading ..."
+echo "Uploading to TestFlight ..."
 xcrun altool --upload-package $ipa_path \
              --type ios \
-             --bundle-version $build_version \
-             --bundle-short-version-string $marketing_version \
-             --apple-id ${APPLE_ID} \
-             --bundle-id com.tchirou.apps.bemol \
-             --apiKey ${APP_STORE_CONNECT_API_KEY} \
-             --apiIssuer ${APP_STORE_CONNECT_API_ISSUER}
+             --bundle-version "$build_version" \
+             --bundle-short-version-string "$marketing_version" \
+             --apple-id "$APPLE_ID" \
+             --bundle-id com.tchirou.apps.bemol.ios \
+             --apiKey "$APP_STORE_CONNECT_API_KEY" \
+             --apiIssuer "$APP_STORE_CONNECT_API_ISSUER" \
+             --p8-file-path "$authentication_key_path"
 
 echo "Done ✅"

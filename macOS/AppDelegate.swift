@@ -89,7 +89,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let label = Label()
     label.setUp()
     label.font = .body
-    label.textAlignment = .left
+    label.textAlignment = .center
+    label.numberOfLines = 1
+    label.setContentHuggingPriority(.required, for: .vertical)
+    label.setContentCompressionResistancePriority(.required, for: .vertical)
 
     return label
   }()

@@ -38,13 +38,18 @@ TARGETED_DEVICE_FAMILY = 1,2;
 
 PRODUCT_NAME = Bemol;
 
-PRODUCT_BUNDLE_IDENTIFIER = com.tchirou.apps.bemol.ios;
+PRODUCT_BUNDLE_IDENTIFIER = com.tchirou.apps.bemol;
 
 INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight;
 
-INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight;
+INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationLandscapeLeft \
+    UIInterfaceOrientationLandscapeRight \
+    UIInterfaceOrientationPortrait \
+    UIInterfaceOrientationPortraitUpsideDown \
+    UIInterfaceOrientationLandscapeLeft \
+    UIInterfaceOrientationLandscapeRight;
 
-INFOPLIST_FILE = iOS/Bemol-iOS-Info;
+INFOPLIST_FILE = iOS/Bemol-iOS-Info.plist;
 
 SUPPORTS_MACCATALYST = NO;
 

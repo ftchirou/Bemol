@@ -27,8 +27,8 @@ rm -rf $artifacts_path
 mkdir $artifacts_path
 
 xcodebuild test -project Bemol.xcodeproj \
-                -scheme Bemol \
+                -scheme Bemol.macOS \
                 -testPlan Bemol \
-                -destination 'platform=iOS Simulator,name=iPhone 16' \
+                -destination 'platform=macOS' \
                 -enableCodeCoverage YES \
                 -resultBundlePath $result_bundle_path
