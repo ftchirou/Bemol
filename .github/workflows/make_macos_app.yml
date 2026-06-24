@@ -47,24 +47,19 @@ jobs:
     - name: Install the Apple certificates
       # https://docs.github.com/en/actions/deployment/deploying-xcode-applications/installing-an-apple-certificate-on-macos-runners-for-xcode-development
       env:
-        DEVELOPMENT_CERTIFICATE: ${{ secrets.MACOS_DEVELOPMENT_CERTIFICATE }}
-        DEVELOPMENT_CERTIFICATE_PASSPHRASE: ${{ secrets.MACOS_DEVELOPMENT_CERTIFICATE_PASSPHRASE }}
-        DISTRIBUTION_CERTIFICATE: ${{ secrets.MACOS_DISTRIBUTION_CERTIFICATE }}
-        DISTRIBUTION_CERTIFICATE_PASSPHRASE: ${{ secrets.MACOS_DISTRIBUTION_CERTIFICATE_PASSPHRASE }}
+        DISTRIBUTION_CERTIFICATE: ${{ secrets.MACOS_DEVELOPER_ID_APPLICATION_CERTIFICATE }}
+        DISTRIBUTION_CERTIFICATE_PASSPHRASE: ${{ secrets.MACOS_DEVELOPER_ID_APPLICATION_CERTIFICATE_PASSPHRASE }}
         KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
       run: |
-        development_certificate=$RUNNER_TEMP/BemolMacOSDevelopmentCertificate.p12
-        distribution_certificate=$RUNNER_TEMP/BemolMacOSDistributionCertificate.p12
+        distribution_certificate=$RUNNER_TEMP/BemolDeveloperIDApplicationCertificate.p12
         keychain_path=$RUNNER_TEMP/certificates.keychain-db
 
-        echo -n "$DEVELOPMENT_CERTIFICATE" | base64 --decode -o $development_certificate
         echo -n "$DISTRIBUTION_CERTIFICATE" | base64 --decode -o $distribution_certificate
 
         security create-keychain -p "$KEYCHAIN_PASSWORD" $keychain_path
         security set-keychain-settings -lut 21600 $keychain_path
         security unlock-keychain -p "$KEYCHAIN_PASSWORD" $keychain_path
 
-        security import $development_certificate -P "$DEVELOPMENT_CERTIFICATE_PASSPHRASE" -A -t cert -f pkcs12 -k $keychain_path
         security import $distribution_certificate -P "$DISTRIBUTION_CERTIFICATE_PASSPHRASE" -A -t cert -f pkcs12 -k $keychain_path
   
         security list-keychain -d user -s $keychain_path
@@ -72,7 +67,6 @@ jobs:
     - name: Archive and notarize
       id: archive-and-notarize
       env:
-        APPLE_ID: ${{ secrets.APPLE_ID }}
         APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
         APP_STORE_CONNECT_API_ISSUER: ${{ secrets.APP_STORE_CONNECT_API_ISSUER }}
       run: |

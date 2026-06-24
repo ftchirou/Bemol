@@ -25,16 +25,6 @@ if [ $# -lt 2 ]; then
   echo "Usage: ./make_macos_app.sh <marketing_version> <build_version>"
 fi
 
-if [[ -z "${APPLE_ID}" ]]; then
-    echo "APPLE_ID not set!"
-    exit 1
-fi
-
-if [[ -z "${DEVELOPMENT_TEAM}" ]]; then
-    echo "DEVELOPMENT_TEAM not set!"
-    exit 1
-fi
-
 if [[ -z "${APP_STORE_CONNECT_API_KEY}" ]]; then
     echo "APP_STORE_CONNECT_API_KEY not set!"
     exit 1
