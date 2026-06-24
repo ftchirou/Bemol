@@ -6,6 +6,24 @@
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES"
       buildArchitectures = "Automatic">
+      <PreActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Ensure Signing.xcconfig exists"
+               scriptText = "if [ ! -f &quot;$PROJECT_DIR&quot;/iOS/Configurations/Signing.xcconfig ]; then&#10;  touch &quot;$PROJECT_DIR&quot;/iOS/Configurations/Signing.xcconfig&#10;fi&#10;">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "32A9ACED2DBA7B01000B7EDE"
+                     BuildableName = "Bemol.app"
+                     BlueprintName = "Bemol.iOS"
+                     ReferencedContainer = "container:Bemol.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PreActions>
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
@@ -34,30 +52,6 @@
             default = "YES">
          </TestPlanReference>
       </TestPlans>
-      <Testables>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "32A9AD062DBA7B03000B7EDE"
-               BuildableName = "BemolTests.xctest"
-               BlueprintName = "BemolTests"
-               ReferencedContainer = "container:Bemol.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "32A9AD102DBA7B03000B7EDE"
-               BuildableName = "BemolUITests.xctest"
-               BlueprintName = "BemolUITests"
-               ReferencedContainer = "container:Bemol.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"

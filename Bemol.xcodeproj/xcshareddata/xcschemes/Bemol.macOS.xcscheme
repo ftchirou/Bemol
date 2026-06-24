@@ -6,6 +6,24 @@
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES"
       buildArchitectures = "Automatic">
+      <PreActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Ensure Signing.xcconfig exists"
+               scriptText = "if [ ! -f &quot;$PROJECT_DIR&quot;/macOS/Configurations/Signing.xcconfig ]; then&#10;  touch &quot;$PROJECT_DIR&quot;/macOS/Configurations/Signing.xcconfig&#10;fi&#10;">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "32617A972FEAFC5B006F8BFB"
+                     BuildableName = "Bemol.app"
+                     BlueprintName = "Bemol.macOS"
+                     ReferencedContainer = "container:Bemol.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PreActions>
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
