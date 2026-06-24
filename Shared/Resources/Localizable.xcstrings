@@ -30,7 +30,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Your performance in this level."
+            "value" : "Your performance in this level"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre performance dans ce niveau"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Din prestanda i den här nivån"
           }
         }
       }
@@ -42,6 +54,18 @@
             "state" : "translated",
             "value" : "Your performance in this level. Click to see a breakdown per note."
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre performance dans ce niveau. Cliquez pour voir votre performance par note."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Din prestanda i den här nivån. Tryck för att se din prestanda per ton."
+          }
         }
       }
     },
@@ -51,7 +75,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Your accuracy in the current practice session."
+            "value" : "Your accuracy in the current practice session"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre performance dans la session en cours"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Din prestanda i den pågående sessionen"
           }
         }
       }
@@ -63,6 +99,18 @@
             "state" : "translated",
             "value" : "Your accuracy in the current practice session. Click to see a breakdown per note."
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre performance dans la session en cours. Cliquez pour voir votre performance par note."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Din prestanda i den pågående sessionen. Tryck för att se din prestanda per ton."
+          }
         }
       }
     },
@@ -73,6 +121,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "We’re really sorry but an error occurred. Please restart the app. Or … enjoy the piano below."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Désolé, une erreur s’est produite. Redémarrez l’application ou … amusez-vous ci-dessous."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ett fel uppstod. Vänligen starta om appen. Eller …  njut av pianot nedan."
           }
         }
       }
@@ -104,6 +164,18 @@
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bemol"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bemol"
+          }
+        },
+        "sv" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bemol"
@@ -303,6 +375,18 @@
             "state" : "translated",
             "value" : "Ear training"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Formation auditive"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gehörsträning"
+          }
         }
       }
     },
@@ -409,14 +493,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Sélectionner le niveau Do majeur"
+            "state" : "translated",
+            "value" : "Sélectionner le premier niveau Do majeur"
           }
         },
         "sv" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Välj den C dur nivån"
+            "state" : "translated",
+            "value" : "Välj den första C dur nivån"
           }
         }
       }
@@ -1656,17 +1740,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Slumpmässig nivå"
-          }
-        }
-      }
-    },
-    "yourScore" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your score in the current session"
           }
         }
       }

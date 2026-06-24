@@ -79,7 +79,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
   private lazy var scoreLabelToolbarItem: NSToolbarItem = {
     let item = NSToolbarItem(itemIdentifier: .scoreLabel)
-    item.toolTip = String(localized: "yourScore")
     item.view = scoreLabel
 
     return item
