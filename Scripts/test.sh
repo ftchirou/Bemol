@@ -19,12 +19,12 @@
 
 set -e
 
-artifacts_path=./Artifacts
+artifacts_path=./Artifacts/Tests
 result_bundle_path=$artifacts_path/test-results.xcresult
 
 rm -rf $result_bundle_path
 rm -rf $artifacts_path
-mkdir $artifacts_path
+mkdir -p $artifacts_path
 
 xcodebuild test -project Bemol.xcodeproj \
                 -scheme Bemol.macOS \

@@ -1,4 +1,4 @@
-name: Make macOS App
+name: Publish macOS App
 on:
   push:
     branches:
@@ -7,7 +7,7 @@ env:
   DEVELOPER_DIR: /Applications/Xcode_26.5.app/Contents/Developer
 
 jobs:
-  upload:
+  make:
     runs-on: macos-26-large
     steps:
     - uses: actions/checkout@v4
@@ -29,11 +29,11 @@ jobs:
       run: |
         curl -L -o ./Shared/Resources/sound_font.sf2 ${SOUND_FONT_URL}
 
-    - name: Set up the development team
+    - name: Set up code signing
       env:
         DEVELOPMENT_TEAM: ${{ secrets.DEVELOPMENT_TEAM }}
       run: |
-        configuration="CODE_SIGN_STYLE = Automatic\nDEVELOPMENT_TEAM = ${DEVELOPMENT_TEAM}\n"
+        configuration="CODE_SIGN_IDENTITY = Developer ID Application;\nDEVELOPMENT_TEAM = ${DEVELOPMENT_TEAM};\nCODE_SIGN_STYLE = Manual;\n"
         echo -e "$configuration" > ./Configurations/Signing.xcconfig
 
     - name: Install the App Store Connect API key

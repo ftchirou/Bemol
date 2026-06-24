@@ -146,6 +146,8 @@ final class MainScreen {
 
   private func navBarHeightMultiplier() -> CGFloat {
 #if os(macOS)
+    // Crude way to hide the nav bar on macOS.
+    // Hiding because we use the native NSToolbar instead on macOS.
     0
 #endif
     

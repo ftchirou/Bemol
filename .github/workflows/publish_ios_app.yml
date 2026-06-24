@@ -1,4 +1,4 @@
-name: Make iOS App
+name: Publish iOS App
 on:
   push:
     branches:
@@ -7,7 +7,8 @@ env:
   DEVELOPER_DIR: /Applications/Xcode_26.5.app/Contents/Developer
 
 jobs:
-  upload:
+  make:
+    if: false
     runs-on: macos-26-large
     steps:
     - uses: actions/checkout@v4
