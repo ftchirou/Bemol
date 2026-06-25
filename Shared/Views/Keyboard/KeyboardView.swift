@@ -187,6 +187,16 @@ final class KeyboardView: View {
     )
   }
 
+  // MARK: - Hit Testing
+
+#if os(macOS)
+  override func hitTest(_ point: NSPoint) -> NSView? {
+    guard isUserInteractionEnabled else { return nil }
+
+    return super.hitTest(point)
+  }
+#endif
+
   // MARK: - Private
 
   private func setUpViewHierarchy() {

@@ -86,9 +86,18 @@ extension View {
   }
 
   var isUserInteractionEnabled: Bool {
-    // TODO
-    get { true }
-    set {}
+    get {
+      (objc_getAssociatedObject(self, &AssociatedKeys.isUserInteractionEnabled) as? Bool) ?? false
+    }
+
+    set {
+      objc_setAssociatedObject(
+        self,
+        &AssociatedKeys.isUserInteractionEnabled,
+        newValue,
+        .OBJC_ASSOCIATION_COPY
+      )
+    }
   }
 
   func layoutIfNeeded() {
@@ -123,6 +132,10 @@ extension View {
   func setNeedsLayout() {
     needsLayout = true
   }
+}
+
+private struct AssociatedKeys {
+  static var isUserInteractionEnabled = 1
 }
 #endif
 
@@ -189,4 +202,7 @@ extension View {
     self.accessibilityLabel = accessibilityLabel
   }
 }
+
+extension View: UserInteractionToggleable {}
+
 #endif

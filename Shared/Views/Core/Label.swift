@@ -50,9 +50,9 @@ final class Label: NSTextField {
     set { if let newValue { attributedStringValue = newValue } }
   }
 
-  var adjustsFontForContentSizeCategory: Bool = false
-  var adjustsFontSizeToFitWidth: Bool = false
-  var maximumContentSizeCategory: Bool = false
+  var adjustsFontForContentSizeCategory = false
+  var adjustsFontSizeToFitWidth = false
+  var maximumContentSizeCategory = false
 
   private func initialize() {
     isEditable = false
