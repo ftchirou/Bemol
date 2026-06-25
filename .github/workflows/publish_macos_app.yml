@@ -82,16 +82,25 @@ jobs:
         ./Scripts/make_macos_app.sh $marketing_version $build_version
         echo "TAG_NAME=$marketing_version" >> "$GITHUB_OUTPUT"
 
-    - name: Upload 
-      id: upload
+    - name: Upload App
+      id: upload-app
       uses: actions/upload-artifact@v7
       with:
-        name: "Bemol-${{ steps.archive-and-notarize.outputs.TAG_NAME }}"
-        path: |
-          ./Artifacts/macOS/Bemol.zip
-          ./Artifacts/macOS/NotarizationResponse.plist
+        name: "Bemol-${{ steps.archive-and-notarize.outputs.TAG_NAME }}.zip"
+        path: ./Artifacts/macOS/Bemol.zip
         if-no-files-found: error
         overwrite: true
+        archive: false
+
+    - name: Upload Notarization Response
+      id: upload-notarization-response
+      uses: actions/upload-artifact@v7
+      with:
+        name: "NotarizationResponse-${{ steps.archive-and-notarize.outputs.TAG_NAME }}.plist"
+        path: ./Artifacts/macOS/NotarizationResponse.plist
+        if-no-files-found: error
+        overwrite: true
+        archive: false
 
     - name: Create tag
       uses: actions/github-script@v7
