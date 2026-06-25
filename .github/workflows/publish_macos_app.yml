@@ -20,7 +20,7 @@ jobs:
 
     - name: Load cached sound font
       id: load-cached-sound-font
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         key: sound_font
         path: ./Shared/Resources/sound_font.sf2
