@@ -48,7 +48,7 @@ final class AccuracyScreen {
   
   private lazy var titleBar: TitleBar = {
     let bar = TitleBar()
-    bar.translatesAutoresizingMaskIntoConstraints = false
+    bar.setUp()
     bar.isCancelButtonHidden = true
     bar.delegate = TitleBarDelegate(
       didPressCancelButton: { [weak self] in self?.didPressCancelButton() },
@@ -60,7 +60,7 @@ final class AccuracyScreen {
 
   private lazy var keyboardView: KeyboardView = {
     let keyboardView = KeyboardView(range: 1...2)
-    keyboardView.translatesAutoresizingMaskIntoConstraints = false
+    keyboardView.setUp()
     keyboardView.setEnabledForAllKeys(false)
     keyboardView.setTintForAllNotes(nil)
     keyboardView.isScrollEnabled = false

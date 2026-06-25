@@ -52,7 +52,6 @@ final class AccuracyRing: Control {
   private lazy var rings: View = {
     let view = View()
     view.setUp()
-    view.translatesAutoresizingMaskIntoConstraints = false
     view.addSublayer(backgroundLayer)
     view.addSublayer(foregroundLayer)
     view.isUserInteractionEnabled = false
@@ -62,7 +61,7 @@ final class AccuracyRing: Control {
 
   private lazy var label: Label = {
     let label = Label()
-    label.translatesAutoresizingMaskIntoConstraints = false
+    label.setUp()
     label.font = .boldFootnote
     label.textColor = color
     label.textAlignment = .center

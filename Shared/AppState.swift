@@ -118,7 +118,7 @@ extension AppState {
   }
 
   private var scoreAccessibilityText: String? {
-    if questionsCount <= 0 {
+    if questionsCount <= 0 || !isPracticing {
       return nil
     }
 

@@ -32,7 +32,6 @@ final class TitleView: View {
   private lazy var background: View = {
     let view = View()
     view.setUp()
-    view.translatesAutoresizingMaskIntoConstraints = false
     view.backgroundStyle = .dark
     view.cornerRadius = .cornerRadiusSm
 
@@ -41,7 +40,7 @@ final class TitleView: View {
 
   private lazy var label: Label = {
     let label = Label()
-    label.translatesAutoresizingMaskIntoConstraints = false
+    label.setUp()
     label.font = .boldFootnote
     label.textAlignment = .center
     label.textColor = .buttonForeground

@@ -43,7 +43,7 @@ final class TipView: View {
 
   private lazy var caret: View = {
     let view = View()
-    view.translatesAutoresizingMaskIntoConstraints = false
+    view.setUp()
     view.backgroundStyle = .tooltip
     view.widthAnchor.constraint(equalToConstant: .caretSize).isActive = true
     view.heightAnchor.constraint(equalToConstant: .caretSize).isActive = true
@@ -56,7 +56,7 @@ final class TipView: View {
 
   private lazy var titleLabel: Label = {
     let label = Label()
-    label.translatesAutoresizingMaskIntoConstraints = false
+    label.setUp()
     label.font = .boldFootnote
     label.text = title
     label.textColor = .tooltipText
@@ -75,7 +75,7 @@ final class TipView: View {
 
   private lazy var messageLabel: Label = {
     let label = Label()
-    label.translatesAutoresizingMaskIntoConstraints = false
+    label.setUp()
     label.font = .footnote
     label.text = message
     label.textColor = .tooltipText
@@ -110,7 +110,7 @@ final class TipView: View {
 
   private lazy var bubble: View = {
     let view = View()
-    view.translatesAutoresizingMaskIntoConstraints = false
+    view.setUp()
     view.backgroundStyle = .tooltip
     view.cornerRadius = .cornerRadiusMd
     view.isUserInteractionEnabled = false

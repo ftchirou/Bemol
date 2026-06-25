@@ -111,7 +111,7 @@ extension Button {
 
   static func primary(title: String) -> Button {
     let button = UIButton(configuration: .filled())
-    button.translatesAutoresizingMaskIntoConstraints = false
+    button.setUp()
     button.configuration?.title = String(localized: "done")
     button.configuration?.baseBackgroundColor = .systemOrange
     button.configuration?.baseForegroundColor = .buttonForeground

@@ -32,7 +32,7 @@ final class ErrorScreen {
 
   private lazy var titleBar: TitleBar = {
     let bar = TitleBar()
-    bar.translatesAutoresizingMaskIntoConstraints = false
+    bar.setUp()
     bar.isCancelButtonHidden = true
     bar.isDoneButtonHidden = true
 

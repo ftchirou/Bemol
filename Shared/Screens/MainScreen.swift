@@ -46,7 +46,7 @@ final class MainScreen {
 
   private lazy var keyboardView: KeyboardView = {
     let keyboard = KeyboardView(range: 1...2)
-    keyboard.translatesAutoresizingMaskIntoConstraints = false
+    keyboard.setUp()
     keyboard.setEnabledForAllKeys(false)
     keyboard.setTintForAllNotes(nil)
     keyboard.isScrollEnabled = false
@@ -61,7 +61,7 @@ final class MainScreen {
 
   private lazy var navBar: NavBar = {
     let bar = NavBar()
-    bar.translatesAutoresizingMaskIntoConstraints = false
+    bar.setUp()
     bar.delegate = NavBarDelegate(
       didPressHomeButton: { [weak self] in self?.didPressHomeButton() },
       didPressRandomButton: { [weak self] in self?.didPressRandomButton() },

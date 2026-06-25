@@ -49,7 +49,6 @@ final class KeyboardView: View {
   private lazy var scrollView: ScrollView = {
     let scrollView = ScrollView()
     scrollView.setUp()
-    scrollView.translatesAutoresizingMaskIntoConstraints = false
     scrollView.showsHorizontalScrollIndicator = false
     scrollView.showsVerticalScrollIndicator = false
     scrollView.isScrollEnabled = true
@@ -65,7 +64,13 @@ final class KeyboardView: View {
   private lazy var contentView: View = {
     let view = View()
     view.setUp()
-    view.translatesAutoresizingMaskIntoConstraints = false
+
+    return view
+  }()
+
+  private lazy var interactionBlocker: View = {
+    let view = View()
+    view.setUp()
 
     return view
   }()
@@ -201,7 +206,7 @@ final class KeyboardView: View {
   private func setUpOctaveViews() {
     for octave in range {
       let view = OctaveView(octave: octave)
-      view.translatesAutoresizingMaskIntoConstraints = false
+      view.setUp()
       view.delegate = OctaveViewDelegate(
         didPressNote: { [weak self] note, octave in self?.didPressNote(note, octave: octave) },
         didReleaseNote: { [weak self] note, octave in self?.didReleaseNote(note, octave: octave) },
