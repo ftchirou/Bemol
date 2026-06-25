@@ -1,5 +1,5 @@
 # 🎵 Bemol
-![GitHub Workflow Status](https://github.com/ftchirou/Bemol/actions/workflows/run-tests.yml/badge.svg) <img src="https://img.shields.io/badge/coverage-75%25-yellow"> ![GitHub Workflow Status](https://github.com/ftchirou/Bemol/actions/workflows/publish_macos_app.yml/badge.svg) ![GitHub release (latest SemVer)](https://img.shields.io/github/v/tag/ftchirou/Bemol)  <img src="https://img.shields.io/badge/beta-yellow"> <img src="https://img.shields.io/badge/macOS%2026.5%2B-red"> <img src="https://img.shields.io/badge/Swift%20%3E%3D%206-orange">
+![GitHub Workflow Status](https://github.com/ftchirou/Bemol/actions/workflows/run-tests.yml/badge.svg) <img src="https://img.shields.io/badge/coverage-75%25-yellow"> ![GitHub Workflow Status](https://github.com/ftchirou/Bemol/actions/workflows/publish_macos_app.yml/badge.svg) ![GitHub release (latest SemVer)](https://img.shields.io/github/v/tag/ftchirou/Bemol)  <img src="https://img.shields.io/badge/beta-yellow"> <img src="https://img.shields.io/badge/macOS%2026.4%2B-red"> <img src="https://img.shields.io/badge/Swift%20%3E%3D%206-orange">
 
 **Bemol** is a **free** and **open-source** ear training app that helps music hobbyists and music students train and develop [relative pitch](https://en.wikipedia.org/wiki/Relative_pitch), the ability to recognize a played musical note in a given [tonal context](https://en.wikipedia.org/wiki/Tonic_(music)).
 
@@ -27,7 +27,7 @@ This ear training method was first described and implemented by [Alain Benbassat
 
 # Download
 
-You can download the latest version from the [releases page](https://github.com/ftchirou/Bemol/releases). The minimum version of macOS required to run Bemol is **26.5**.
+You can download the latest version from the [releases page](https://github.com/ftchirou/Bemol/releases). The minimum version of macOS required to run Bemol is **26.4**.
 
 # How it works
 

@@ -35,7 +35,7 @@ OTHER_SWIFT_FLAGS = $(inherited) \
     -enable-upcoming-feature ExistentialAny:migrate \
     -enable-upcoming-feature MemberImportVisibility:migrate;
 
-MACOS_DEPLOYMENT_TARGET = 26.5;
+MACOS_DEPLOYMENT_TARGET = 26.4;
 
 PRODUCT_NAME = Bemol;
 
