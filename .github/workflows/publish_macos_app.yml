@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - main
+    paths:
+      - Shared/**
+      - macOS/**
 env:
   DEVELOPER_DIR: /Applications/Xcode_26.5.app/Contents/Developer
 
