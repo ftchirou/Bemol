@@ -11,6 +11,16 @@
 		32617A9B2FEAFC5B006F8BFB /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 32A9AE642DC11956000B7EDE /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		326184AA2FED1116006F8BFB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32A9ACE62DBA7B01000B7EDE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 32617A972FEAFC5B006F8BFB;
+			remoteInfo = Bemol.macOS;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		321422DC2FE9BA0D00BEDF1F /* Bemol.Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Bemol.Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		322CBD412DD5A8CB0092E1AC /* PRIVACY.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = PRIVACY.md; sourceTree = "<group>"; };
@@ -309,6 +319,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				326184AB2FED1116006F8BFB /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				321422DD2FE9BA0D00BEDF1F /* Tests */,
@@ -456,6 +467,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		326184AB2FED1116006F8BFB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 32617A972FEAFC5B006F8BFB /* Bemol.macOS */;
+			targetProxy = 326184AA2FED1116006F8BFB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		321422E32FE9BA0D00BEDF1F /* Debug */ = {
