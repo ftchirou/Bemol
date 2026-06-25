@@ -4,7 +4,7 @@ on:
     branches:
       - main
     paths:
-      - .github/**
+      - .github/workflows/publish_macos_app.yml
       - Shared/**
       - macOS/**
 env:
