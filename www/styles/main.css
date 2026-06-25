@@ -1,0 +1,120 @@
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+    --background-color: #fefef5;
+    --primary-color: #c38003;
+    --primary-color-hover: #e9a11c;
+    --primary-color-pressed: #cf8908;
+    --link-decoration-color: #e5c790;
+    --text-color: #333333;
+    --footer-text-color: rgba(53, 52, 52, 0.25);
+}
+
+html, body {
+    font-family: -apple-system, "BlinkMacSystemFont", "Avenir", "Avenir Next", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;    
+    font-size: 100%;
+    background-color: var(--background-color);
+    text-align: left;
+    color: var(--text-color);
+    height: 100%;
+    width: 100%;
+    margin: inherit;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+body, footer {
+    width: 80%;
+    margin: auto;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 8%;
+}
+
+section {
+    margin-top: 24px;
+}
+
+.row {
+    width: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.title {
+    font-family: Borel, 'Momo Signature', -apple-system, "BlinkMacSystemFont", "Avenir", "Avenir Next", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-size: 68px;
+    color: var(--primary-color);
+    margin-bottom: 0;
+    line-height: 1em;
+}
+
+.tagline {
+    margin-top: 0;
+    width: 50%;
+    text-align: center;
+    font-size: 15px;
+}
+
+h2 {
+    font-family: Borel, 'Momo Signature', -apple-system, "BlinkMacSystemFont", "Avenir", "Avenir Next", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-size: 32px;
+    line-height: 1em;
+    margin-bottom: 0;
+}
+
+.showcase {
+    width: 85%;
+    max-width: 972px;
+}
+
+p {
+    line-height: 1.2em;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: underline dashed;
+    font-weight: 500;
+}
+
+a:hover {
+    color: var(--primary-color-hover);
+}
+
+a:active {
+    color: var(--primary-color-pressed);
+}
+
+.highlight {
+    font-style: italic;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.cta {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+footer {
+    padding: 48px;
+    text-align: center;
+    color: var(--footer-text-color);
+}
