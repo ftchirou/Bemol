@@ -1,0 +1,60 @@
+///
+/// Shared.xcconfig
+/// Bemol
+///
+/// Copyright 2025 Faiçal Tchirou
+///
+/// Bemol is free software: you can redistribute it and/or modify it under the terms of
+/// the GNU General Public License as published by the Free Software Foundation, either version 3
+/// of the License, or (at your option) any later version.
+///
+/// Bemol is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+/// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+/// See the GNU General Public License for more details.
+///
+/// You should have received a copy of the GNU General Public License along with Foobar.
+/// If not, see <https://www.gnu.org/licenses/>.
+///
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+SWIFT_VERSION = 6;
+
+SWIFT_STRICT_CONCURRENCY = complete;
+
+SWIFT_APPROACHABLE_CONCURRENCY = NO;
+
+GENERATE_INFOPLIST_FILE = YES;
+
+// https://docs.swift.org/compiler/documentation/diagnostics/upcoming-language-features
+OTHER_SWIFT_FLAGS = $(inherited) \
+    -enable-upcoming-feature NonisolatedNonsendingByDefault:migrate \
+    -enable-upcoming-feature ExistentialAny:migrate \
+    -enable-upcoming-feature MemberImportVisibility:migrate;
+
+IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+
+TARGETED_DEVICE_FAMILY = 1,2;
+
+PRODUCT_NAME = Bemol;
+
+PRODUCT_BUNDLE_IDENTIFIER = com.tchirou.apps.bemol;
+
+INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight;
+
+INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationLandscapeLeft \
+    UIInterfaceOrientationLandscapeRight \
+    UIInterfaceOrientationPortrait \
+    UIInterfaceOrientationPortraitUpsideDown \
+    UIInterfaceOrientationLandscapeLeft \
+    UIInterfaceOrientationLandscapeRight;
+
+INFOPLIST_FILE = iOS/Bemol-iOS-Info.plist;
+
+SUPPORTS_MACCATALYST = NO;
+
+SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+
+SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+

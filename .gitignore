@@ -2,8 +2,10 @@
 */xcshareddata/IDEWorkspaceChecks.plist
 xcuserdata/
 Artifacts/
-private_keys/
-Certificates/
-Configurations/Signing.xcconfig
-Bemol/Resources/sound_font.sf2
-Screenshots/
+iOS/private_keys/
+iOS/Certificates/
+iOS/Configurations/Signing.xcconfig
+macOS/private_keys/
+macOS/Certificates/
+macOS/Configurations/Signing.xcconfig
+Shared/Resources/sound_font.sf2

@@ -1,22 +1,20 @@
 # 🎵 Bemol
-![GitHub Workflow Status](https://github.com/ftchirou/Bemol/actions/workflows/run-tests.yml/badge.svg) <img src="https://img.shields.io/badge/coverage-75%25-yellow"> ![GitHub Workflow Status](https://github.com/ftchirou/Bemol/actions/workflows/upload-to-testflight.yml/badge.svg) ![GitHub release (latest SemVer)](https://img.shields.io/github/v/tag/ftchirou/Bemol)  <img src="https://img.shields.io/badge/beta-yellow"> <img src="https://img.shields.io/badge/iOS%2018.2%2B-red"> <img src="https://img.shields.io/badge/Swift%20%3E%3D%206-orange">
+![GitHub Workflow Status](https://github.com/ftchirou/Bemol/actions/workflows/run-tests.yml/badge.svg) <img src="https://img.shields.io/badge/coverage-75%25-yellow"> ![GitHub Workflow Status](https://github.com/ftchirou/Bemol/actions/workflows/publish_macos_app.yml/badge.svg) ![GitHub release (latest SemVer)](https://img.shields.io/github/v/tag/ftchirou/Bemol)  <img src="https://img.shields.io/badge/beta-yellow"> <img src="https://img.shields.io/badge/macOS%2026.4%2B-red"> <img src="https://img.shields.io/badge/Swift%20%3E%3D%206-orange">
 
 **Bemol** is a **free** and **open-source** ear training app that helps music hobbyists and music students train and develop [relative pitch](https://en.wikipedia.org/wiki/Relative_pitch), the ability to recognize a played musical note in a given [tonal context](https://en.wikipedia.org/wiki/Tonic_(music)).
 
 <br />
 
-![bemol-home](https://github.com/user-attachments/assets/6e89b255-3dab-4d7e-9b5a-9c9276450c68)
+![bemol-macos](./Screenshots/bemol-macos.png)
 
 <br />
 
 ## Contents
 - [Background](#background)
+- [Download](#download)
 - [How it works](#how-it-works)
-- [How to get it](#how-to-get-it)
-- [For developers](#for-developers)
-  - [How to build and run](#how-to-build-and-run)
-  - [How to run the tests](#how-to-run-the-tests)
-  - [How to ship](#how-to-ship)
+- [Building from sources](#building-from-sources)
+- [License](#license)
 
 # Background
 
@@ -24,7 +22,12 @@
 
 As this process repeats, the user starts to internalize the character of each note in a given tonal context. This helps develop [relative pitch](https://en.wikipedia.org/wiki/Relative_pitch) and eventually they will have a much easier time recognizing any note as long as a tonal context is clearly established.
 
-This ear training method was first described and implemented by [Alain Benbassat](https://www.miles.be) in his free [Functional Ear Trainer desktop app](https://www.miles.be/software/functional-ear-trainer-v2/). **Bemol** is simply a free and open-source implementation of the method for iOS.
+This ear training method was first described and implemented by [Alain Benbassat](https://www.miles.be) in his free [Functional Ear Trainer desktop app](https://www.miles.be/software/functional-ear-trainer-v2/). **Bemol** is simply a native, free and open-source implementation of the method for macOS.
+
+
+# Download
+
+You can download the latest version from the [releases page](https://github.com/ftchirou/Bemol/releases). The minimum version of macOS required to run Bemol is **26.4**.
 
 # How it works
 
@@ -32,57 +35,17 @@ This ear training method was first described and implemented by [Alain Benbassat
 
 Once the entire scale is mastered, the next level will introduce **chromatic notes**. After this, a new key is introduced. This can go on until the user has practiced in all 12 major and 12 minor keys. Or they can choose just to practice in a random key after they have mastered the keys of C major and C minor.
 
-# How to get it
+# Building from sources
 
-1. **Bemol** is available on the [AltStore](https://altstore.io).
-    - First, download and install the AltStore PAL app [here](https://altstore.io/#Downloads).
-    - Then, copy [this URL](https://storage.googleapis.com/bemol/alt-store.json) and add it as a source in the AltStore app.
-    - Finally, download **Bemol** from within the AltStore app.
-2. Alternatively, you can install **Bemol** from TestFlight [here](https://testflight.apple.com/join/8vhsQVQQ). This option may be useful if you don't have access to the AltStore or if you prefer to use the cutting-edge version of the app.
-
-<br/>
-
-> [!IMPORTANT]
-> The version of the app in TestFlight is the most recent development version. Which means that it may contain newer features and/or improvements not yet available in the official release on the AltStore. On the other hand, it is also less stable and may contain newer bugs and crashes. You can help and contribute to the development of **Bemol** by reporting these bugs through TestFlight.
-
-# For developers
-
-## How to build and run
-
-1. Install [Xcode](https://developer.apple.com/xcode/). **Bemol** is built with [Swift 6](https://www.swift.org) and [Xcode 16.2](https://developer.apple.com/documentation/xcode-release-notes/xcode-16_2-release-notes).
-2. Clone the repository and run `cd Bemol/`.
-3. Run `touch ./Configurations/Signing.xcconfig` to create an empty signing config file.
+1. Install [Xcode](https://developer.apple.com/xcode/). The minimum required version is [26.5](https://developer.apple.com/documentation/xcode-release-notes/xcode-26_5-release-notes).
+2. In a terminal, clone the repository and run `cd Bemol/`.
 4. Run `open Bemol.xcodeproj` to open it in Xcode.
-5. Press `Run` in Xcode to launch the app in a simulator.
-6. If running on a device, you have to provide the id of your development team in `./Configurations/Signing.xcconfig`. The contents of the file should look like this:
-   
-   ```
-   // Signing.xcconfig
+5. Select the `Bemol.macOS` scheme and press `Run` in Xcode to build and launch the app.
 
-   CODE_SIGN_STYLE = Automatic
-   DEVELOPMENT_TEAM = <your-development-team-id>
-   ```
 
 > [!TIP]
-> To be able to hear piano sounds (and not sine waves), you'll need to download a [sound font](https://en.wikipedia.org/wiki/SoundFont) in the `sf2` format and save it under `Bemol/Resources/sound_font.sf2`. The TestFlight version of **Bemol** uses an excellent and open-source sound font from [MuseScore](https://musescore.org/en) that you can download [here](https://musescore.org/en/handbook/3/soundfonts-and-sfz-files#list) (look for `MuseScore_General`).
+> To be able to hear piano sounds (and not sine waves), you'll need to download a [sound font](https://en.wikipedia.org/wiki/SoundFont) in the `sf2` format and save it under `Bemol/Shared/Resources/sound_font.sf2`. [MuseScore](https://musescore.org/en) provides an excellent and open-source sound font that you can download [here](https://musescore.org/en/handbook/3/soundfonts-and-sfz-files#list) (look for `MuseScore_General`).
 
-
-## How to run the tests
-
-- **Product** -> **Test** in Xcode.
-- Or run `./Scripts/test.sh` from the command line. The tests results bundle will then be available at `Artifacts/test-results.xcresult`.
-
-## How to ship
-
-Run `./Scripts/upload_to_testflight.sh <marketing_version> <build_version>` to archive and upload a new build to App Store Connect. `./Scripts/next_marketing_version.sh` and `./Scripts/next_build_version.sh` can be used to automatically generate the required arguments.
-
-The script expects the following environment variables to be set:
-
-- `APPLE_ID`
-- `APP_STORE_CONNECT_API_KEY`
-- `APP_STORE_CONNECT_API_ISSUER`
-
-These are self-explanatory and their values can be found in App Store Connect. The script also expects a private key file to be available at `private_keys/AuthKey_<APP_STORE_CONNECT_API_KEY>.p8`.
 
 # License
 

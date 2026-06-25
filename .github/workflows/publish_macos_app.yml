@@ -1,0 +1,110 @@
+name: Publish macOS App
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - Shared/**
+      - macOS/**
+env:
+  DEVELOPER_DIR: /Applications/Xcode_26.5.app/Contents/Developer
+
+jobs:
+  make:
+    runs-on: macos-26-large
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        ref: main
+
+    - name: Load cached sound font
+      id: load-cached-sound-font
+      uses: actions/cache@v6
+      with:
+        key: sound_font
+        path: ./Shared/Resources/sound_font.sf2
+
+    - if: ${{ steps.load-cached-sound-font.outputs.cache-hit != 'true' }}
+      name: Download sound font
+      env:
+        SOUND_FONT_URL: ${{ secrets.SOUND_FONT_URL }}
+      run: |
+        curl -L -o ./Shared/Resources/sound_font.sf2 ${SOUND_FONT_URL}
+
+    - name: Set up code signing
+      env:
+        DEVELOPMENT_TEAM: ${{ secrets.DEVELOPMENT_TEAM }}
+      run: |
+        configuration="CODE_SIGN_IDENTITY = Developer ID Application;\nDEVELOPMENT_TEAM = ${DEVELOPMENT_TEAM};\nCODE_SIGN_STYLE = Manual;\n"
+        echo -e "$configuration" > ./Configurations/Signing.xcconfig
+
+    - name: Install the App Store Connect API key
+      env:
+        APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
+        APP_STORE_CONNECT_API_KEY_CONTENTS: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENTS }}
+      run: |
+        mkdir ./macOS/private_keys
+        echo -e "$APP_STORE_CONNECT_API_KEY_CONTENTS" > ./private_keys/AuthKey_${APP_STORE_CONNECT_API_KEY}.p8
+
+    - name: Install the Apple certificates
+      # https://docs.github.com/en/actions/deployment/deploying-xcode-applications/installing-an-apple-certificate-on-macos-runners-for-xcode-development
+      env:
+        DISTRIBUTION_CERTIFICATE: ${{ secrets.MACOS_DEVELOPER_ID_APPLICATION_CERTIFICATE }}
+        DISTRIBUTION_CERTIFICATE_PASSPHRASE: ${{ secrets.MACOS_DEVELOPER_ID_APPLICATION_CERTIFICATE_PASSPHRASE }}
+        KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+      run: |
+        distribution_certificate=$RUNNER_TEMP/BemolDeveloperIDApplicationCertificate.p12
+        keychain_path=$RUNNER_TEMP/certificates.keychain-db
+
+        echo -n "$DISTRIBUTION_CERTIFICATE" | base64 --decode -o $distribution_certificate
+
+        security create-keychain -p "$KEYCHAIN_PASSWORD" $keychain_path
+        security set-keychain-settings -lut 21600 $keychain_path
+        security unlock-keychain -p "$KEYCHAIN_PASSWORD" $keychain_path
+
+        security import $distribution_certificate -P "$DISTRIBUTION_CERTIFICATE_PASSPHRASE" -A -t cert -f pkcs12 -k $keychain_path
+  
+        security list-keychain -d user -s $keychain_path
+  
+    - name: Archive and notarize
+      id: archive-and-notarize
+      env:
+        APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
+        APP_STORE_CONNECT_API_ISSUER: ${{ secrets.APP_STORE_CONNECT_API_ISSUER }}
+      run: |
+        chmod +x ./Scripts/next_marketing_version.sh
+        chmod +x ./Scripts/next_build_version.sh
+        chmod +x ./Scripts/make_macos_app.sh
+        marketing_version=`./Scripts/next_marketing_version.sh`
+        build_version=`./Scripts/next_build_version.sh`
+        ./Scripts/make_macos_app.sh $marketing_version $build_version
+        echo "TAG_NAME=$marketing_version" >> "$GITHUB_OUTPUT"
+
+    - name: Upload 
+      id: upload
+      uses: actions/upload-artifact@v7
+      with:
+        name: "Bemol-${{ steps.archive-and-notarize.outputs.TAG_NAME }}"
+        path: |
+          ./Artifacts/macOS/Bemol.zip
+          ./Artifacts/macOS/NotarizationResponse.plist
+        if-no-files-found: error
+        overwrite: true
+
+    - name: Create tag
+      uses: actions/github-script@v7
+      with:
+        github-token: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+        script: |
+          github.rest.git.createRef({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            ref: `refs/tags/${{ steps.archive-and-notarize.outputs.TAG_NAME }}`,
+            sha: context.sha
+          })
+
+    - name: Clean up
+      run: |
+        rm -rf ./macOS/private_keys
+        security delete-keychain $RUNNER_TEMP/certificates.keychain-db
