@@ -29,6 +29,7 @@ GENERATE_INFOPLIST_FILE = YES;
 
 INFOPLIST_FILE = macOS/Bemol-macOS-Info.plist;
 
+// https://docs.swift.org/compiler/documentation/diagnostics/upcoming-language-features
 OTHER_SWIFT_FLAGS = $(inherited) \
     -enable-upcoming-feature NonisolatedNonsendingByDefault:migrate \
     -enable-upcoming-feature ExistentialAny:migrate \

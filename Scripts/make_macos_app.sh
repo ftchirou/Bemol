@@ -15,6 +15,16 @@
 #
 # You should have received a copy of the GNU General Public License along with Foobar.
 # If not, see <https://www.gnu.org/licenses/>.
+
+# References
+# ==============
+#
+# Creating Developer ID certificates: https://developer.apple.com/help/account/certificates/create-developer-id-certificates/
+# Signing macOS apps for distribution: https://developer.apple.com/documentation/xcode/creating-distribution-signed-code-for-the-mac
+# Notarizing macOS apps: https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution
+# Notarization in custom build processes: https://developer.apple.com/documentation/security/customizing-the-notarization-workflow
+# Resolving common notarization issues: https://developer.apple.com/documentation/security/resolving-common-notarization-issues
+
 set -e
 
 cd "$(dirname "$0")" || exit 1
