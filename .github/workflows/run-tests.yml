@@ -20,6 +20,13 @@ jobs:
         configuration="CODE_SIGN_STYLE = Automatic\nDEVELOPMENT_TEAM = ${DEVELOPMENT_TEAM}\n"
         echo -e "$configuration" > ./macOS/Configurations/Signing.xcconfig
 
+    - name: Load cached sound font
+      id: load-cached-sound-font
+      uses: actions/cache@v4
+      with:
+        key: sound_font
+        path: ./Shared/Resources/sound_font.sf2
+
     - name: Run tests
       run: |
         chmod +x ./Scripts/test.sh
