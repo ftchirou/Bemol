@@ -87,7 +87,7 @@ extension View {
 
   var isUserInteractionEnabled: Bool {
     get {
-      (objc_getAssociatedObject(self, &AssociatedKeys.isUserInteractionEnabled) as? Bool) ?? false
+      (objc_getAssociatedObject(self, &AssociatedKeys.isUserInteractionEnabled) as? Bool) ?? true
     }
 
     set {
