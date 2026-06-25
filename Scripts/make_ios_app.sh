@@ -67,7 +67,9 @@ echo "Setting the build version to $build_version ..."
 sed -i -E "s/CURRENT_PROJECT_VERSION.*/CURRENT_PROJECT_VERSION = $build_version/g" \
           ./iOS/Configurations/Versioning.xcconfig
 
-rm ./iOS/Configurations/Versioning.xcconfig-E
+if [ -e ./iOS/Configurations/Versioning.xcconfig-E ]; then
+  rm ./iOS/Configurations/Versioning.xcconfig-E
+fi
 
 echo "Archiving ..."
 xcodebuild -project Bemol.xcodeproj \

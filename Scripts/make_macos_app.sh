@@ -33,6 +33,7 @@ cd .. || exit 1
 if [ $# -lt 2 ]; then
   echo "Missing one or more arguments!"
   echo "Usage: ./make_macos_app.sh <marketing_version> <build_version>"
+  exit 1
 fi
 
 if [[ -z "${APP_STORE_CONNECT_API_KEY}" ]]; then
@@ -65,7 +66,9 @@ echo "Setting the build version to $build_version ..."
 sed -i -E "s/CURRENT_PROJECT_VERSION.*/CURRENT_PROJECT_VERSION = $build_version/g" \
           ./macOS/Configurations/Versioning.xcconfig
 
-rm ./macOS/Configurations/Versioning.xcconfig-E
+if [ -e ./macOS/Configurations/Versioning.xcconfig-E ]; then
+  rm ./macOS/Configurations/Versioning.xcconfig-E
+fi
 
 echo "Archiving ..."
 xcodebuild -project Bemol.xcodeproj \
