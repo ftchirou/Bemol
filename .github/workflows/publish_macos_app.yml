@@ -4,6 +4,7 @@ on:
     branches:
       - main
     paths:
+      - .github/**
       - Shared/**
       - macOS/**
 env:
@@ -37,7 +38,7 @@ jobs:
         DEVELOPMENT_TEAM: ${{ secrets.DEVELOPMENT_TEAM }}
       run: |
         configuration="CODE_SIGN_IDENTITY = Developer ID Application;\nDEVELOPMENT_TEAM = ${DEVELOPMENT_TEAM};\nCODE_SIGN_STYLE = Manual;\n"
-        echo -e "$configuration" > ./Configurations/Signing.xcconfig
+        echo -e "$configuration" > ./macOS/Configurations/Signing.xcconfig
 
     - name: Install the App Store Connect API key
       env:
@@ -45,7 +46,7 @@ jobs:
         APP_STORE_CONNECT_API_KEY_CONTENTS: ${{ secrets.APP_STORE_CONNECT_API_KEY_CONTENTS }}
       run: |
         mkdir ./macOS/private_keys
-        echo -e "$APP_STORE_CONNECT_API_KEY_CONTENTS" > ./private_keys/AuthKey_${APP_STORE_CONNECT_API_KEY}.p8
+        echo -e "$APP_STORE_CONNECT_API_KEY_CONTENTS" > ./macOS/private_keys/AuthKey_${APP_STORE_CONNECT_API_KEY}.p8
 
     - name: Install the Apple certificates
       # https://docs.github.com/en/actions/deployment/deploying-xcode-applications/installing-an-apple-certificate-on-macos-runners-for-xcode-development
