@@ -1551,19 +1551,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "At first, you will train with only the first 4 notes of the scale. Once you get at least 95% accuracy in a level, you can move to the next one which will introduce new notes."
+            "value" : "At first, you will train with only the first 4 notes of the scale. Once you get at least 95 percent accuracy in a level, you can move to the next one which will introduce new notes."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Au début, vous allez pratiquer avec seulement les 4 premières notes de la gamme. Lorsque vous avez au moins 95% de précision dans un niveau, vous pouvez passer au suivant. Ce dernier introduira de nouvelles notes."
+            "value" : "Au début, vous allez pratiquer avec seulement les 4 premières notes de la gamme. Lorsque vous avez au moins 95 pour-cent de précision dans un niveau, vous pouvez passer au suivant. Ce dernier introduira de nouvelles notes."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "I början tränar du bara med de första 4 tonerna i skalan. När du når 95% i en nivå kan du gå till nästa nivå. Vilken kommer att introducera nya toner."
+            "value" : "I början tränar du bara med de första 4 tonerna i skalan. När du når 95 procent i en nivå kan du gå till nästa nivå. Vilken kommer att introducera nya toner."
           }
         }
       }
