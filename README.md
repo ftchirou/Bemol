@@ -27,7 +27,7 @@ This ear training method was first described and implemented by [Alain Benbassat
 
 # Download
 
-You can download the latest version from the [releases page](https://github.com/ftchirou/Bemol/releases). The minimum version of macOS required to run Bemol is **26.4**.
+You can download the latest version from the [releases page](https://github.com/ftchirou/Bemol/releases/latest). The minimum version of macOS required to run Bemol is **26.4**.
 
 # How it works
 
