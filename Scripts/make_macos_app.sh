@@ -32,7 +32,7 @@ cd .. || exit 1
 
 if [ $# -lt 2 ]; then
   echo "Missing one or more arguments!"
-  echo "Usage: ./make_macos_app.sh <marketing_version> <build_version>"
+  echo "Usage: ./make_macos_app.sh <authentication_key_path> <marketing_version> <build_version>"
   exit 1
 fi
 
@@ -52,11 +52,11 @@ export_dir="./Artifacts/macOS"
 rm -rf $export_dir
 mkdir -p $export_dir
 
-marketing_version=$1
-build_version=$2
+authentication_key_path=$1
+marketing_version=$2
+build_version=$3
 archive_path="$export_dir/Bemol.xcarchive"
 export_options_plist="./macOS/ExportOptions.plist"
-authentication_key_path=$(realpath ./macOS/private_keys/AuthKey_"$APP_STORE_CONNECT_API_KEY".p8)
 
 echo "Setting the marketing version to $marketing_version ..."
 sed -i -E "s/MARKETING_VERSION.*/MARKETING_VERSION = $marketing_version/g" \
