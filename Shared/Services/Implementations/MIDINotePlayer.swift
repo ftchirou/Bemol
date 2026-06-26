@@ -48,7 +48,7 @@ final class MIDINotePlayer: NotePlayer {
   }
 
   func prepareToPlay() async throws {
-    try loadSoundFont()
+    try? loadSoundFont()
 
 #if os(iOS)
     try AVAudioSession.sharedInstance().setCategory(.playback, options: .duckOthers)

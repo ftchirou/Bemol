@@ -202,7 +202,4 @@ extension View {
     self.accessibilityLabel = accessibilityLabel
   }
 }
-
-extension View: UserInteractionToggleable {}
-
 #endif
