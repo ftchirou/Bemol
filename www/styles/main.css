@@ -20,7 +20,7 @@
 }
 
 html, body {
-    font-family: -apple-system, "BlinkMacSystemFont", "Avenir", "Avenir Next", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;    
+    font-family: -apple-system-body, "BlinkMacSystemFont", "Avenir", "Avenir Next", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;    
     font-size: 100%;
     background-color: var(--background-color);
     text-align: left;
@@ -58,14 +58,15 @@ section {
 }
 
 .title {
-    font-family: Borel, 'Momo Signature', -apple-system, "BlinkMacSystemFont", "Avenir", "Avenir Next", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-family: -apple-system-headline, system-ui, "BlinkMacSystemFont", "Avenir", "Avenir Next", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     font-size: 68px;
     color: var(--primary-color);
-    margin-bottom: 0;
+    margin-bottom: 10px;
     line-height: 1em;
 }
 
 .tagline {
+    font-family: -apple-system-subheadline, system-ui, "BlinkMacSystemFont", "Avenir", "Avenir Next", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     margin-top: 0;
     width: 50%;
     text-align: center;
@@ -73,10 +74,10 @@ section {
 }
 
 h2 {
-    font-family: Borel, 'Momo Signature', -apple-system, "BlinkMacSystemFont", "Avenir", "Avenir Next", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-family: -apple-system, system-ui, "BlinkMacSystemFont", "Avenir", "Avenir Next", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     font-size: 32px;
     line-height: 1em;
-    margin-bottom: 0;
+    margin-bottom: 8px;
 }
 
 .showcase {
@@ -85,7 +86,7 @@ h2 {
 }
 
 p {
-    line-height: 1.2em;
+    line-height: 1.3em;
 }
 
 a {
@@ -103,8 +104,6 @@ a:active {
 }
 
 .highlight {
-    font-style: italic;
-    text-decoration: underline;
     font-weight: bold;
 }
 
@@ -114,7 +113,9 @@ a:active {
 }
 
 footer {
+    font-family: -apple-system-footer, system-ui, "BlinkMacSystemFont", "Avenir", "Avenir Next", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     padding: 48px;
     text-align: center;
     color: var(--footer-text-color);
+    text-decoration: underline dotted;
 }
